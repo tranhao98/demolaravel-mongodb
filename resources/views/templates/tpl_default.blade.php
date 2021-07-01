@@ -12,7 +12,6 @@
     <div class="container">
         <div class="row">
             <article class="col-sm-9 pl-0 mt-2">
-                @yield('articlecat')
                 @yield('product-detail')
                 @yield('article')
             </article>
