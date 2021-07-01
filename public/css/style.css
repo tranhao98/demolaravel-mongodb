@@ -4,7 +4,9 @@ header{
     position:relative;
     height:200px;
 }
-
+a, a:hover{
+    text-decoration: none;
+}
 .shopping-mall{
     position:absolute;
     bottom:20px;

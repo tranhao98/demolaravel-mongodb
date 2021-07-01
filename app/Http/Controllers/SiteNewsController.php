@@ -14,7 +14,7 @@ class SiteNewsController extends Controller
         $nsx = DB::collection('nhasanxuat');
         $nsx = $nsx->get();
         $dt = DB::collection('dienthoai');
-        $dt = $dt->get();
+        $dt = $dt->paginate(6);
         return view('/home', compact('nsx','dt'));
     }
     

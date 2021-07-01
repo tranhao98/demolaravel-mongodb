@@ -31,6 +31,7 @@
         </div>
         @endforeach
     </div>
+   <div class="text-center mb-4 mt-3"> {{ $dt->links() }}</div>
 
     @endsection
 
