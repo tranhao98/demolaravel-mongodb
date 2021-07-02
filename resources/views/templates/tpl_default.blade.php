@@ -59,10 +59,10 @@
     @include('includes.footer')
     
     <!-- Scripts -->
-    
-    <script src="{{ asset('js/bootstrap.bundle.min.js') }}" defer></script>
-    <script src="{{ asset('js/jquery.min.js') }}" defer></script>
     <script src="{{ asset('js/sweetalert2.js') }}" defer></script>
+    <script src="{{ asset('js/bootstrap.bundle.min.js') }}" defer></script>
+    <script src="{{ asset('js/jquery-3.5.1.slim.min.js') }}" defer></script>
+    <script src="{{ asset('js/jquery.min.js') }}" defer></script>
     <script src="{{ asset('js/custom.js') }}" defer></script>
     
 </body>
