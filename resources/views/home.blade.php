@@ -6,7 +6,7 @@
     <title>Home</title>
     <style>
         .card-columns {
-            column-count: 2;
+            column-count: 3;
         }
     </style>
 </head>

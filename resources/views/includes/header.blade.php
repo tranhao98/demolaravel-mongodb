@@ -26,10 +26,6 @@
                 </ul>
 
             </div>
-            <div class="right d-flex justify-content-end">
-                <a style="margin-right: 10px;" class="menu-right" href="">English</a>
-                <a class="menu-right" href="English">Tiếng Việt</a>
-            </div>
         </div>
     </nav>
 </div>

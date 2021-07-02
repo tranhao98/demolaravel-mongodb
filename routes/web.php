@@ -19,7 +19,11 @@ Route::get('/', function () {
 Route::get('/hello', function () {
     return 'Hello World';
 });
-Route::get('/home', 'SiteNewsController@index');
+
 Route::get('/{slug}.html', 'SiteNewsController@show');
 
 
+
+Auth::routes();
+
+Route::get('/home', 'SiteNewsController@index');
