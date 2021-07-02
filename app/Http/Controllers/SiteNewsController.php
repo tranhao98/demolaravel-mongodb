@@ -23,14 +23,15 @@ class SiteNewsController extends Controller
 
     public function show($slug)
     {
-       
-        if (Category::where('slug', $slug)->exists()) {
+
+        if (Category::where('slugcat', $slug)->exists()) {
             $nsx = DB::collection('nhasanxuat');
             $nsx = $nsx->get();
-            $category = Category::where('slug', $slug)->first();
-            $products = Product::where('idNSX', $category['_id'])->where('status', '0')->get();
-            return view('/productbycat', compact('category', 'products','nsx'));
-        } else {
+            $category = Category::where('slugcat', $slug)->first();
+            $products = DB::collection('dienthoai');
+            $products = $products->get()->where('idNSX', $category['_id']);
+            return view('/productbycat', compact('category', 'products', 'nsx'));
+        }else{
             $nsx = DB::collection('nhasanxuat');
             $nsx = $nsx->get();
             $productDetail = DB::collection('dienthoai')->where('slug', '=', $slug);

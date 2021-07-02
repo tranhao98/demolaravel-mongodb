@@ -12,6 +12,7 @@ class Product extends Eloquent
     protected $fillable = [
         'idNSX',
         'tenDT',
+        'urlHinh',
         'gia',
         'giaKM',
         'slug',

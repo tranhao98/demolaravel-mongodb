@@ -4,9 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Tiêu đề trang</title>
-        <!-- Styles -->
-        <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
-        <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 </head>
 
 <body>
@@ -15,6 +12,7 @@
     <div class="container">
         <div class="row">
             <article class="col-sm-9 pl-0 mt-2">
+                @yield('articlecat')
                 @yield('product-detail')
                 @yield('article')
             </article>
@@ -46,7 +44,7 @@
                     <ul class="list-group mt-3">
                         <li class="list-group-item bg-secondary active"> <strong>Nhà sản xuất</strong></li>
                         @foreach($nsx as $row)
-                        <li class="list-group-item"><a href="{{$row{"_id"} }}.html">{{$row{"tenNSX"} }}</a></li>
+                        <li class="list-group-item"><a href="{{$row{"slugcat"} }}.html">{{$row{"tenNSX"} }}</a></li>
                         @endforeach
 
                     </ul>

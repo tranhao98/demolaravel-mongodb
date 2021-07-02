@@ -20,7 +20,7 @@
                     </li>
                     @foreach ($nsx as $menu)
                     <li class="nav-item">
-                        <a class="nav-link" href="{{$menu{"slug"} }}.html">{{$menu{"tenNSX"} }}</a>
+                        <a class="nav-link" href="{{$menu{"slugcat"} }}.html">{{$menu{"tenNSX"} }}</a>
                     </li>
                     @endforeach
                 </ul>

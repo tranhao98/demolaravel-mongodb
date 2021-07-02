@@ -31,7 +31,7 @@
         </div>
         @endforeach
     </div>
-   <div class="text-center mb-4 mt-3"> {{ $dt->links() }}</div>
+  <div class="col-lg-12 text-center"> {{ $dt->links('pagination') }}</div> 
 
     @endsection
 
