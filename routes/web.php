@@ -18,7 +18,11 @@ Route::get('/','SiteNewsController@index');
 
 Route::get('/{slug}.html', 'SiteNewsController@show');
 
+Route::middleware(['auth'])->group(function () {
+    Route::post('add-to-cart', 'CartController@addProduct');
+});
 
+    
 
 Auth::routes();
 

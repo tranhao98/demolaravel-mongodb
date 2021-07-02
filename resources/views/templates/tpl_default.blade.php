@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Tiêu đề trang</title>
+   
 </head>
 
 <body>
@@ -43,8 +44,9 @@
                     </div>
                     <ul class="list-group mt-3">
                         <li class="list-group-item bg-secondary active"> <strong>Nhà sản xuất</strong></li>
-                        @foreach($nsx as $row)
-                        <li class="list-group-item"><a href="{{$row{"slugcat"} }}.html">{{$row{"tenNSX"} }}</a></li>
+                        @foreach ($nsx as $row)
+                            <li class="list-group-item"><a href="{{ $row['slugcat'] }}.html">{{ $row['tenNSX'] }}</a>
+                            </li>
                         @endforeach
 
                     </ul>
@@ -55,10 +57,14 @@
 
 
     @include('includes.footer')
+    
     <!-- Scripts -->
+    
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}" defer></script>
-    <script src="{{ asset('js/jquery-3.5.1.slim.min.js') }}" defer></script>
-
+    <script src="{{ asset('js/jquery.min.js') }}" defer></script>
+    <script src="{{ asset('js/sweetalert2.js') }}" defer></script>
+    <script src="{{ asset('js/custom.js') }}" defer></script>
+    
 </body>
 
 </html>
