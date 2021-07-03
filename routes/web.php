@@ -15,11 +15,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/','SiteNewsController@index');
 
+Route::get('/{slugcat}.html', 'SiteNewsController@viewcategory');
+Route::get('/{slug}.html', 'SiteNewsController@viewcategory');
+Route::get('/{slugcat}/{slug}.html', 'SiteNewsController@productview');
 
-Route::get('/{slug}.html', 'SiteNewsController@show');
-
+Route::post('add-to-cart', 'CartController@addProduct');
+Route::post('delete-cart-item','CartController@deleteProduct');
+Route::get('updatecart/{key}/{qty}','CartController@updatecart');
 Route::middleware(['auth'])->group(function () {
-    Route::post('add-to-cart', 'CartController@addProduct');
+   
+    Route::get('cart','CartController@viewcart');
 });
 
     

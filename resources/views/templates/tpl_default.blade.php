@@ -13,6 +13,7 @@
     <div class="container">
         <div class="row">
             <article class="col-sm-9 pl-0 mt-2">
+                @yield('cart')
                 @yield('articlecat')
                 @yield('product-detail')
                 @yield('article')
@@ -21,7 +22,7 @@
                 <div class="cart">
                     <div class="card">
                         <div class="card-body row">
-                            <img class="col-sm-5" src="images/shoppingcart.gif" alt="">
+                            <img class="col-sm-5" src="../images/shoppingcart.gif" alt="">
                             <ul class="col-sm-7">
                                 <li>
                                     100 items
@@ -30,7 +31,7 @@
                                     $ 56.8
                                 </li>
                                 <li>
-                                    <a href="">View cart</a>
+                                    <a href="/cart">View cart</a>
                                 </li>
                             </ul>
                         </div>

@@ -29,23 +29,24 @@
 <body>
     @extends('templates.tpl_default')
     @section('product-detail')
+    {{ print_r(session()->get('cart')) }}
 
-        <h1>{{ $productDetail['tenDT'] }}</h1>
+        <h1>{{ $products['tenDT'] }}</h1>
         <br>
         <div class="row product_data">
             <div class="col-5 imagesDetail">
-                <img src="images/{{ $productDetail['urlHinh'] }}" alt="">
+                <img src="../images/{{ $products['urlHinh'] }}" alt="">
             </div>
             <div class="col-7">
                 <ul class="list-group">
                     <li class="list-group-item">Original Price:
-                        <del>{{ number_format($productDetail['gia'], 0, ',', '.') }}</del> VNĐ
+                        <del>{{ number_format($products['gia'], 0, ',', '.') }}</del> VNĐ
                     </li>
-                    <li class="list-group-item">Selling Price: {{ number_format($productDetail['giaKM'], 0, ',', '.') }}
+                    <li class="list-group-item">Selling Price: {{ number_format($products['giaKM'], 0, ',', '.') }}
                         VNĐ</li>
                     <li class="list-group-item"><span class="badge bg-success text-white">In stock</span></li>
                     <li class="list-group-item">
-                        <input type="hidden" value="{{$productDetail['_id']}}" class="idProd">
+                        <input type="hidden" value="{{$products['_id']}}" class="idProd">
                         <label for="">Quantity</label>
                         <div class="input-group text-center mb-3" style="width:130px">
                             <button class="input-group-text decrement-btn">-</button>
@@ -62,7 +63,7 @@
         </div>
         <hr class="bg-danger">
         <h2>Describe Product</h2>
-        <div class="text-justify">{{ $productDetail['moTa'] }}</div>
+        <div class="text-justify">{{ $products['moTa'] }}</div>
     @endsection
 
 </body>

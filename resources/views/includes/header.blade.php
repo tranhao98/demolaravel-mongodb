@@ -7,7 +7,7 @@
             </div>
         </div>
         <div class="col-6 pr-0 d-flex justify-content-end">
-            <img src="images/header-object.png" alt="">
+            <img src="../images/header-object.png" alt="">
         </div>
     </header>
 
@@ -16,7 +16,7 @@
             <div class="collapse navbar-collapse d-flex justify-content-start" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="home">Home</a>
+                        <a class="nav-link active" aria-current="page" href="../home">Home</a>
                     </li>
                     @foreach ($nsx as $menu)
                     <li class="nav-item">
@@ -24,7 +24,6 @@
                     </li>
                     @endforeach
                 </ul>
-
             </div>
         </div>
     </nav>

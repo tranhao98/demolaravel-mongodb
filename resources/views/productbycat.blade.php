@@ -21,7 +21,7 @@
             @foreach ($products as $prod)
                 <div class="card text-center">
                     <div class="card-header">
-                        <a style="font-size: 13px" href="{{ $prod['slug'] }}.html">{{ $prod['tenDT'] }}</a>
+                        <a style="font-size: 13px" href="{{$category['slugcat']}}/{{ $prod['slug'] }}.html">{{ $prod['tenDT'] }}</a>
                     </div>
                     <div class="card-body">
                         <img style="height: 150px;" src="images/{{ $prod['urlHinh'] }}" alt="">
@@ -34,8 +34,6 @@
             @endforeach
         </div>
     @endsection
-
-
 </body>
 
 </html>
