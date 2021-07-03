@@ -29,8 +29,6 @@
 <body>
     @extends('templates.tpl_default')
     @section('product-detail')
-    {{ print_r(session()->get('cart')) }}
-
         <h1>{{ $products['tenDT'] }}</h1>
         <br>
         <div class="row product_data">

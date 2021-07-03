@@ -12,13 +12,19 @@ $(document).ready(function() {
         });
         $.ajax({
             method: "POST",
-            url: "add-to-cart",
+            url: "../add-to-cart",
             data: {
                 'product_id': product_id,
                 'product_qty': product_qty,
             },
             success: function(response) {
-                Swal.fire(response.status);
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: response.status,
+                    showConfirmButton: false,
+                    timer: 1500
+                })
             }
         });
 
@@ -26,31 +32,65 @@ $(document).ready(function() {
 
     $('.increment-btn').click(function(e) {
         e.preventDefault();
-        var key = $(this).attr('data');
-        var cartqty = $('#qty-input_' + key).val();
-        $('#qty-input_' + key).val(parseInt(cartqty) + 1);
-        updatecart(key, parseInt(cartqty) + 1);
+        var inc_value = $(this).closest('.product_data').find('.qty-input').val();
+        var value = parseInt(inc_value, 10);
+        value = isNaN(value) ? 0 : value;
+        if (value < 10) {
+            value++;
+            $(this).closest('.product_data').find('.qty-input').val(value);
+        }
     });
     $('.decrement-btn').click(function(e) {
         e.preventDefault();
 
-        var key = $(this).attr('data');
-        var cartqty = $('#qty-input_' + key).val();
-        $('#qty-input_' + key).val(parseInt(cartqty) - 1);
-        updatecart(key, parseInt(cartqty) - 1);
+        var dec_value = $(this).closest('.product_data').find('.qty-input').val();
+        var value = parseInt(dec_value, 10);
+        value = isNaN(value) ? 0 : value;
+        if (value > 1) {
+            value--;
+            $(this).closest('.product_data').find('.qty-input').val(value);
+        }
     });
-
-    function updatecart(key, qty) {
-        $.ajax({
-            url: "updatecart/" + key + "/" + qty,
-            success: function(response) {
-                location.reload();
-            }
-        });
-    }
     $('.delete-cart-item').click(function(e) {
         e.preventDefault();
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var prod_id = $(this).closest('.product_data').find('.idProd').val();
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    method: "POST",
+                    url: "delete-cart-item",
+                    data: {
+                        'prod_id': prod_id,
+                    },
+                    success: function(response) {
+                        Swal.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                        )
+                        setTimeout(function() { location.reload(); }, 1700);
+                    }
+                });
+            }
+        })
+    });
+    $('.changeQty').click(function(e) {
+        e.preventDefault();
         var prod_id = $(this).closest('.product_data').find('.idProd').val();
+        var quantity = $(this).closest('.product_data').find('.qty-input').val();
 
         $.ajaxSetup({
             headers: {
@@ -59,13 +99,13 @@ $(document).ready(function() {
         });
         $.ajax({
             method: "POST",
-            url: "delete-cart-item",
+            url: "update-cart-item",
             data: {
                 'prod_id': prod_id,
+                'quantity': quantity,
             },
             success: function(response) {
                 window.location.reload();
-                Swal.fire('', response.status, 'success')
             }
         });
     });

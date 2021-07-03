@@ -1,3 +1,8 @@
+<?php
+use App\Models\Cart;
+use App\Models\Product;
+use Illuminate\Support\Facades\Auth;
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,10 +30,7 @@
                             <img class="col-sm-5" src="../images/shoppingcart.gif" alt="">
                             <ul class="col-sm-7">
                                 <li>
-                                    100 items
-                                </li>
-                                <li>
-                                    $ 56.8
+                                    {{Cart::where('idUser', Auth::id())->count() }} items
                                 </li>
                                 <li>
                                     <a href="/cart">View cart</a>

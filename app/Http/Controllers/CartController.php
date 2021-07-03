@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\Cart;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+
 class CartController extends Controller
 {
     public function addProduct(Request $request)
@@ -41,11 +42,19 @@ class CartController extends Controller
 
         return view('cart', compact('cartItems', 'nsx'));
     }
-    public function updatecart(Request $request, $key, $qty)
+    public function updateProduct(Request $request)
     {
-        $cart = $request->session()->get('cart');
-        $cart[$key]['qty'] = $qty;
-        $request->session()->put('cart', $cart);
+        if (Auth::check()) {
+            $prod_id = $request->input('prod_id');
+            $quantity = $request->input('quantity');
+            if (Cart::where('idProd', $prod_id)->where('idUser', Auth::id())->exists()) {
+                $cartItem = Cart::where('idProd', $prod_id)->where('idUser', Auth::id())->first();
+                $cartItem['qtyProd'] = $quantity;
+                $cartItem->save();
+            }
+        } else {
+            return response()->json(['status' => "Login to Continue"]);
+        }
     }
 
     public function deleteProduct(Request $request)

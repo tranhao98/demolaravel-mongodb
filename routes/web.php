@@ -19,12 +19,11 @@ Route::get('/{slugcat}.html', 'SiteNewsController@viewcategory');
 Route::get('/{slug}.html', 'SiteNewsController@viewcategory');
 Route::get('/{slugcat}/{slug}.html', 'SiteNewsController@productview');
 
-Route::post('add-to-cart', 'CartController@addProduct');
-Route::post('delete-cart-item','CartController@deleteProduct');
-Route::get('updatecart/{key}/{qty}','CartController@updatecart');
+Route::post('/add-to-cart', 'CartController@addProduct');
+Route::post('/delete-cart-item','CartController@deleteProduct');
+Route::post('/update-cart-item','CartController@updateProduct');
 Route::middleware(['auth'])->group(function () {
-   
-    Route::get('cart','CartController@viewcart');
+    Route::get('/cart','CartController@viewcart');
 });
 
     
