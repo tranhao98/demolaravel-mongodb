@@ -42,7 +42,7 @@
                     </li>
                     <li class="list-group-item">Selling Price: {{ number_format($products['giaKM'], 0, ',', '.') }}
                         VNĐ</li>
-                    <li class="list-group-item"><span class="badge bg-success text-white">In stock</span></li>
+                    <li class="list-group-item"><span class="badge bg-success text-white p-2">In stock</span></li>
                     <li class="list-group-item">
                         <input type="hidden" value="{{$products['_id']}}" class="idProd">
                         <label for="">Quantity</label>
@@ -54,14 +54,14 @@
                     </li>
                     <li class="list-group-item">
                         <button class="btn btn-success addToCartBtn p-2">Add to cart</button>
-                        <button class="btn btn-warning return p-2"><a href="home">Back to Home page</a></button>
+                        <a href="home"> <button class="btn btn-warning return p-2 text-white">Continue shopping</button></a>
                     </li>
                 </ul>
             </div>
         </div>
         <hr class="bg-danger">
         <h2>Describe Product</h2>
-        <div class="text-justify">{{ $products['moTa'] }}</div>
+        <div class="text-justify mb-3">{{ $products['moTa'] }}</div>
     @endsection
 
 </body>

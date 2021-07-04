@@ -15,9 +15,9 @@ use App\Models\Cart;
     @section('cart')
 
         @if (Cart::where('idUser', Auth::id())->count() > 0)
-            <div class="card shadow">
+            <div class="card shadow" style="font-size: 13px">
                 <div class="card-body ">
-                    <div class="row font-weight-bold" style="font-size: 13px">
+                    <div class="row font-weight-bold">
                         <div class="col-md-2 align-self-center">
                             Image
                         </div>
@@ -31,16 +31,16 @@ use App\Models\Cart;
                             Quantity
                         </div>
                         <div class="col-md-2 align-self-center">
-                            Total Price
+                            Sub Total
                         </div>
                         <div class="col-md-2 align-self-center">
-                            Delete
+                            Remove
                         </div>
                     </div>
                     <hr>
-
+                    @php $subtotal = 0; @endphp
                     @foreach ($cartItems as $item)
-                        <div class="row product_data" style="font-size: 13px">
+                        <div class="row product_data">
                             <div class="col-md-2 align-self-center">
                                 <img src="images/{{ $item->products['urlHinh'] }}" height="70px" width="70px" alt="">
                             </div>
@@ -63,21 +63,62 @@ use App\Models\Cart;
                                 {{ number_format($item['qtyProd'] * $item->products['giaKM'], 0, ',', '.') }} VNĐ
                             </div>
                             <div class="col-md-2 align-self-center">
-                                <button class="btn btn-danger p-1 delete-cart-item" style="font-size: 11px"><i
-                                        class="fa fa-trash"></i> Remove</button>
+                                <a class="delete-cart-item text-danger"><i class="fa fa-remove" style="font-size:30px; cursor: pointer;"></i></a> 
                             </div>
                         </div>
                         <hr>
+                        @php $subtotal += $item['qtyProd'] * $item->products['giaKM'] @endphp
                     @endforeach
                 </div>
             </div>
+            <div class="row mb-3">
+                <div class="col-md-8 mt-2 pr-0">
+                    <div class="card shadow" style="font-size: 14px">
+                        <div class="card-body ">
+                            
+                                <h6 class="text-uppercase text-center">Total amount</h6>
+                            
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-6 align-self-center font-weight-bold">
+                                    Sub Total
+                                </div>
+                                <div class="col-md-6 align-self-center text-right">
+                                    {{ number_format($subtotal, 0, ',', '.') }} VNĐ
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-6 font-weight-bold align-self-center">
+                                    Tax(10%)
+                                </div>
+                                <div class="col-md-6 align-self-center text-right">
+                                    {{ number_format(($subtotal * 10) / 100, 0, ',', '.') }} VNĐ
+                                </div>
+                            </div>
+                            <hr style="border: 1px solid">
+                            <div class="row">
+                                <div class="col-md-6 font-weight-bold align-self-center">
+                                    Grand Total
+                                </div>
+                                <div class="col-md-6 align-self-center text-right">
+                                    {{ number_format(($subtotal * 20) / 100 + $subtotal, 0, ',', '.') }} VNĐ
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mt-2" >
+                    <a href="/home"><button class="w-100 shadow border btn btn-light p-4 text-uppercase font-weight-bold"><h6>Continue Shopping</h6></button></a>
+                    <a href="/checkout"><button class="w-100 shadow btn btn-dark mt-2 p-4 text-uppercase button-checkout font-weight-bold"><h6>Checkout</h6></button></a>
+                </div>
+            </div>
         @else
-            <div 
-                class="alert alert-danger p-2 text-center text-uppercase font-weight-bold">
+            <div class="alert alert-danger p-2 text-center text-uppercase font-weight-bold">
                 <h1 class="mt-2">Don't have any products in Cart</h1>
             </div>
-            <div class="text-right">
-                <a style="width:100%" class="btn btn-success text-uppercase font-weight-bold p-2" href="home">Continue Shopping</a>
+            <div class="text-center">
+                <a href="/home"><button class="w-100 border btn btn-light p-4 text-uppercase font-weight-bold" style="font-size: 17px;">Continue Shopping</button></a>
             </div>
         @endif
     @endsection

@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 <head>
     <meta charset="UTF-8">
     <title>Tiêu đề trang</title>
-   
+
 </head>
 
 <body>
@@ -27,13 +27,16 @@ use Illuminate\Support\Facades\Auth;
                 <div class="cart">
                     <div class="card">
                         <div class="card-body row">
-                            <img class="col-sm-5" src="../images/shoppingcart.gif" alt="">
-                            <ul class="col-sm-7">
+                            <div class="col-sm-6">
+                                <a href="/cart"><img src="../images/shoppingcart.gif" width="100px" alt=""></a>
+                            </div>
+                            <ul class="col-sm-6 mt-3">
                                 <li>
-                                    {{Cart::where('idUser', Auth::id())->count() }} items
+                                    <span class="badge badge-secondary p-2 mb-2">
+                                        {{ Cart::where('idUser', Auth::id())->count() }} items </span>
                                 </li>
                                 <li>
-                                    <a href="/cart">View cart</a>
+                                    <a class="btn btn-link p-1" href="/cart">View cart</a>
                                 </li>
                             </ul>
                         </div>
@@ -46,9 +49,10 @@ use Illuminate\Support\Facades\Auth;
                         </div>
                     </div>
                     <ul class="list-group mt-3">
-                        <li class="list-group-item bg-secondary active"> <strong>Nhà sản xuất</strong></li>
+                        <li class="list-group-item bg-secondary active"> <strong>Category</strong></li>
                         @foreach ($nsx as $row)
-                            <li class="list-group-item"><a href="{{ $row['slugcat'] }}.html">{{ $row['tenNSX'] }}</a>
+                            <li class="list-group-item"><a
+                                    href="{{ $row['slugcat'] }}.html">{{ $row['tenNSX'] }}</a>
                             </li>
                         @endforeach
 
@@ -60,14 +64,14 @@ use Illuminate\Support\Facades\Auth;
 
 
     @include('includes.footer')
-    
+
     <!-- Scripts -->
     <script src="{{ asset('js/sweetalert2.js') }}" defer></script>
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}" defer></script>
     <script src="{{ asset('js/jquery-3.5.1.slim.min.js') }}" defer></script>
     <script src="{{ asset('js/jquery.min.js') }}" defer></script>
     <script src="{{ asset('js/custom.js') }}" defer></script>
-    
+
 </body>
 
 </html>

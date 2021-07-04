@@ -16,7 +16,7 @@
 <body>
     @extends('templates.tpl_default')
     @section('articlecat')
-        <h2>{{ $category['tenNSX'] }} Categories </h2>
+        <h2>{{ $category['tenNSX'] }} Category </h2>
         <div class="card-columns">
             @foreach ($products as $prod)
                 <div class="card text-center">

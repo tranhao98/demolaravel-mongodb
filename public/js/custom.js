@@ -1,3 +1,5 @@
+const { extendWith } = require("lodash");
+
 $(document).ready(function() {
     $('.addToCartBtn').click(function(e) {
         e.preventDefault();
@@ -20,7 +22,6 @@ $(document).ready(function() {
             success: function(response) {
                 Swal.fire({
                     position: 'top-end',
-                    icon: 'success',
                     title: response.status,
                     showConfirmButton: false,
                     timer: 1500
@@ -51,6 +52,27 @@ $(document).ready(function() {
             $(this).closest('.product_data').find('.qty-input').val(value);
         }
     });
+    $('.qty-input').on('change', function() {
+        var prod_id = $(this).closest('.product_data').find('.idProd').val();
+        var quantity = $(this).closest('.product_data').find('.qty-input').val();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            method: "POST",
+            url: "update-cart-item",
+            data: {
+                'prod_id': prod_id,
+                'quantity': quantity,
+            },
+            success: function(response) {
+                window.location.reload();
+            }
+        });
+    })
     $('.delete-cart-item').click(function(e) {
         e.preventDefault();
         Swal.fire({
@@ -108,5 +130,37 @@ $(document).ready(function() {
                 window.location.reload();
             }
         });
+    });
+    $('.place-order').click(function(e) {
+        e.preventDefault();
+        // var fullName = $(this).closest('.form-checkout').find('#fullName').val();
+        // var email = $(this).closest('.form-checkout').find('#email').val();
+        // var phoneNumber = $(this).closest('.form-checkout').find('#phoneNumber').val();
+        // var cityName = $(this).closest('.form-checkout').find('#cityName').val();
+        // var state = $(this).closest('.form-checkout').find('#state').val();
+        // var country = $(this).closest('.form-checkout').find('#country').val();
+        // var fullAdd = $(this).closest('.form-checkout').find('#fullAdd').val();
+        alert('111');
+        // $.ajaxSetup({
+        //     headers: {
+        //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //     }
+        // });
+        // $.ajax({
+        //     method: "POST",
+        //     url: "place-order",
+        //     data: {
+        //         'fullname': fullName,
+        //         'email': email,
+        //         'phone': phoneNumber,
+        //         'city': cityName,
+        //         'state': state,
+        //         'country': country,
+        //         'fullAdd': fullAdd,
+        //     },
+        //     success: function(response) {
+        //         alert(response.status);
+        //     }
+        // });
     });
 });
