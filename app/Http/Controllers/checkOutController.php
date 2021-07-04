@@ -44,21 +44,21 @@ class checkOutController extends Controller
         } elseif ($fullAdd == "") {
             return response()->json(['status' => "Full address is required"]);
         } else {
-        $infoUser = new infoUser();
-        $infoUser['idUser'] = Auth::id();
-        $infoUser['fullname'] = $fullname;
-        $infoUser['email'] = $email;
-        $infoUser['phone'] = $phone;
-        $infoUser['city'] = $city;
-        $infoUser['state'] = $state;
-        $infoUser['country'] = $country;
-        $infoUser['fullAdd'] = $fullAdd;
-        $infoUser->save();
+            $infoUser = new infoUser();
+            $infoUser['idUser'] = Auth::id();
+            $infoUser['fullname'] = $fullname;
+            $infoUser['email'] = $email;
+            $infoUser['phone'] = $phone;
+            $infoUser['city'] = $city;
+            $infoUser['state'] = $state;
+            $infoUser['country'] = $country;
+            $infoUser['fullAdd'] = $fullAdd;
+            $infoUser->save();
 
-        
-        Cart::where('idProd',$prod_id)->where('idUser', Auth::id())->truncate();
 
-        return response()->json(['status' => "Paid"]);
+            $cartCheckOut = Cart::where('idProd', $prod_id)->where('idUser', Auth::id());
+            $cartCheckOut->truncate();
+            return response()->json(['status' => "Paid"]);
         }
     }
 }

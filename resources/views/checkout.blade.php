@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Auth;
     @include('includes.header')
 
     <div class="container">
-        <form action="place-order" method="POST">
+        <form>
             <div class="row mt-2 mb-2 ">
                 <div class="col-12 text-center">
                     <h2>Fill Billing Address</h2>
