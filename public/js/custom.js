@@ -153,6 +153,7 @@ $(document).ready(function() {
     });
     $('.place-order').click(function(e) {
         e.preventDefault();
+        var prod_id = $('.idProd').val();
         var FullName = $('#fullName').val();
         var Email = $('#email').val();
         var Phone = $('#phoneNumber').val();
@@ -160,16 +161,7 @@ $(document).ready(function() {
         var State = $('#state').val();
         var Country = $('#country').val();
         var FullAdd = $('#FullAdd').val();
-        // Swal.fire({
-        //     title: 'Are you sure?',
-        //     text: "You won't be able to revert this!",
-        //     icon: 'info',
-        //     showCancelButton: true,
-        //     confirmButtonColor: '#3085d6',
-        //     cancelButtonColor: '#d33',
-        //     confirmButtonText: 'Yes, buy it!'
-        // }).then((result) => {
-        //     if (result.isConfirmed) {
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -179,6 +171,7 @@ $(document).ready(function() {
             method: "POST",
             url: "place-order",
             data: {
+                'idProd': prod_id,
                 'fullName': FullName,
                 'email': Email,
                 'phone': Phone,
@@ -188,6 +181,7 @@ $(document).ready(function() {
                 'fullAdd': FullAdd
             },
             success: function(response) {
+
                 Swal.fire({
                     icon: 'error',
                     title: response.status
@@ -202,7 +196,5 @@ $(document).ready(function() {
                 }
             }
         });
-        //     }
-        // })
     });
 });

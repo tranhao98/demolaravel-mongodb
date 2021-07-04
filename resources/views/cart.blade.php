@@ -63,7 +63,8 @@ use App\Models\Cart;
                                 {{ number_format($item['qtyProd'] * $item->products['giaKM'], 0, ',', '.') }} VNĐ
                             </div>
                             <div class="col-md-2 align-self-center">
-                                <a class="delete-cart-item text-danger"><i class="fa fa-remove" style="font-size:30px; cursor: pointer;"></i></a> 
+                                <a class="delete-cart-item text-danger"><i class="fa fa-remove"
+                                        style="font-size:30px; cursor: pointer;"></i></a>
                             </div>
                         </div>
                         <hr>
@@ -75,9 +76,9 @@ use App\Models\Cart;
                 <div class="col-md-8 mt-2 pr-0">
                     <div class="card shadow" style="font-size: 14px">
                         <div class="card-body ">
-                            
-                                <h6 class="text-uppercase text-center">Total amount</h6>
-                            
+
+                            <h6 class="text-uppercase text-center">Total amount</h6>
+
                             <hr>
                             <div class="row">
                                 <div class="col-md-6 align-self-center font-weight-bold">
@@ -108,9 +109,14 @@ use App\Models\Cart;
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 mt-2" >
-                    <a href="/home"><button class="w-100 shadow border btn btn-light p-4 text-uppercase font-weight-bold"><h6>Continue Shopping</h6></button></a>
-                    <a href="/checkout"><button class="w-100 shadow btn btn-dark mt-2 p-4 text-uppercase button-checkout font-weight-bold"><h6>Checkout</h6></button></a>
+                <div class="col-md-4 mt-2">
+                    <a href="/home"><button class="w-100 shadow border btn btn-light p-4 text-uppercase font-weight-bold">
+                            <h6>Continue Shopping</h6>
+                        </button></a>
+                    <a href="/checkout"><button
+                            class="w-100 shadow btn btn-dark mt-2 p-4 text-uppercase button-checkout font-weight-bold">
+                            <h6>Checkout</h6>
+                        </button></a>
                 </div>
             </div>
         @else
@@ -118,7 +124,8 @@ use App\Models\Cart;
                 <h1 class="mt-2">Don't have any products in Cart</h1>
             </div>
             <div class="text-center">
-                <a href="/home"><button class="w-100 border btn btn-light p-4 text-uppercase font-weight-bold" style="font-size: 17px;">Continue Shopping</button></a>
+                <a href="/home"><button class="w-100 border btn btn-light p-4 text-uppercase font-weight-bold"
+                        style="font-size: 17px;">Continue Shopping</button></a>
             </div>
         @endif
     @endsection

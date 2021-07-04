@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Auth;
 <head>
     <meta charset="UTF-8">
     <title>Tiêu đề trang</title>
-
 </head>
 
 <body>
@@ -61,16 +60,12 @@ use Illuminate\Support\Facades\Auth;
             </aside>
         </div>
     </div>
-
-
     @include('includes.footer')
-
     <!-- Scripts -->
     <script src="{{ asset('js/sweetalert2.js') }}" defer></script>
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}" defer></script>
     <script src="{{ asset('js/jquery-3.5.1.slim.min.js') }}" defer></script>
     <script src="{{ asset('js/jquery.min.js') }}" defer></script>
-    <script src="{{ asset('js/jquery.validate.js ') }}" defer></script>
     <script src="{{ asset('js/custom.js') }}" defer></script>
 
 </body>

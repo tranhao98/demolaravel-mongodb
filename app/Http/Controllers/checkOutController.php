@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Cart;
 use App\Models\infoUser;
-use Dotenv\Validator;
+use App\Models\Product;
 
 class checkOutController extends Controller
 {
@@ -21,9 +21,7 @@ class checkOutController extends Controller
 
     public function placeOrder(Request $request)
     {
-
-
-
+        $prod_id = $request->input('idProd');
         $fullname = $request->input('fullName');
         $email = $request->input('email');
         $phone = $request->input('phone');
@@ -46,20 +44,21 @@ class checkOutController extends Controller
         } elseif ($fullAdd == "") {
             return response()->json(['status' => "Full address is required"]);
         } else {
-            $infoUser = new infoUser();
-            $infoUser['idUser'] = Auth::id();
-            $infoUser['fullname'] = $fullname;
-            $infoUser['email'] = $email;
-            $infoUser['phone'] = $phone;
-            $infoUser['city'] = $city;
-            $infoUser['state'] = $state;
-            $infoUser['country'] = $country;
-            $infoUser['fullAdd'] = $fullAdd;
-            $infoUser->save();
+        $infoUser = new infoUser();
+        $infoUser['idUser'] = Auth::id();
+        $infoUser['fullname'] = $fullname;
+        $infoUser['email'] = $email;
+        $infoUser['phone'] = $phone;
+        $infoUser['city'] = $city;
+        $infoUser['state'] = $state;
+        $infoUser['country'] = $country;
+        $infoUser['fullAdd'] = $fullAdd;
+        $infoUser->save();
 
-            Cart::where('idUser', Auth::id())->truncate();
+        
+        Cart::where('idProd',$prod_id)->where('idUser', Auth::id())->truncate();
 
-            return response()->json(['status' => "Paid"]);
+        return response()->json(['status' => "Paid"]);
         }
     }
 }

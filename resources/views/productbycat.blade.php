@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Home</title>
+    <title>Category</title>
     <link rel="stylesheet" href="css/style.css" media="all">
     <style>
         .card-columns {
