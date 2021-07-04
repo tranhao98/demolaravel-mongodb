@@ -70,6 +70,7 @@ use Illuminate\Support\Facades\Auth;
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}" defer></script>
     <script src="{{ asset('js/jquery-3.5.1.slim.min.js') }}" defer></script>
     <script src="{{ asset('js/jquery.min.js') }}" defer></script>
+    <script src="{{ asset('js/jquery.validate.js ') }}" defer></script>
     <script src="{{ asset('js/custom.js') }}" defer></script>
 
 </body>

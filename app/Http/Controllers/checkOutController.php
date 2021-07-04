@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Cart;
 use App\Models\infoUser;
+use Dotenv\Validator;
 
 class checkOutController extends Controller
 {
@@ -21,24 +22,31 @@ class checkOutController extends Controller
     public function placeOrder(Request $request)
     {
 
-        $this->validation($request, [
-            'fullName' => 'required|min:5|max:35',
-            'email' => 'required|email',
-            'phone' => 'required|numeric',
-            'city' => 'required|min:5|max:25',
-            'state' => 'required|min:5|max:25',
-            'country' => 'required',
-            'fullAdd' => 'required',
-        ]);
 
-        $fullname = $request->input('fullname');
+
+        $fullname = $request->input('fullName');
         $email = $request->input('email');
         $phone = $request->input('phone');
         $city = $request->input('city');
         $state = $request->input('state');
         $country = $request->input('country');
         $fullAdd = $request->input('fullAdd');
-            $infoUser = new infouser();
+        if ($fullname == "" || strlen($fullname) < 5) {
+            return response()->json(['status' => "Full name is required"]);
+        } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            return response()->json(['status' => "Write a valid e-mail address"]);
+        } elseif (!preg_match("/^(09|03|07)\d{8}$/", $phone)) {
+            return response()->json(['status' => "Write a valid phone number"]);
+        } elseif ($city == "") {
+            return response()->json(['status' => "City name is required"]);
+        } elseif ($state == "") {
+            return response()->json(['status' => "State is required"]);
+        } elseif ($country == "") {
+            return response()->json(['status' => "Country is required"]);
+        } elseif ($fullAdd == "") {
+            return response()->json(['status' => "Full address is required"]);
+        } else {
+            $infoUser = new infoUser();
             $infoUser['idUser'] = Auth::id();
             $infoUser['fullname'] = $fullname;
             $infoUser['email'] = $email;
@@ -51,9 +59,7 @@ class checkOutController extends Controller
 
             Cart::where('idUser', Auth::id())->truncate();
 
-            return response()->json(['status' => "Thank you"]);
-    }
-    public function validateform(){
-
+            return response()->json(['status' => "Paid"]);
+        }
     }
 }

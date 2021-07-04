@@ -1,5 +1,3 @@
-const { extendWith } = require("lodash");
-
 $(document).ready(function() {
     $('.addToCartBtn').click(function(e) {
         e.preventDefault();
@@ -21,11 +19,19 @@ $(document).ready(function() {
             },
             success: function(response) {
                 Swal.fire({
+                    icon: 'success',
                     position: 'top-end',
                     title: response.status,
                     showConfirmButton: false,
                     timer: 1500
                 })
+                setTimeout(function() { location.reload(); }, 800);
+                if (response.status == "plsLogin") {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Login to Continue'
+                    })
+                }
             }
         });
 
@@ -69,7 +75,21 @@ $(document).ready(function() {
                 'quantity': quantity,
             },
             success: function(response) {
-                window.location.reload();
+                setTimeout(function() { location.reload(); }, 1500);
+                if (response.status == "Quantity is required") {
+                    Swal.fire({
+                        icon: 'error',
+                        title: response.status
+                    })
+                    setTimeout(function() { location.reload(); }, 1500);
+                }
+                if (response.status == "plsLogin") {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Login to Continue'
+                    })
+                    setTimeout(function() { location.reload(); }, 1500);
+                }
             }
         });
     })
@@ -127,40 +147,62 @@ $(document).ready(function() {
                 'quantity': quantity,
             },
             success: function(response) {
-                window.location.reload();
+                setTimeout(function() { location.reload(); }, 100);
             }
         });
     });
     $('.place-order').click(function(e) {
         e.preventDefault();
-        // var fullName = $(this).closest('.form-checkout').find('#fullName').val();
-        // var email = $(this).closest('.form-checkout').find('#email').val();
-        // var phoneNumber = $(this).closest('.form-checkout').find('#phoneNumber').val();
-        // var cityName = $(this).closest('.form-checkout').find('#cityName').val();
-        // var state = $(this).closest('.form-checkout').find('#state').val();
-        // var country = $(this).closest('.form-checkout').find('#country').val();
-        // var fullAdd = $(this).closest('.form-checkout').find('#fullAdd').val();
-        alert('111');
-        // $.ajaxSetup({
-        //     headers: {
-        //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        var FullName = $('#fullName').val();
+        var Email = $('#email').val();
+        var Phone = $('#phoneNumber').val();
+        var City = $('#cityName').val();
+        var State = $('#state').val();
+        var Country = $('#country').val();
+        var FullAdd = $('#FullAdd').val();
+        // Swal.fire({
+        //     title: 'Are you sure?',
+        //     text: "You won't be able to revert this!",
+        //     icon: 'info',
+        //     showCancelButton: true,
+        //     confirmButtonColor: '#3085d6',
+        //     cancelButtonColor: '#d33',
+        //     confirmButtonText: 'Yes, buy it!'
+        // }).then((result) => {
+        //     if (result.isConfirmed) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            method: "POST",
+            url: "place-order",
+            data: {
+                'fullName': FullName,
+                'email': Email,
+                'phone': Phone,
+                'city': City,
+                'state': State,
+                'country': Country,
+                'fullAdd': FullAdd
+            },
+            success: function(response) {
+                Swal.fire({
+                    icon: 'error',
+                    title: response.status
+                })
+                if (response.status == "Paid") {
+                    Swal.fire(
+                        'Thanks for your shopping!',
+                        'Your shopping basket has been paid!',
+                        'success'
+                    )
+                    setTimeout(function() { window.location.href = "/home"; }, 2500);
+                }
+            }
+        });
         //     }
-        // });
-        // $.ajax({
-        //     method: "POST",
-        //     url: "place-order",
-        //     data: {
-        //         'fullname': fullName,
-        //         'email': email,
-        //         'phone': phoneNumber,
-        //         'city': cityName,
-        //         'state': state,
-        //         'country': country,
-        //         'fullAdd': fullAdd,
-        //     },
-        //     success: function(response) {
-        //         alert(response.status);
-        //     }
-        // });
+        // })
     });
 });

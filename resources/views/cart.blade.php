@@ -54,8 +54,8 @@ use App\Models\Cart;
                                 <input type="hidden" value="{{ $item['idProd'] }}" class="idProd">
                                 <div class="input-group text-center mb-3" style="width:120px">
                                     <button class="input-group-text decrement-btn changeQty">-</button>
-                                    <input type="text" name="quantity" class="form-control text-center qty-input"
-                                        value="{{ $item['qtyProd'] }}">
+                                    <input type="number" name="quantity" class="form-control text-center qty-input"
+                                        value="{{ $item['qtyProd'] }}" min="1" max="100">
                                     <button class="input-group-text increment-btn changeQty">+</button>
                                 </div>
                             </div>

@@ -31,7 +31,7 @@ class CartController extends Controller
                 }
             }
         } else {
-            return response()->json(['status' => "Login to Continue"]);
+            return response()->json(['status' => "plsLogin"]);
         }
     }
     public function viewcart()
@@ -44,16 +44,20 @@ class CartController extends Controller
     }
     public function updateProduct(Request $request)
     {
-        if (Auth::check()) {
-            $prod_id = $request->input('prod_id');
-            $quantity = $request->input('quantity');
-            if (Cart::where('idProd', $prod_id)->where('idUser', Auth::id())->exists()) {
-                $cartItem = Cart::where('idProd', $prod_id)->where('idUser', Auth::id())->first();
-                $cartItem['qtyProd'] = $quantity;
-                $cartItem->save();
-            }
+        $prod_id = $request->input('prod_id');
+        $quantity = $request->input('quantity');
+        if ($quantity <= 0 || $quantity == "") {
+            return response()->json(['status' => "Quantity is required"]);
         } else {
-            return response()->json(['status' => "Login to Continue"]);
+            if (Auth::check()) {
+                if (Cart::where('idProd', $prod_id)->where('idUser', Auth::id())->exists()) {
+                    $cartItem = Cart::where('idProd', $prod_id)->where('idUser', Auth::id())->first();
+                    $cartItem['qtyProd'] = $quantity;
+                    $cartItem->save();
+                }
+            } else {
+                return response()->json(['status' => "plsLogin"]);
+            }
         }
     }
 
