@@ -1,13 +1,11 @@
 <!DOCTYPE html>
-<!--
-This is a starter template page. Use this page to start your new project from
-scratch. This page gets rid of all links and provides the needed markup only.
--->
-<html lang="en">
+
+<html lang={{ str_replace('_', '-', app()->getLocale()) }}>
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Admin</title>
 
     <!-- Google Font: Source Sans Pro -->
@@ -18,8 +16,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('vendor/dist/css/adminlte.min.css') }}">
 </head>
+
 <body class="hold-transition sidebar-mini">
-    <div class="wrapper">
+    <div class="wrapper" style="margin-top: -25px;">
         @include('includes.header_admin');
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
@@ -60,11 +59,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
-                        <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
+
                         <li class="nav-item menu-open">
                             <a href="#" class="nav-link active">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <i class="nav-icon fas fa-th"></i>
                                 <p>
                                     Starter Pages
                                     <i class="right fas fa-angle-left"></i>
@@ -72,15 +70,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link active">
+                                    <a href="/admin/orders" class="nav-link active">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Active Page</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Inactive Page</p>
+                                        <p>Orders</p>
                                     </a>
                                 </li>
                             </ul>
@@ -90,7 +82,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <i class="nav-icon fas fa-th"></i>
                                 <p>
                                     Simple Link
-                                    <span class="right badge badge-danger">New</span>
                                 </p>
                             </a>
                         </li>
@@ -100,25 +91,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </div>
             <!-- /.sidebar -->
         </aside>
-        <div class="content-wrapper">        
-            <!-- Main content -->
-            <div class="content">
-                <div class="container-fluid">
-                  @yield('content')
+
+        <!-- Main content -->
+
+
+        <div class="content-wrapper" style="min-height: 1500px !important">
+            <aside>
+                <div class="container">
+                    @yield('ordersDetails')
+                    @yield('orders')
+                    @yield('content')
                 </div>
-            </div>
-           
+            </aside>
         </div>
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-            <div class="p-3">
-                <h5>Title</h5>
-                <p>Sidebar content</p>
-            </div>
-        </aside>
-    
+
         @include('includes.footer_admin')
     </div>
+
     <!-- REQUIRED SCRIPTS -->
 
     <!-- jQuery -->
@@ -127,6 +116,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="{{ asset('vendor/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('vendor/dist/js/adminlte.min.js') }}"></script>
+    <script src="{{ asset('js/sweetalert2.js') }}"></script>
+    <script src="{{ asset('js/custom.js') }}"></script>
 </body>
 
 </html>

@@ -29,6 +29,7 @@ class checkOutController extends Controller
         $fullAdd = $request->input('fullAdd');
         $grandTotal = $request->input('grandTotal');
         $idProd = $request->input('idProd');
+        $qtyProd = $request->input('qtyProd');
         if ($fullname == "" || strlen($fullname) < 5) {
             return response()->json(['status' => "Full name is required"]);
         } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -53,12 +54,13 @@ class checkOutController extends Controller
             $infoUser['state'] = $state;
             $infoUser['country'] = $country;
             $infoUser['fullAdd'] = $fullAdd;
-            $infoUser['grandTotal'] = $grandTotal;
+            $infoUser['qtyProd'] = $qtyProd;
             $infoUser['idProd'] = $idProd;
+            $infoUser['grandTotal'] = $grandTotal;
+            $infoUser['status'] = '0';
             $infoUser->save();
 
             Cart::where('idUser', Auth::id())->delete();
-
             return response()->json(['status' => "Paid"]);
         }
     }

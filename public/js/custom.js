@@ -161,7 +161,9 @@ $(document).ready(function() {
         var Country = $('#country').val();
         var FullAdd = $('#FullAdd').val();
         var GrandTotal = $('.grandTotal').val();
-        var idProd = $('.idProd').val()
+        var idProd = $('.idProd').val();
+        var qtyProd = $('.qtyProd').val();
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -179,7 +181,8 @@ $(document).ready(function() {
                 'country': Country,
                 'fullAdd': FullAdd,
                 'grandTotal': GrandTotal,
-                'idProd': idProd
+                'idProd': idProd,
+                'qtyProd': qtyProd
             },
             success: function(response) {
 
@@ -189,12 +192,39 @@ $(document).ready(function() {
                 })
                 if (response.status == "Paid") {
                     Swal.fire(
-                        'Thanks for your shopping!',
-                        'Your shopping basket has been paid!',
+                        'Your order has been successfully placed!',
+                        'Please check your order at Orders.',
                         'success'
                     )
                     setTimeout(function() { window.location.href = "/home"; }, 3000);
                 }
+            }
+        });
+    });
+    $('.update-status').click(function(e) {
+        e.preventDefault();
+        var status = $('#val-status').val();
+        var idOrder = $('.idOrder').val();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            method: "POST",
+            url: "update-status",
+            data: {
+                'status': status,
+                'idOrder': idOrder
+            },
+            success: function(response) {
+                Swal.fire(
+                    '',
+                    response.status,
+                    'success'
+                )
+                setTimeout(function() { window.location.reload(); }, 1300);
             }
         });
     });

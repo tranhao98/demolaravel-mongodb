@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Auth;
                 @yield('articlecat')
                 @yield('product-detail')
                 @yield('article')
+                @yield('orders-detail')
             </article>
             <aside class="col-sm-3 pr-0 mt-1">
                 <div class="cart">

@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration
             $collection->unique('email');
             $collection->timestamp('email_verified_at')->nullable();
             $collection->string('password');
+            $collection->tinyInteger('role_as')->default('0');
             $collection->rememberToken();
             $collection->timestamps();
         });

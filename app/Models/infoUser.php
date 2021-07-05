@@ -20,6 +20,10 @@ class infoUser extends Eloquent
         'state',
         'country',
         'fullAdd',
+        'qtyProd',
         'grandTotal'
     ];
+    public function products(){
+        return $this->belongsTo(Product::class,'idProd','_id');
+    }
 }

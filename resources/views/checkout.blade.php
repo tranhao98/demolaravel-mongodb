@@ -87,6 +87,7 @@ use Illuminate\Support\Facades\Auth;
                         </div>
                         <hr>
                         @php $subtotal = 0; @endphp
+
                         @foreach ($cartItems as $item)
                             <div class="row product_data">
                                 <div class="col-md-2 align-self-center">
@@ -100,12 +101,12 @@ use Illuminate\Support\Facades\Auth;
                                     {{ number_format($item->products['giaKM'], 0, ',', '.') }} VNĐ
                                 </div>
                                 <div class="col-md-2 align-self-center">
-                                    <input type="hidden" value="{{ $item['idProd'] }}" class="idProd">
+                                  
+                                    <input type="hidden" value="{{$item['idProd'] }}" class="idProd">
                                     <input type="hidden" value="{{$item['qtyProd'] }}" class="qtyProd">
                                     {{ $item['qtyProd'] }}
                                 </div>
                                 <div class="col-md-3 align-self-center">
-                                    <input type="hidden" value="{{$item['qtyProd'] * $item->products['giaKM'] }}" class="subTotal">
                                     {{ number_format($item['qtyProd'] * $item->products['giaKM'], 0, ',', '.') }}
                                     VNĐ
                                 </div>
