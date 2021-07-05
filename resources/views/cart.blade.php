@@ -13,7 +13,6 @@ use App\Models\Cart;
 <body>
     @extends('templates.tpl_default')
     @section('cart')
-
         @if (Cart::where('idUser', Auth::id())->count() > 0)
             <div class="card shadow" style="font-size: 13px">
                 <div class="card-body ">

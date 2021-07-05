@@ -20,7 +20,6 @@ class checkOutController extends Controller
 
     public function placeOrder(Request $request)
     {
-
         $fullname = $request->input('fullName');
         $email = $request->input('email');
         $phone = $request->input('phone');

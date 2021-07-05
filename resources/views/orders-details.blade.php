@@ -1,7 +1,7 @@
 <?php
 use Illuminate\Support\Facades\Auth;
 use App\Models\Cart;
-use App\Models\Orders;
+
 ?>
 <!doctype html>
 <html>
