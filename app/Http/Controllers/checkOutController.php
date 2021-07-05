@@ -7,8 +7,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Cart;
 use App\Models\infoUser;
-use App\Models\Orders;
-use App\Models\OrdersProducts;
 
 class checkOutController extends Controller
 {
@@ -32,8 +30,6 @@ class checkOutController extends Controller
         $fullAdd = $request->input('fullAdd');
         $grandTotal = $request->input('grandTotal');
         $idProd = $request->input('idProd');
-        // $qtyProd = $request->input('qtyProd');
-        // $subTotal = $request->input('subTotal');
         if ($fullname == "" || strlen($fullname) < 5) {
             return response()->json(['status' => "Full name is required"]);
         } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
