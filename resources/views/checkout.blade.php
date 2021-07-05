@@ -101,9 +101,11 @@ use Illuminate\Support\Facades\Auth;
                                 </div>
                                 <div class="col-md-2 align-self-center">
                                     <input type="hidden" value="{{ $item['idProd'] }}" class="idProd">
+                                    <input type="hidden" value="{{$item['qtyProd'] }}" class="qtyProd">
                                     {{ $item['qtyProd'] }}
                                 </div>
                                 <div class="col-md-3 align-self-center">
+                                    <input type="hidden" value="{{$item['qtyProd'] * $item->products['giaKM'] }}" class="subTotal">
                                     {{ number_format($item['qtyProd'] * $item->products['giaKM'], 0, ',', '.') }}
                                     VNĐ
                                 </div>
@@ -142,6 +144,7 @@ use Illuminate\Support\Facades\Auth;
                                 Grand Total
                             </div>
                             <div class="col-md-6 align-self-center text-right">
+                                <input type="hidden" value="{{ ($subtotal * 20) / 100 + $subtotal }}" class="grandTotal">
                                 {{ number_format(($subtotal * 20) / 100 + $subtotal, 0, ',', '.') }} VNĐ
                             </div>
                         </div>

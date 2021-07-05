@@ -7,7 +7,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Cart;
 use App\Models\infoUser;
-use App\Models\Product;
+use App\Models\Orders;
+use App\Models\OrdersProducts;
 
 class checkOutController extends Controller
 {
@@ -21,7 +22,7 @@ class checkOutController extends Controller
 
     public function placeOrder(Request $request)
     {
-        $prod_id = $request->input('idProd');
+
         $fullname = $request->input('fullName');
         $email = $request->input('email');
         $phone = $request->input('phone');
@@ -29,6 +30,10 @@ class checkOutController extends Controller
         $state = $request->input('state');
         $country = $request->input('country');
         $fullAdd = $request->input('fullAdd');
+        $grandTotal = $request->input('grandTotal');
+        $idProd = $request->input('idProd');
+        // $qtyProd = $request->input('qtyProd');
+        // $subTotal = $request->input('subTotal');
         if ($fullname == "" || strlen($fullname) < 5) {
             return response()->json(['status' => "Full name is required"]);
         } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -53,11 +58,12 @@ class checkOutController extends Controller
             $infoUser['state'] = $state;
             $infoUser['country'] = $country;
             $infoUser['fullAdd'] = $fullAdd;
+            $infoUser['grandTotal'] = $grandTotal;
+            $infoUser['idProd'] = $idProd;
             $infoUser->save();
 
+            Cart::where('idUser', Auth::id())->delete();
 
-            $cartCheckOut = Cart::where('idProd', $prod_id)->where('idUser', Auth::id());
-            $cartCheckOut->truncate();
             return response()->json(['status' => "Paid"]);
         }
     }

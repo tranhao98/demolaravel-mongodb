@@ -1,6 +1,6 @@
 <?php
 use App\Models\Cart;
-use App\Models\Product;
+use App\Models\infoUser;
 use Illuminate\Support\Facades\Auth;
 ?>
 <!DOCTYPE html>
@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Auth;
     <div class="container">
         <div class="row">
             <article class="col-sm-9 pl-0 mt-2">
+                @yield('orders')
                 @yield('cart')
                 @yield('articlecat')
                 @yield('product-detail')
@@ -25,13 +26,26 @@ use Illuminate\Support\Facades\Auth;
             <aside class="col-sm-3 pr-0 mt-1">
                 <div class="cart">
                     <div class="card">
+                        <div class="card-body">
+                            @if(infoUser::where('idUser', Auth::id())->count() > 0)
+                            <a class="btn btn-info w-100" href="../orders"><i class="fa fa-calendar-check-o"
+                                    style="font-size:20px"></i>
+                                Orders ({{ infoUser::where('idUser', Auth::id())->count() }})</a>
+                            @else
+                            <a class="btn btn-primary w-100" href="../orders"><i class="fa fa-calendar-check-o"
+                                style="font-size:20px"></i>
+                            Orders</a>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="card mt-3">
                         <div class="card-body row">
                             <div class="col-sm-6">
                                 <a href="/cart"><img src="../images/shoppingcart.gif" width="100px" alt=""></a>
                             </div>
                             <ul class="col-sm-6 mt-3">
                                 <li>
-                                    <span class="badge badge-secondary p-2 mb-2">
+                                    <span class="badge badge-warning p-1 mb-2">
                                         {{ Cart::where('idUser', Auth::id())->count() }} items </span>
                                 </li>
                                 <li>

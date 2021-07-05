@@ -12,6 +12,7 @@ class infoUser extends Eloquent
     protected $connection = 'mongodb';
     protected $fillable = [
         'idUser',
+        'idProd',
         'fullname',
         'email',
         'phone',
@@ -19,5 +20,6 @@ class infoUser extends Eloquent
         'state',
         'country',
         'fullAdd',
+        'grandTotal'
     ];
 }

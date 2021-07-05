@@ -153,7 +153,6 @@ $(document).ready(function() {
     });
     $('.place-order').click(function(e) {
         e.preventDefault();
-        var prod_id = $('.idProd').val();
         var FullName = $('#fullName').val();
         var Email = $('#email').val();
         var Phone = $('#phoneNumber').val();
@@ -161,7 +160,8 @@ $(document).ready(function() {
         var State = $('#state').val();
         var Country = $('#country').val();
         var FullAdd = $('#FullAdd').val();
-
+        var GrandTotal = $('.grandTotal').val();
+        var idProd = $('.idProd').val()
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -171,14 +171,15 @@ $(document).ready(function() {
             method: "POST",
             url: "place-order",
             data: {
-                'idProd': prod_id,
                 'fullName': FullName,
                 'email': Email,
                 'phone': Phone,
                 'city': City,
                 'state': State,
                 'country': Country,
-                'fullAdd': FullAdd
+                'fullAdd': FullAdd,
+                'grandTotal': GrandTotal,
+                'idProd': idProd
             },
             success: function(response) {
 
@@ -192,7 +193,7 @@ $(document).ready(function() {
                         'Your shopping basket has been paid!',
                         'success'
                     )
-                    setTimeout(function() { window.location.href = "/home"; }, 2500);
+                    setTimeout(function() { window.location.href = "/home"; }, 3000);
                 }
             }
         });

@@ -15,6 +15,7 @@ class CreateInfouser extends Migration
     {
         Schema::create('infouser', function ($collection) {
             $collection->string('idUser');
+            $collection->string('idProd');
             $collection->string('fullname');
             $collection->string('email');
             $collection->integer('phone');
@@ -22,6 +23,7 @@ class CreateInfouser extends Migration
             $collection->string('state');
             $collection->string('country');
             $collection->string('fullAdd');
+            $collection->integer('grandTotal');
             $collection->timestamps();
         });
     }

@@ -19,6 +19,10 @@ Route::get('/{slugcat}.html', 'SiteNewsController@viewcategory');
 Route::get('/{slug}.html', 'SiteNewsController@viewcategory');
 Route::get('/{slugcat}/{slug}.html', 'SiteNewsController@productview');
 
+Route::get('/admin','AdminController@index');
+
+Route::get('/{id}','OrdersController@orderview');
+
 
 
 Route::post('/add-to-cart', 'CartController@addProduct');
@@ -30,6 +34,7 @@ Route::post('/place-order','checkOutController@placeOrder');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/checkout','checkOutController@index');
+    Route::get('/orders','OrdersController@vieworders');
 
     Route::get('/cart','CartController@viewcart');
 });

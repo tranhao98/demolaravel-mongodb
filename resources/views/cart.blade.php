@@ -63,8 +63,7 @@ use App\Models\Cart;
                                 {{ number_format($item['qtyProd'] * $item->products['giaKM'], 0, ',', '.') }} VNĐ
                             </div>
                             <div class="col-md-2 align-self-center">
-                                <a class="delete-cart-item text-danger"><i class="fa fa-remove"
-                                        style="font-size:30px; cursor: pointer;"></i></a>
+                                <a class="delete-cart-item text-danger"><i class="fa fa-trash-o" style="font-size:30px"></i></a>
                             </div>
                         </div>
                         <hr>
@@ -114,7 +113,7 @@ use App\Models\Cart;
                             <h6>Continue Shopping</h6>
                         </button></a>
                     <a href="/checkout"><button
-                            class="w-100 shadow btn btn-dark mt-2 p-4 text-uppercase button-checkout font-weight-bold">
+                            class="w-100 shadow btn btn-dark mt-2 pt-5 pb-5 text-uppercase button-checkout font-weight-bold">
                             <h6>Checkout</h6>
                         </button></a>
                 </div>
