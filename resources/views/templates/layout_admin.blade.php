@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="{{ asset('vendor/plugins/fontawesome-free/css/all.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('vendor/dist/css/adminlte.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/plugins/select2/css/select2.min.css') }}">
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -38,7 +39,7 @@
                             alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">Alexander Pierce</a>
+                        <a href="#" class="d-block">Hao Long</a>
                     </div>
                 </div>
 
@@ -61,29 +62,39 @@
                         data-accordion="false">
 
                         <li class="nav-item menu-open">
-                            <a href="#" class="nav-link active">
+                            <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-th"></i>
                                 <p>
-                                    Starter Pages
+                                    Catalogues
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
+                                @if (Session::get('page') == 'orders')
+                                    <?php $active = 'active'; ?>
+                                @else
+                                    <?php $active = ''; ?>
+                                @endif
                                 <li class="nav-item">
-                                    <a href="/admin/orders" class="nav-link active">
+                                    <a href="/admin/orders" class="nav-link {{ $active }}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Orders</p>
                                     </a>
                                 </li>
                             </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
-                                <p>
-                                    Simple Link
-                                </p>
-                            </a>
+                            <ul class="nav nav-treeview">
+                                @if (Session::get('page') == 'coupons')
+                                    <?php $active = 'active'; ?>
+                                @else
+                                    <?php $active = ''; ?>
+                                @endif
+                                <li class="nav-item">
+                                    <a href="/admin/coupons" class="nav-link {{ $active }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Coupons</p>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </nav>
@@ -95,13 +106,15 @@
         <!-- Main content -->
 
 
-        <div class="content-wrapper" style="min-height: 1500px !important">
+        <div class="content-wrapper" style="min-height: 1200px !important">
             <aside>
-                <div class="container">
+              
+                    @yield('coupons')
                     @yield('ordersDetails')
                     @yield('orders')
                     @yield('content')
-                </div>
+                    @yield('add-edit-coupon')
+                
             </aside>
         </div>
 
@@ -116,6 +129,28 @@
     <script src="{{ asset('vendor/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('vendor/dist/js/adminlte.min.js') }}"></script>
+    <!-- InputMask -->
+    <script src="{{ asset('vendor/plugins/moment/moment.min.js') }}"></script>
+    <script src="{{ asset('vendor/plugins/inputmask/jquery.inputmask.min.js') }}"></script>
+    <!-- date-range-picker -->
+    <script src="{{ asset('plugins/daterangepicker/daterangepicker.js') }}"></script>
+    <!-- Select2 -->
+    <script src="{{ asset('vendor/plugins/select2/js/select2.full.min.js') }}"></script>
+    <script>
+        $(function() {
+            $('.select2').select2();
+            //Datemask dd/mm/yyyy
+            $('#datemask').inputmask('dd/mm/yyyy', {
+                'placeholder': 'dd/mm/yyyy'
+            })
+            //Datemask2 mm/dd/yyyy
+            $('#datemask2').inputmask('mm/dd/yyyy', {
+                'placeholder': 'mm/dd/yyyy'
+            })
+            //Money Euro
+            $('[data-mask]').inputmask()
+        });
+    </script>
     <script src="{{ asset('js/sweetalert2.js') }}"></script>
     <script src="{{ asset('js/custom.js') }}"></script>
 </body>

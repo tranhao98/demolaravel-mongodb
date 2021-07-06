@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Cart;
 use App\Models\infoUser;
+use App\Models\Product;
 
 class checkOutController extends Controller
 {
@@ -15,7 +16,9 @@ class checkOutController extends Controller
         $nsx = DB::collection('nhasanxuat');
         $nsx = $nsx->get();
         $cartItems = Cart::where('idUser', Auth::id())->get();
-        return view('checkout', compact('nsx', 'cartItems'));
+       
+
+        return view('checkout', compact('nsx', 'cartItems','productsId'));
     }
 
     public function placeOrder(Request $request)

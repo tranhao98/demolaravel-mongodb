@@ -21,15 +21,17 @@ Route::get('/{slugcat}/{slug}.html', 'SiteNewsController@productview');
 Route::get('/{id}.php', 'OrdersController@orderDetail');
 
 Route::get('/admin','AdminController@index');
-
+//Cart
 Route::post('/add-to-cart', 'CartController@addProduct');
 Route::post('/delete-cart-item','CartController@deleteProduct');
 Route::post('/update-cart-item','CartController@updateProduct');
+//checkout
 Route::post('/place-order','checkOutController@placeOrder');
 
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/checkout','checkOutController@index');
+
     Route::get('/orders','OrdersController@index');
 
     Route::get('/cart','CartController@viewcart');
@@ -37,9 +39,16 @@ Route::middleware(['auth'])->group(function () {
 
 Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('/admin','AdminController@index');
+    //Orders
     Route::get('/admin/orders','OrdersController@ordersAdmin');
-    Route::get('/admin/{id}.php','OrdersController@ordersDetails');
-    Route::post('/admin/update-status','AdminController@updateStatus');
+    Route::get('/admin/{id}.html','OrdersController@ordersDetailsAdmin');
+    Route::post('/admin/update-order-status','OrdersController@updateOrderStatus');
+    //Coupons
+    Route::get('/admin/coupons','CouponsController@coupons');
+    Route::post('/admin/update-coupon-status','CouponsController@updateCouponStatus');
+    Route::match(['get','post'],'/admin/add-edit-coupon/{id?}','CouponsController@addEditCoupon');
+    Route::post('/admin/delete-coupon','CouponsController@deleteCoupon');
+    
 });
 
     

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\infoUser;
 use App\Models\User;
+use Illuminate\Support\Facades\Session;
 
 class OrdersController extends Controller
 {
@@ -34,11 +35,12 @@ class OrdersController extends Controller
         }
     }
     public function ordersAdmin(){
+        Session::put('page','orders');
         $orders = infoUser::all();
         // dd($orders); die;
         return view('admin.orders', compact('orders'));
     }
-    public function ordersDetails($id){
+    public function ordersDetailsAdmin($id){
         $ordersDetails = infoUser::where('_id', $id)->first();
         
         $orderItems = infoUser::where('_id', $id)->get();
@@ -46,5 +48,17 @@ class OrdersController extends Controller
         $userDetails = User::where('_id', $ordersDetails['idUser'])->first();
         
         return view('admin.order_details', compact('ordersDetails','orderItems','userDetails'));
+    }
+    public function updateOrderStatus(Request $request)
+    {
+
+        $status = $request->input('status');
+        $idOrder = $request->input('idOrder');
+
+        $updateStatus = infoUser::where('_id', $idOrder)->first();
+        $updateStatus['status'] = $status;
+        $updateStatus->save();
+
+        return response()->json(['status' => "Status has been changed!"]); 
     }
 }

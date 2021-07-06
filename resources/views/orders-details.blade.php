@@ -40,17 +40,19 @@ use App\Models\Cart;
                                 <h6>Order Status</h6>
                             </div>
                             <div class="col-md-6 align-self-center">
-                                <?php if ($ordersDetails['status'] == 0) {
-                                echo "<span class='badge badge-warning'>Pending</span>";
-                                } elseif ($ordersDetails['status'] == 1) {
-                                echo "<span class='badge badge-danger'>Cancelled</span>";
-                                } elseif ($ordersDetails['status'] == 2) {
-                                echo "<span class='badge badge-info'>In Process</span>";
-                                } elseif ($ordersDetails['status'] == 3) {
-                                echo "<span class='badge badge-success'>Paid</span>";
-                                } else {
-                                echo "<span class='badge badge-info'>Shipped</span>";
-                                } ?>
+                                <?php
+                                if($ordersDetails['status'] == 0){
+                                    echo "<span class='badge badge-warning'>Pending</span>";
+                                }elseif($ordersDetails['status'] == 1){
+                                    echo "<span class='badge badge-danger'>Cancelled</span>";
+                                }elseif($ordersDetails['status'] == 2){
+                                    echo "<span class='badge badge-primary'>Confirmed</span>";
+                                }elseif($ordersDetails['status'] == 3){
+                                    echo "<span class='badge badge-info'>Delivery</span>";
+                                }else{
+                                    echo "<span class='badge badge-success'>Completed</span>";
+                                }
+                                ?>
                             </div>
                         </div>
                         <hr>

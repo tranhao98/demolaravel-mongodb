@@ -120,7 +120,7 @@ $(document).ready(function() {
                     success: function(response) {
                         Swal.fire(
                             'Deleted!',
-                            'Your file has been deleted.',
+                            'Product has been deleted.',
                             'success'
                         )
                         setTimeout(function() { location.reload(); }, 1700);
@@ -213,19 +213,96 @@ $(document).ready(function() {
         });
         $.ajax({
             method: "POST",
-            url: "update-status",
+            url: "update-order-status",
             data: {
                 'status': status,
                 'idOrder': idOrder
             },
             success: function(response) {
-                Swal.fire(
-                    '',
-                    response.status,
-                    'success'
-                )
-                setTimeout(function() { window.location.reload(); }, 1300);
+                Swal.fire({
+                    icon: 'success',
+                    position: 'top-end',
+                    title: response.status,
+                    showConfirmButton: false,
+                    timer: 1000
+                })
+                setTimeout(function() { window.location.reload(); }, 1000);
             }
         });
     });
+    $('.update-coupon-status').click(function(e) {
+        e.preventDefault();
+        var couponStatus = $(this).children("i").attr("status");
+        var idCoupon = $(this).closest('.coupon_data').find('.idCoupon').val();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            method: "POST",
+            url: "update-coupon-status",
+            data: {
+                'status': couponStatus,
+                'idCoupon': idCoupon
+            },
+            success: function(response) {
+                Swal.fire({
+                    icon: 'success',
+                    position: 'top-end',
+                    title: response.status,
+                    showConfirmButton: false,
+                    timer: 1000
+                })
+                setTimeout(function() { window.location.reload(); }, 1000);
+            }
+        });
+    });
+    $('#ManualCoupon').click(function() {
+
+        $('#couponField').show();
+    });
+    $('#AutomaticCoupon').click(function() {
+
+        $('#couponField').hide();
+    });
+    $('.delete-coupon').click(function(e) {
+        e.preventDefault();
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var idCoupon = $(this).closest('.coupon_data').find('.idCoupon').val();
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    method: "POST",
+                    url: "delete-coupon",
+                    data: {
+                        'idCoupon': idCoupon,
+                    },
+                    success: function(response) {
+                        Swal.fire(
+                            'Deleted!',
+                            'Coupon has been deleted.',
+                            'success'
+                        )
+                        setTimeout(function() { location.reload(); }, 1700);
+                    }
+                });
+            }
+        })
+
+    });
+
 });

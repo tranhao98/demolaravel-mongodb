@@ -1,6 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
+@if (Session::has('status'))
+<div class="alert alert-danger" role="alert">
+     <p>{{ Session::get('status') }}</p>
+</div>
+@endif
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">

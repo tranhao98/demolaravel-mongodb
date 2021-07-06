@@ -101,7 +101,7 @@ use Illuminate\Support\Facades\Auth;
                                     {{ number_format($item->products['giaKM'], 0, ',', '.') }} VNĐ
                                 </div>
                                 <div class="col-md-2 align-self-center">
-                                  
+                                   
                                     <input type="hidden" value="{{$item['idProd'] }}" class="idProd">
                                     <input type="hidden" value="{{$item['qtyProd'] }}" class="qtyProd">
                                     {{ $item['qtyProd'] }}
