@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
+use App\Models\Product;
 
 class Cart extends Eloquent
 {
@@ -13,7 +14,10 @@ class Cart extends Eloquent
         'idUser',
         'idProd',
         'qtyProd',
+        'idNSX'
     ];
+
+
     public function products(){
         return $this->belongsTo(Product::class,'idProd','_id');
     }

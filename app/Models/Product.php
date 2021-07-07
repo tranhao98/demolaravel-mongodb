@@ -18,7 +18,4 @@ class Product extends Eloquent
         'slug',
         'moTa',
     ];
-    public function category(){
-        return $this->belongsTo(Category::class, 'idNSX','_id');
-    }
 }

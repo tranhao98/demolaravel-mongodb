@@ -79,7 +79,7 @@ use App\Models\Cart;
                                 <h6>Coupon Code</h6>
                             </div>
                             <div class="col-md-6 align-self-center">
-
+                                {{$ordersDetails['couponCode']}}
                             </div>
                         </div>
                         <hr>
@@ -88,7 +88,7 @@ use App\Models\Cart;
                                 <h6>Coupon Amount</h6>
                             </div>
                             <div class="col-md-6 align-self-center">
-
+                               - {{ number_format($ordersDetails['couponAmount'], 0, ',', '.') }} VNĐ
                             </div>
                         </div>
                         <hr>

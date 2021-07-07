@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    //Add product to cart
     $('.addToCartBtn').click(function(e) {
         e.preventDefault();
 
@@ -36,7 +37,7 @@ $(document).ready(function() {
         });
 
     });
-
+    //Button increment and decrement quantity in cart
     $('.increment-btn').click(function(e) {
         e.preventDefault();
         var inc_value = $(this).closest('.product_data').find('.qty-input').val();
@@ -58,6 +59,7 @@ $(document).ready(function() {
             $(this).closest('.product_data').find('.qty-input').val(value);
         }
     });
+    // Change while type quantity in cart
     $('.qty-input').on('change', function() {
         var prod_id = $(this).closest('.product_data').find('.idProd').val();
         var quantity = $(this).closest('.product_data').find('.qty-input').val();
@@ -92,7 +94,8 @@ $(document).ready(function() {
                 }
             }
         });
-    })
+    });
+    // Delete Cart
     $('.delete-cart-item').click(function(e) {
         e.preventDefault();
         Swal.fire({
@@ -129,6 +132,7 @@ $(document).ready(function() {
             }
         })
     });
+    //Update Cart
     $('.changeQty').click(function(e) {
         e.preventDefault();
         var prod_id = $(this).closest('.product_data').find('.idProd').val();
@@ -151,6 +155,7 @@ $(document).ready(function() {
             }
         });
     });
+    // Checkout
     $('.place-order').click(function(e) {
         e.preventDefault();
         var FullName = $('#fullName').val();
@@ -163,7 +168,8 @@ $(document).ready(function() {
         var GrandTotal = $('.grandTotal').val();
         var idProd = $('.idProd').val();
         var qtyProd = $('.qtyProd').val();
-
+        var couponCode = $('.couponCode').val();
+        var couponAmount = $('.couponAmount').val();
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -182,7 +188,9 @@ $(document).ready(function() {
                 'fullAdd': FullAdd,
                 'grandTotal': GrandTotal,
                 'idProd': idProd,
-                'qtyProd': qtyProd
+                'qtyProd': qtyProd,
+                'couponCode': couponCode,
+                'couponAmount': couponAmount
             },
             success: function(response) {
 
@@ -201,6 +209,7 @@ $(document).ready(function() {
             }
         });
     });
+    // Change Order Status
     $('.update-status').click(function(e) {
         e.preventDefault();
         var status = $('#val-status').val();
@@ -230,6 +239,7 @@ $(document).ready(function() {
             }
         });
     });
+    //Change Coupon Status
     $('.update-coupon-status').click(function(e) {
         e.preventDefault();
         var couponStatus = $(this).children("i").attr("status");
@@ -259,6 +269,7 @@ $(document).ready(function() {
             }
         });
     });
+    // Show or Hide Coupon Code
     $('#ManualCoupon').click(function() {
 
         $('#couponField').show();
@@ -267,6 +278,7 @@ $(document).ready(function() {
 
         $('#couponField').hide();
     });
+    // Delete Coupon
     $('.delete-coupon').click(function(e) {
         e.preventDefault();
         Swal.fire({
@@ -304,5 +316,81 @@ $(document).ready(function() {
         })
 
     });
+    // Apply Coupon Code
+    $('#applyCoupon').submit(function(e) {
+        e.preventDefault();
+        var code = $('#couponCode').val();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            method: "POST",
+            url: "apply-coupon",
+            data: {
+                code: code
+            },
+            success: function(response) {
 
+                Swal.fire({
+                    icon: 'error',
+                    text: response.message,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        location.reload();
+                    }
+                });
+                if (response.status == "1") {
+                    Swal.fire({
+                        icon: 'success',
+                        text: 'Coupon code successfully applied. You are availing discount!',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            location.reload();
+                        }
+                    });
+                }
+            },
+            error: function() {
+                alert('Error');
+            }
+        });
+    });
+    $('#changeCoupon').submit(function(e) {
+        e.preventDefault();
+        // alert('hello');
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, remove it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    method: "POST",
+                    url: "change-coupon",
+                    success: function(response) {
+                        Swal.fire(
+                            'Removed!',
+                            'Coupon code has been removed.',
+                            'success'
+                        ).then((result) => {
+                            if (result.isConfirmed) {
+                                location.reload();
+                            }
+                        });
+                    }
+                });
+            }
+        })
+    });
 });

@@ -15,7 +15,7 @@ use App\Models\Cart;
     @section('cart')
         @if (Cart::where('idUser', Auth::id())->count() > 0)
             <div class="card shadow" style="font-size: 13px">
-                <div class="card-body ">
+                <div class="card-header">
                     <div class="row font-weight-bold">
                         <div class="col-md-2 align-self-center">
                             Image
@@ -36,7 +36,8 @@ use App\Models\Cart;
                             Remove
                         </div>
                     </div>
-                    <hr>
+                </div>
+                <div class="card-body ">
                     @php $subtotal = 0; @endphp
                     @foreach ($cartItems as $item)
                         <div class="row product_data">
@@ -62,7 +63,8 @@ use App\Models\Cart;
                                 {{ number_format($item['qtyProd'] * $item->products['giaKM'], 0, ',', '.') }} VNĐ
                             </div>
                             <div class="col-md-2 align-self-center">
-                                <a class="delete-cart-item text-danger"><i class="fa fa-trash-o" style="font-size:30px"></i></a>
+                                <a style="cursor: pointer" class="delete-cart-item text-danger"><i class="fa fa-trash-o"
+                                        style="font-size:30px"></i></a>
                             </div>
                         </div>
                         <hr>
@@ -89,10 +91,10 @@ use App\Models\Cart;
                             <br>
                             <div class="row">
                                 <div class="col-md-6 font-weight-bold align-self-center">
-                                    Tax(10%)
+                                    Tax(5%)
                                 </div>
                                 <div class="col-md-6 align-self-center text-right">
-                                    {{ number_format(($subtotal * 10) / 100, 0, ',', '.') }} VNĐ
+                                    {{ number_format(($subtotal * 5) / 100, 0, ',', '.') }} VNĐ
                                 </div>
                             </div>
                             <hr style="border: 1px solid">
@@ -101,18 +103,19 @@ use App\Models\Cart;
                                     Grand Total
                                 </div>
                                 <div class="col-md-6 align-self-center text-right">
-                                    {{ number_format(($subtotal * 20) / 100 + $subtotal, 0, ',', '.') }} VNĐ
+                                    {{ number_format(($subtotal * 5) / 100 + $subtotal, 0, ',', '.') }} VNĐ
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4 mt-2">
-                    <a href="/home"><button class="w-100 shadow border btn btn-light p-4 text-uppercase font-weight-bold">
+                    <a href="/home"><button
+                            class="w-100 shadow border btn btn-light pt-4 pb-4 text-uppercase font-weight-bold">
                             <h6>Continue Shopping</h6>
                         </button></a>
                     <a href="/checkout"><button
-                            class="w-100 shadow btn btn-dark mt-2 pt-5 pb-5 text-uppercase button-checkout font-weight-bold">
+                            class="w-100 shadow btn btn-dark mt-2 pt-4 pb-4 text-uppercase button-checkout font-weight-bold">
                             <h6>Checkout</h6>
                         </button></a>
                 </div>

@@ -108,4 +108,5 @@ class CouponsController extends Controller
             return response()->json(['status' => "Coupon Deleted Successfully"]);
         }
     }
+    
 }

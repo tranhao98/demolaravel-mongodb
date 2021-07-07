@@ -27,7 +27,10 @@ Route::post('/delete-cart-item','CartController@deleteProduct');
 Route::post('/update-cart-item','CartController@updateProduct');
 //checkout
 Route::post('/place-order','checkOutController@placeOrder');
-
+//apply coupon
+Route::post('/apply-coupon','checkOutController@applyCoupon');
+//change coupon
+Route::post('/change-coupon','checkOutController@changeCoupon');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/checkout','checkOutController@index');
