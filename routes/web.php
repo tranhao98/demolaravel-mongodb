@@ -13,8 +13,8 @@ use Illuminate\Support\Facades\Auth;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/','SiteNewsController@index');
+Route::get('/home','SiteNewsController@index');
 Route::get('/{slugcat}.html', 'SiteNewsController@viewcategory');
 Route::get('/{slug}.html', 'SiteNewsController@viewcategory');
 Route::get('/{slugcat}/{slug}.html', 'SiteNewsController@productview');
@@ -31,6 +31,7 @@ Route::post('/place-order','checkOutController@placeOrder');
 Route::post('/apply-coupon','checkOutController@applyCoupon');
 //change coupon
 Route::post('/change-coupon','checkOutController@changeCoupon');
+
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/checkout','checkOutController@index');
@@ -59,3 +60,8 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
 Auth::routes();
 
 Route::get('/home', 'SiteNewsController@index');
+//map
+Route::get('/{any}', function(){
+    return view('/map');
+})->where('any', '.*');
+
