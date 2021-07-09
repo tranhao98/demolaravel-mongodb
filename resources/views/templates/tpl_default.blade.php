@@ -29,8 +29,13 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
                 <div class="cart">
                     <div class="card">
                         <div class="card-body">
+                            <a class="btn btn-info w-100" href="../map"><i class="fa fa-map-marker" style="font-size:20px"></i> View map</a>
+                        </div>
+                    </div>
+                    <div class="card mt-3">
+                        <div class="card-body">
                             @if(infoUser::where('idUser', Auth::id())->count() > 0)
-                            <a class="btn btn-info w-100" href="../orders"><i class="fa fa-calendar-check-o"
+                            <a class="btn btn-primary w-100" href="../orders"><i class="fa fa-calendar-check-o"
                                     style="font-size:20px"></i>
                                 Orders ({{ infoUser::where('idUser', Auth::id())->count() }})</a>
                             @else
@@ -43,7 +48,7 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
                     <div class="card mt-3">
                         <div class="card-body row">
                             <div class="col-sm-6">
-                                <a href="/cart"><img src="../images/shoppingcart.gif" width="100px" alt=""></a>
+                                <a href="../cart"><img src="../images/shoppingcart.gif" width="100px" alt=""></a>
                             </div>
                             <ul class="col-sm-6 mt-3">
                                 <li>

@@ -1,7 +1,8 @@
 const mix = require('laravel-mix');
-const tailwindcss = require('tailwindcss');
-require('laravel-mix-purgecss');
 
+const tailwindcss = require('tailwindcss');
+
+require('laravel-mix-purgecss');
 
 /*
  |--------------------------------------------------------------------------
@@ -14,10 +15,13 @@ require('laravel-mix-purgecss');
  |
  */
 
+mix.disableNotifications();
 mix.js('resources/js/app.js', 'public/js')
     .vue()
+    .sourceMaps()
     .sass('resources/sass/app.scss', 'public/css')
     .options({
         processCssUrls: false,
         postCss: [tailwindcss('./tailwind.config.js')],
+
     }).purgeCss();
