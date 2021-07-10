@@ -13,13 +13,15 @@ use Illuminate\Support\Facades\Auth;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+//site
 Route::get('/','SiteNewsController@index');
 Route::get('/home','SiteNewsController@index');
 Route::get('/{slugcat}.html', 'SiteNewsController@viewcategory');
 Route::get('/{slug}.html', 'SiteNewsController@viewcategory');
 Route::get('/{slugcat}/{slug}.html', 'SiteNewsController@productview');
 Route::get('/{id}.php', 'OrdersController@orderDetail');
-
+//admin
 Route::get('/admin','AdminController@index');
 //Cart
 Route::post('/add-to-cart', 'CartController@addProduct');

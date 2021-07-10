@@ -16,12 +16,15 @@
     @extends('templates.tpl_default')
 
     @section('article')
+        @if (Session::has('notadmin'))
+            <div class="alert alert-danger" role="alert">
+                <p>{{ Session::get('notadmin') }}</p>
+            </div>
+        @endif
         @if (Session::has('status'))
-
             <div class="alert alert-info" role="alert">
                 <p>{{ Session::get('status') }}</p>
             </div>
-
         @endif
         <div class="card-columns">
             @foreach ($dt as $product)

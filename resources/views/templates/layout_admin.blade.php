@@ -108,13 +108,13 @@
 
         <div class="content-wrapper" style="min-height: 1200px !important">
             <aside>
-              
-                    @yield('coupons')
-                    @yield('ordersDetails')
-                    @yield('orders')
-                    @yield('content')
-                    @yield('add-edit-coupon')
-                
+
+                @yield('coupons')
+                @yield('ordersDetails')
+                @yield('orders')
+                @yield('content')
+                @yield('add-edit-coupon')
+
             </aside>
         </div>
 

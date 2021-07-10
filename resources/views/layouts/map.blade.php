@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>Map</title>
 
     <script src="{{ asset('js/app.js') }}" defer></script>
     <!-- Fonts -->
@@ -67,7 +67,7 @@
             top:0;
             left: 0;
             width: 25%;
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: rgba(255, 255, 255, 0.5);
             color: white;
         }
 
@@ -83,7 +83,7 @@
     <div id="instructions">
         <div id="calculated-line"></div>
     </div>
-    <a href="/home" id="back" class="btn"><i class="fa fa-arrow-circle-left" style="font-size:24px"></i></a>
+    <a href="/home" id="back" class="btn"><i class="fa fa-arrow-circle-left" style="font-size:24px; color: black;"></i></a>
 
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}" defer></script>
     <script src="{{ asset('js/jquery-3.5.1.slim.min.js') }}" defer></script>
