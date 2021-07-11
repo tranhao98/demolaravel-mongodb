@@ -23,29 +23,6 @@
 
 <body>
     <style>
-        .geocoder {
-            position: absolute;
-            top: 55px;
-            left: 38px;
-            text-align: left;
-            font-family: "Arial";
-            margin: 0;
-            font-size: 13px;
-        }
-
-        #instructions {
-            position: absolute;
-            height: 500px;
-            margin-top: 20px;
-            width: 25%;
-            top: 22px;
-            bottom: 0;
-            padding: 20px;
-            padding-top: 50px;
-            background-color: rgba(255, 255, 255, 0.5);
-            overflow-y: scroll;
-            font-family: sans-serif;
-        }
 
         #info {
             display: block;
@@ -66,23 +43,17 @@
             position: absolute;
             top:0;
             left: 0;
-            width: 25%;
+            width: 8%;
             background-color: rgba(255, 255, 255, 0.5);
             color: white;
         }
 
     </style>
-    
+   
     <div id="app">
         @yield('content')
     </div>
     <pre id="info"></pre>
-    <div class="geocoder">
-        <div id="geocoder"></div>
-    </div>
-    <div id="instructions">
-        <div id="calculated-line"></div>
-    </div>
     <a href="/home" id="back" class="btn"><i class="fa fa-arrow-circle-left" style="font-size:24px; color: black;"></i></a>
 
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}" defer></script>
