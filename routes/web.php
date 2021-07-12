@@ -14,13 +14,21 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-//site
+//home
 Route::get('/','SiteNewsController@index');
 Route::get('/home','SiteNewsController@index');
+//category
 Route::get('/{slugcat}.html', 'SiteNewsController@viewcategory');
+//product
 Route::get('/{slug}.html', 'SiteNewsController@viewcategory');
+//product by category
 Route::get('/{slugcat}/{slug}.html', 'SiteNewsController@productview');
-Route::get('/{id}.php', 'OrdersController@orderDetail');
+//order
+Route::get('/{id}-order/', 'OrdersController@orderDetail');
+//branch
+Route::get('/{slug}-branch/', 'BranchController@branchDetail');
+
+
 //admin
 Route::get('/admin','AdminController@index');
 //Cart

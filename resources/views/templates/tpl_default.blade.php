@@ -12,12 +12,13 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
     <title>Tiêu đề trang</title>
 </head>
 
-<body>
+<body style="font-family: 'Nunito';">
     @include('layouts.app')
     @include('includes.header')
     <div class="container">
         <div class="row">
             <article class="col-sm-9 pl-0 mt-2">
+                @yield('branch-detail')
                 @yield('orders')
                 @yield('cart')
                 @yield('articlecat')
@@ -29,19 +30,20 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
                 <div class="cart">
                     <div class="card">
                         <div class="card-body">
-                            <a class="btn btn-info w-100" href="../map"><i class="fa fa-map-marker" style="font-size:20px"></i> View map</a>
+                            <a class="btn btn-info w-100" href="../map"><i class="fa fa-map-marker"
+                                    style="font-size:20px"></i> View map</a>
                         </div>
                     </div>
                     <div class="card mt-3">
                         <div class="card-body">
-                            @if(infoUser::where('idUser', Auth::id())->count() > 0)
-                            <a class="btn btn-primary w-100" href="../orders"><i class="fa fa-calendar-check-o"
-                                    style="font-size:20px"></i>
-                                Orders ({{ infoUser::where('idUser', Auth::id())->count() }})</a>
+                            @if (infoUser::where('idUser', Auth::id())->count() > 0)
+                                <a class="btn btn-primary w-100" href="../orders"><i class="fa fa-calendar-check-o"
+                                        style="font-size:20px"></i>
+                                    Orders ({{ infoUser::where('idUser', Auth::id())->count() }})</a>
                             @else
-                            <a class="btn btn-primary w-100" href="../orders"><i class="fa fa-calendar-check-o"
-                                style="font-size:20px"></i>
-                            Orders</a>
+                                <a class="btn btn-primary w-100" href="../orders"><i class="fa fa-calendar-check-o"
+                                        style="font-size:20px"></i>
+                                    Orders</a>
                             @endif
                         </div>
                     </div>
@@ -83,12 +85,13 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
     </div>
     @include('includes.footer')
     <!-- Scripts -->
+   
     <script src="{{ asset('js/sweetalert2.js') }}" defer></script>
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}" defer></script>
     <script src="{{ asset('js/jquery-3.5.1.slim.min.js') }}" defer></script>
-    <script src="{{ asset('js/jquery.min.js') }}" defer></script>
+    <script src="{{ asset('js/jquery-3.6.0.min.js') }}" defer></script>
+    <script src="{{ asset('js/owl.carousel.min.js') }}" defer></script>
     <script src="{{ asset('js/custom.js') }}" defer></script>
-
 </body>
 
 </html>

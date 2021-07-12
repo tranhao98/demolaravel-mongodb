@@ -45,7 +45,7 @@ use App\Models\infoUser;
                             {{date('d/m/Y', strtotime($ord['created_at']))}}
                         </div>
                         <div class="col-md-3 align-self-center">
-                            <a class="btn btn-link p-2" href="{{$ord['_id']}}.php">View Details</a>
+                            <a class="btn btn-link p-2" href="{{$ord['_id']}}-order/">View Details</a>
                         </div>
                     </div>
                     <hr>

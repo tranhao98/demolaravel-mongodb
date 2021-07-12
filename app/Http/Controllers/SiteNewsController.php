@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Branch;
 
 class SiteNewsController extends Controller
 {
@@ -18,7 +19,8 @@ class SiteNewsController extends Controller
         $nsx = $nsx->get();
         $dt = DB::collection('dienthoai');
         $dt = $dt->paginate(6);
-        return view('/home', compact('nsx', 'dt'));
+        $branch = Branch::all();
+        return view('/home', compact('nsx', 'dt','branch'));
     }
 
     public function productview($slugcat, $slug)
