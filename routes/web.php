@@ -45,7 +45,7 @@ Route::post('/change-coupon','checkOutController@changeCoupon');
 Route::get('/my-profile','UserController@index');
 Route::post('/update-profile','UserController@updateProfile');
 
-
+//Authenticate client
 Route::middleware(['auth'])->group(function () {
     Route::get('/checkout','checkOutController@index');
 
@@ -53,7 +53,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/cart','CartController@viewcart');
 });
-
+//Authenticate client and admin
 Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('/admin','AdminController@index');
     //Orders
