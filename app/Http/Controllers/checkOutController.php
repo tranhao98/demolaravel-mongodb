@@ -38,7 +38,7 @@ class checkOutController extends Controller
         $couponCode = $request->input('couponCode');
         $couponAmount = $request->input('couponAmount');
         if ($fullname == "" || strlen($fullname) < 5) {
-            return response()->json(['status' => "Full name is required"]);
+            return response()->json(['status' => "Full name must be at least 5 characters"]);
         } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             return response()->json(['status' => "Write a valid e-mail address"]);
         } elseif (!preg_match("/^(09|03|07)\d{8}$/", $phone)) {

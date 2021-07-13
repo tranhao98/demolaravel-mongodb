@@ -393,6 +393,53 @@ $(document).ready(function() {
             }
         })
     });
+    $('.update-profile').click(function(e) {
+        e.preventDefault();
+        var name = $('#name').val();
+        var mobile = $('#mobile').val();
+        var email = $('#email').val();
+        var city = $('#city').val();
+        var state = $('#state').val();
+        var country = $('#country').val();
+        var address = $('#address').val();
+        var idUser = $('#idUser').val();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            method: "POST",
+            url: "update-profile",
+            data: {
+                name: name,
+                mobile: mobile,
+                email: email,
+                city: city,
+                state: state,
+                country: country,
+                address: address,
+                idUser: idUser,
+            },
+            success: function(response) {
+                Swal.fire({
+                    icon: 'error',
+                    title: response.status
+                })
+                if (response.status == "Success") {
+                    Swal.fire({
+                        icon: 'success',
+                        text: 'Your profile has been successfully updated!',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            location.reload();
+                        }
+                    });
+                }
+            }
+        });
+
+    });
     $('.branch-carousel').owlCarousel({
         loop: true,
         margin: 10,

@@ -12,12 +12,13 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
     <title>Tiêu đề trang</title>
 </head>
 
-<body style="font-family: 'Nunito';">
+<body>
     @include('layouts.app')
     @include('includes.header')
     <div class="container">
         <div class="row">
             <article class="col-sm-9 pl-0 mt-2">
+                @yield('profile')
                 @yield('branch-detail')
                 @yield('orders')
                 @yield('cart')

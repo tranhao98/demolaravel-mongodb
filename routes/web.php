@@ -41,6 +41,9 @@ Route::post('/place-order','checkOutController@placeOrder');
 Route::post('/apply-coupon','checkOutController@applyCoupon');
 //change coupon
 Route::post('/change-coupon','checkOutController@changeCoupon');
+//my profile
+Route::get('/my-profile','UserController@index');
+Route::post('/update-profile','UserController@updateProfile');
 
 
 Route::middleware(['auth'])->group(function () {

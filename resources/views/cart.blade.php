@@ -75,11 +75,10 @@ use App\Models\Cart;
             <div class="row mb-3">
                 <div class="col-md-8 mt-2 pr-0">
                     <div class="card shadow" style="font-size: 14px">
+                        <div class="card-header">
+                            <h6 class="text-uppercase text-center font-weight-bold m-0">Total amount</h6>
+                        </div>
                         <div class="card-body ">
-
-                            <h6 class="text-uppercase text-center">Total amount</h6>
-
-                            <hr>
                             <div class="row">
                                 <div class="col-md-6 align-self-center font-weight-bold">
                                     Sub Total
@@ -111,12 +110,12 @@ use App\Models\Cart;
                 </div>
                 <div class="col-md-4 mt-2">
                     <a href="/home"><button
-                            class="w-100 shadow border btn btn-light pt-4 pb-4 text-uppercase font-weight-bold">
-                            <h6>Continue Shopping</h6>
+                            class="w-100 shadow border btn btn-light pt-4 pb-4 text-uppercase">
+                            <h6 class="font-weight-bold m-0">Continue Shopping</h6>
                         </button></a>
                     <a href="/checkout"><button
-                            class="w-100 shadow btn btn-dark mt-2 pt-4 pb-4 text-uppercase button-checkout font-weight-bold">
-                            <h6>Checkout</h6>
+                            class="w-100 shadow btn btn-dark mt-2 pt-4 pb-4 text-uppercase button-checkout">
+                            <h6 class="font-weight-bold m-0">Checkout</h6>
                         </button></a>
                 </div>
             </div>

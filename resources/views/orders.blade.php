@@ -16,7 +16,7 @@ use App\Models\infoUser;
     @section('orders')
     @if(infoUser::where('idUser', Auth::id())->count() > 0)
         <div class="card shadow" style="font-size: 13px">
-            <div class="card-body ">
+            <div class="card-header">
                 <div class="row font-weight-bold">
                     <div class="col-md-3 align-self-center">
                         Order ID
@@ -31,8 +31,8 @@ use App\Models\infoUser;
                         Order Details
                     </div>
                 </div>
-                <hr>
-
+            </div>
+            <div class="card-body ">
                 @foreach ($orders as $ord)
                     <div class="row product_data">
                         <div class="col-md-3 align-self-center">

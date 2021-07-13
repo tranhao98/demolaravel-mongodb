@@ -27,33 +27,33 @@ use Illuminate\Support\Facades\Auth;
                 <div class="col-6">
                     <div class="form-group">
                         <label for="fullName">Full name</label>
-                        <input type="text" class="form-control" name="Fullname" id="fullName" placeholder="Enter Name">
+                        <input type="text" class="form-control" name="Fullname" id="fullName" value="{{Auth::user()->name}}" @if(isset(Auth::user()->name)) disabled @endif placeholder="Enter Name">
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" class="form-control" name="Email" id="email" placeholder="Enter Email">
+                        <input type="email" class="form-control" name="Email" value="{{Auth::user()->email}}" @if(isset(Auth::user()->email)) disabled @endif id="email" placeholder="Enter Email">
                     </div>
                     <div class="form-group">
                         <label for="phoneNumber">Phone number</label>
-                        <input type="number" class="form-control" name="Phone" id="phoneNumber" placeholder="Enter Mobile">
+                        <input type="number" class="form-control" name="Phone" value="{{Auth::user()->mobile}}" @if(isset(Auth::user()->mobile)) disabled @endif id="phoneNumber" placeholder="Enter Mobile">
                     </div>
                     <div class="form-group">
                         <label for="cityName">City name</label>
-                        <input type="text" class="form-control" name="City" id="cityName" placeholder="Enter City">
+                        <input type="text" class="form-control" name="City" value="{{Auth::user()->city}}" @if(isset(Auth::user()->city)) disabled @endif  id="cityName" placeholder="Enter City">
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="form-group">
                         <label for="state">State</label>
-                        <input type="text" class="form-control" name="State" id="state" placeholder="Enter State">
+                        <input type="text" class="form-control" name="State" value="{{Auth::user()->state}}" @if(isset(Auth::user()->state)) disabled @endif id="state" placeholder="Enter State">
                     </div>
                     <div class="form-group">
                         <label for="country">Country</label>
-                        <input type="text" class="form-control" name="Country" id="country" placeholder="Enter Country">
+                        <input type="text" class="form-control" name="Country" value="{{Auth::user()->country}}" @if(isset(Auth::user()->country)) disabled @endif id="country" placeholder="Enter Country">
                     </div>
                     <div class="form-group">
-                        <label for="fullAdd">Full address</label>
-                        <textarea name="fullAdd" class="form-control" id="FullAdd" cols="10" rows="5" placeholder="Enter Address"></textarea>
+                        <label for="fullAdd">Full address</label
+                        <textarea name="fullAdd" class="form-control" id="FullAdd" value="{{Auth::user()->address}}" @if(isset(Auth::user()->address)) disabled @endif cols="10" rows="5" placeholder="Enter Address"></textarea>
                     </div>
 
                 </div>
@@ -160,7 +160,7 @@ use Illuminate\Support\Facades\Auth;
             <div class="col-sm-4">
                 <div class="card shadow" style="font-size: 14px">
                     <div class="card-header">
-                        <h6 class="text-uppercase text-center m-0">Total amount</h6>
+                        <h6 class="text-uppercase text-center m-0 font-weight-bold">Total amount</h6>
                     </div>
                     <div class="card-body ">
                         <div class="row">
@@ -216,7 +216,7 @@ use Illuminate\Support\Facades\Auth;
                 </div>
                 <button type="submit"
                     class="w-100 shadow btn btn-dark mt-2 p-3 place-order text-uppercase button-checkout font-weight-bold">
-                    <h6>Place order</h6>
+                    <h6 class="m-0">Place order</h6>
                 </button>
 
             </div>
@@ -231,7 +231,8 @@ use Illuminate\Support\Facades\Auth;
     <script src="{{ asset('js/sweetalert2.js') }}" defer></script>
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}" defer></script>
     <script src="{{ asset('js/jquery-3.5.1.slim.min.js') }}" defer></script>
-    <script src="{{ asset('js/jquery.min.js') }}" defer></script>
+    <script src="{{ asset('js/jquery-3.6.0.min.js') }}" defer></script>
+    <script src="{{ asset('js/owl.carousel.min.js') }}" defer></script>
     <script src="{{ asset('js/custom.js') }}" defer></script>
 
 </body>
