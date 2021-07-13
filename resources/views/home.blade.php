@@ -60,7 +60,7 @@
                                     <div class="card">
                                        <a href="/{{$bra['slug']}}-branch/" ><img src="images/{{ $bra['logo'] }}" ></a> 
                                         <div class="card-body">
-                                            <h5 class="card-title">{{ $bra['name'] }}</h5>
+                                            <a href="/{{$bra['slug']}}-branch/" ><h5 class="card-title">{{ $bra['name'] }}</h5></a>
                                             <p class="card-text"><i class="fa fa-map-marker"></i> <small>{{ $bra['address'] }}</small> <br>
                                                 <i class="fa fa-university"></i> <small>{{ $bra['city'] }}</small>
                                             </p>
