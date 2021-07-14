@@ -14,39 +14,94 @@ use Illuminate\Support\Facades\Auth;
     @section('profile')
         <div class="card shadow" style="font-size: 13px">
             <div class="card-header">
-                <h6 class="m-0 font-weight-bold">My Profile</h6>
+                <div class="row">
+                    <div class="col-6 ">
+                        <h6 class="m-0 font-weight-bold">Basic Information</h6>
+                    </div>
+                    <div class="col-6 ">
+                        <a href="/update-basic-infor" class="float-right m-0"><i class="fa fa-edit" style="font-size: 20px"></i></a>
+                    </div>
+                </div>
             </div>
             <div class="card-body ">
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" name="name" id="name" value="{{Auth::user()->name}}" class="form-control">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <h6 class="font-weight-bold m-0">Full name</h6><br>
+                                <h6 class="font-weight-bold m-0">Gender</h6><br>
+                                <h6 class="font-weight-bold m-0">Birth Date</h6><br>
+                                <h6 class="font-weight-bold m-0">City</h6><br>
+                                <h6 class="font-weight-bold m-0">State</h6><br>
+                                <h6 class="font-weight-bold m-0">Country</h6><br>
+                                <h6 class="font-weight-bold m-0">Address</h6>
+                            </div>
+                            <div class="col-md-7">
+                                <h6 class="m-0">{{ Auth::user()->name }}</h6><br>
+                                <h6 class="m-0">
+                                    @if (isset(Auth::user()->gender) && Auth::user()->gender != "")
+                                    @if (Auth::user()->gender == 1) Male @else Female
+                                    @endif @else <span class="font-italic text-danger">No gender yet </span> 
+                                    @endif
+                                </h6><br>
+                                <h6 class="m-0">
+                                    <?php $formatBirthdate = date('d-m-Y', strtotime(Auth::user()->birthdate)) ?>
+                                    @if (isset(Auth::user()->birthdate) && Auth::user()->birthdate != "")
+                                    {{ $formatBirthdate }} @else <span class="font-italic text-danger"> No birth date yet </span> @endif
+                                </h6><br>
+                                <h6 class="m-0">
+                                    @if (isset(Auth::user()->city) && Auth::user()->city != "")
+                                        {{ Auth::user()->city }}
+                                    @else <span class="font-italic text-danger"> No city yet </span> @endif
+                                </h6><br>
+                                <h6 class="m-0">
+                                    @if (isset(Auth::user()->state) && Auth::user()->state != "")
+                                    {{ Auth::user()->state }} @else <span class="font-italic text-danger"> No states yet </span> @endif
+                                </h6><br>
+                                <h6 class="m-0">
+                                    @if (isset(Auth::user()->country) && Auth::user()->country != "")
+                                    {{ Auth::user()->country }} @else <span class="font-italic text-danger"> No country yet </span> @endif
+                                </h6><br>
+                                <h6 class="m-0">
+                                    @if (isset(Auth::user()->address) && Auth::user()->address != "")
+                                    {{ Auth::user()->address }} @else <span class="font-italic text-danger"> No address yet </span> @endif
+                                </h6>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="mobile">Mobile</label>
-                    <input type="text" name="mobile" id="mobile" value="{{Auth::user()->mobile}}" class="form-control">
+            </div>
+        </div>
+        <br>
+        <div class="card shadow" style="font-size: 13px">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-6 ">
+                        <h6 class="m-0 font-weight-bold">Contact Information</h6>
+                    </div>
+                    <div class="col-6">
+                        <a href="/update-contact-infor" class="float-right m-0"><i class="fa fa-edit" style="font-size: 20px"></i></a>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="text" name="email" id="email" value="{{Auth::user()->email}}" class="form-control">
+            </div>
+            <div class="card-body ">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <h6 class="font-weight-bold m-0">Mobile Number</h6><br>
+                                <h6 class="font-weight-bold m-0">Email Address</h6>
+                            </div>
+                            <div class="col-md-7">
+                                <h6 class="m-0">{{ Auth::user()->mobile }}</h6><br>
+                                <h6 class="m-0">
+                                    {{Auth::user()->email}}
+                                </h6>
+                                
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="city">City</label>
-                    <input type="text" name="city" id="city" placeholder="Enter City" value="{{Auth::user()->city}}" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="state">State</label>
-                    <input type="text" name="state" id="state" placeholder="Enter State" value="{{Auth::user()->state}}" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="country">Country</label>
-                    <input type="text" name="country" id="country" placeholder="Enter Country" value="{{Auth::user()->country}}" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="address">Address</label>
-                    <input type="text" name="address" id="address" placeholder="Enter Address" value="{{Auth::user()->address}}" class="form-control">
-                </div>
-                <input type="hidden" name="idUser" id="idUser" value="{{Auth::id()}}">
-                <button class="btn btn-success update-profile">Update Profile</button>
             </div>
         </div>
     @endsection

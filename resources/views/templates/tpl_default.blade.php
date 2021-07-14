@@ -10,6 +10,7 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
 <head>
     <meta charset="UTF-8">
     <title>Tiêu đề trang</title>
+
 </head>
 
 <body>
@@ -18,6 +19,8 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
     <div class="container">
         <div class="row">
             <article class="col-sm-9 pl-0 mt-2">
+                @yield('edit-contact-infor')
+                @yield('edit-basic-infor')
                 @yield('profile')
                 @yield('branch-detail')
                 @yield('orders')
@@ -85,14 +88,16 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
         </div>
     </div>
     @include('includes.footer')
+
     <!-- Scripts -->
-   
     <script src="{{ asset('js/sweetalert2.js') }}" defer></script>
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}" defer></script>
     <script src="{{ asset('js/jquery-3.5.1.slim.min.js') }}" defer></script>
     <script src="{{ asset('js/jquery-3.6.0.min.js') }}" defer></script>
     <script src="{{ asset('js/owl.carousel.min.js') }}" defer></script>
     <script src="{{ asset('js/custom.js') }}" defer></script>
+    
+  
 </body>
 
 </html>

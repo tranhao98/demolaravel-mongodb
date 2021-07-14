@@ -31,10 +31,14 @@ class LoginController extends Controller
 
     protected function authenticated()
     {
+        
+
         if (Auth::user()->role_as == '1') {
             return redirect('/admin')->with('status', 'Welcome to your Admin!');
-        } else {
+        } elseif(Auth::user()->role_as == '0' && Auth::user()->status == '1') {
             return redirect('/home')->with('status', 'Logged in successfully!');
+        }elseif(Auth::user()->status == '0'){
+            return redirect('/home')->with('notactive', 'Your account is not activated yet! Please confirm your email to activate!');
         }
     }
 

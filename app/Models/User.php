@@ -29,6 +29,8 @@ class User extends Eloquent implements Authenticatable
         'role_as',
         'address',
         'city',
+        'gender',
+        'birthdate',
         'state',
         'country',
         'status',

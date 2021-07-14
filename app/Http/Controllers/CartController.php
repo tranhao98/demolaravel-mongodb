@@ -51,14 +51,10 @@ class CartController extends Controller
         if ($quantity <= 0 || $quantity == "") {
             return response()->json(['status' => "Quantity is required"]);
         } else {
-            if (Auth::check()) {
-                if (Cart::where('idProd', $prod_id)->where('idUser', Auth::id())->exists()) {
-                    $cartItem = Cart::where('idProd', $prod_id)->where('idUser', Auth::id())->first();
-                    $cartItem['qtyProd'] = $quantity;
-                    $cartItem->save();
-                }
-            } else {
-                return response()->json(['status' => "plsLogin"]);
+            if (Cart::where('idProd', $prod_id)->where('idUser', Auth::id())->exists()) {
+                $cartItem = Cart::where('idProd', $prod_id)->where('idUser', Auth::id())->first();
+                $cartItem['qtyProd'] = $quantity;
+                $cartItem->save();
             }
         }
     }

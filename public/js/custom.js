@@ -1,4 +1,5 @@
 $(document).ready(function() {
+
     //Add product to cart
     $('.addToCartBtn').click(function(e) {
         e.preventDefault();
@@ -37,6 +38,7 @@ $(document).ready(function() {
         });
 
     });
+
     //Button increment and decrement quantity in cart
     $('.increment-btn').click(function(e) {
         e.preventDefault();
@@ -59,6 +61,7 @@ $(document).ready(function() {
             $(this).closest('.product_data').find('.qty-input').val(value);
         }
     });
+
     // Change while type quantity in cart
     $('.qty-input').on('change', function() {
         var prod_id = $(this).closest('.product_data').find('.idProd').val();
@@ -77,24 +80,17 @@ $(document).ready(function() {
                 'quantity': quantity,
             },
             success: function(response) {
-                setTimeout(function() { location.reload(); }, 1500);
+                setTimeout(function() { location.reload(); }, 100);
                 if (response.status == "Quantity is required") {
                     Swal.fire({
                         icon: 'error',
                         title: response.status
                     })
-                    setTimeout(function() { location.reload(); }, 1500);
-                }
-                if (response.status == "plsLogin") {
-                    Swal.fire({
-                        icon: 'warning',
-                        title: 'Login to Continue'
-                    })
-                    setTimeout(function() { location.reload(); }, 1500);
                 }
             }
         });
     });
+
     // Delete Cart
     $('.delete-cart-item').click(function(e) {
         e.preventDefault();
@@ -132,6 +128,7 @@ $(document).ready(function() {
             }
         })
     });
+
     //Update Cart
     $('.changeQty').click(function(e) {
         e.preventDefault();
@@ -155,6 +152,7 @@ $(document).ready(function() {
             }
         });
     });
+
     // Checkout
     $('.place-order').click(function(e) {
         e.preventDefault();
@@ -209,7 +207,8 @@ $(document).ready(function() {
             }
         });
     });
-    // Change Order Status
+
+    // Change Order Status in ADMIN
     $('.update-status').click(function(e) {
         e.preventDefault();
         var status = $('#val-status').val();
@@ -239,7 +238,8 @@ $(document).ready(function() {
             }
         });
     });
-    //Change Coupon Status
+
+    //Change Coupon Status in ADMIN
     $('.update-coupon-status').click(function(e) {
         e.preventDefault();
         var couponStatus = $(this).children("i").attr("status");
@@ -269,7 +269,8 @@ $(document).ready(function() {
             }
         });
     });
-    // Show or Hide Coupon Code
+
+    // Show or Hide Coupon Code in ADMIN
     $('#ManualCoupon').click(function() {
 
         $('#couponField').show();
@@ -278,7 +279,8 @@ $(document).ready(function() {
 
         $('#couponField').hide();
     });
-    // Delete Coupon
+
+    // Delete Coupon in ADMIN
     $('.delete-coupon').click(function(e) {
         e.preventDefault();
         Swal.fire({
@@ -316,6 +318,7 @@ $(document).ready(function() {
         })
 
     });
+
     // Apply Coupon Code
     $('#applyCoupon').submit(function(e) {
         e.preventDefault();
@@ -357,9 +360,10 @@ $(document).ready(function() {
             }
         });
     });
+
+    // Change Coupon code
     $('#changeCoupon').submit(function(e) {
         e.preventDefault();
-        // alert('hello');
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -393,11 +397,44 @@ $(document).ready(function() {
             }
         })
     });
-    $('.update-profile').click(function(e) {
+
+    //Change User Status in ADMIN
+    $('.update-user-status').click(function(e) {
+        e.preventDefault();
+        var userStatus = $(this).children("i").attr("status");
+        var idUser = $(this).closest('.user_data').find('.idUser').val();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            method: "POST",
+            url: "update-user-status",
+            data: {
+                'status': userStatus,
+                'idUser': idUser
+            },
+            success: function(response) {
+                Swal.fire({
+                    icon: 'success',
+                    position: 'top-end',
+                    title: response.status,
+                    showConfirmButton: false,
+                    timer: 1000
+                })
+                setTimeout(function() { window.location.reload(); }, 1000);
+            }
+        });
+    });
+
+    // Update Basic Information
+    $('.update-basic-infor').click(function(e) {
         e.preventDefault();
         var name = $('#name').val();
-        var mobile = $('#mobile').val();
-        var email = $('#email').val();
+        var gender = $('#gender').val();
+        var birthdate = $('#birthdate').val();
         var city = $('#city').val();
         var state = $('#state').val();
         var country = $('#country').val();
@@ -410,11 +447,11 @@ $(document).ready(function() {
         });
         $.ajax({
             method: "POST",
-            url: "update-profile",
+            url: "update-basic",
             data: {
                 name: name,
-                mobile: mobile,
-                email: email,
+                gender: gender,
+                birthdate: birthdate,
                 city: city,
                 state: state,
                 country: country,
@@ -422,6 +459,7 @@ $(document).ready(function() {
                 idUser: idUser,
             },
             success: function(response) {
+
                 Swal.fire({
                     icon: 'error',
                     title: response.status
@@ -432,7 +470,7 @@ $(document).ready(function() {
                         text: 'Your profile has been successfully updated!',
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            location.reload();
+                            window.location.href = "/my-profile";
                         }
                     });
                 }
@@ -440,6 +478,46 @@ $(document).ready(function() {
         });
 
     });
+
+    // Update Contact Information
+    $('.update-contact-infor').click(function(e) {
+        e.preventDefault();
+        var mobile = $('#mobile').val();
+        var idUser = $('#idUser').val();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            method: "POST",
+            url: "update-contact",
+            data: {
+                mobile: mobile,
+                idUser: idUser
+            },
+            success: function(response) {
+
+                Swal.fire({
+                    icon: 'error',
+                    title: response.status
+                })
+                if (response.status == "Success") {
+                    Swal.fire({
+                        icon: 'success',
+                        text: 'Your profile has been successfully updated!',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = "/my-profile";
+                        }
+                    });
+                }
+            }
+        });
+
+    });
+
+    //branch Carousel
     $('.branch-carousel').owlCarousel({
         loop: true,
         margin: 10,
@@ -457,6 +535,8 @@ $(document).ready(function() {
             }
         }
     })
+
+    //product Carousel
     $('.product-carousel').owlCarousel({
         loop: true,
         margin: 10,
@@ -472,6 +552,6 @@ $(document).ready(function() {
                 items: 3
             }
         }
-    })
+    });
 
 });

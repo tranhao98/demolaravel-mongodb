@@ -15,8 +15,8 @@ use Illuminate\Support\Facades\Auth;
 */
 
 //home
-Route::get('/','SiteNewsController@index');
-Route::get('/home','SiteNewsController@index');
+Route::get('/', 'SiteNewsController@index');
+Route::get('/home', 'SiteNewsController@index');
 //category
 Route::get('/{slugcat}.html', 'SiteNewsController@viewcategory');
 //product
@@ -30,51 +30,62 @@ Route::get('/{slug}-branch/', 'BranchController@branchDetail');
 
 
 //admin
-Route::get('/admin','AdminController@index');
+Route::get('/admin', 'AdminController@index');
+
 //Cart
 Route::post('/add-to-cart', 'CartController@addProduct');
-Route::post('/delete-cart-item','CartController@deleteProduct');
-Route::post('/update-cart-item','CartController@updateProduct');
+Route::post('/delete-cart-item', 'CartController@deleteProduct');
+Route::post('/update-cart-item', 'CartController@updateProduct');
+
 //checkout
-Route::post('/place-order','checkOutController@placeOrder');
+Route::post('/place-order', 'checkOutController@placeOrder');
+
 //apply coupon
-Route::post('/apply-coupon','checkOutController@applyCoupon');
+Route::post('/apply-coupon', 'checkOutController@applyCoupon');
+
 //change coupon
-Route::post('/change-coupon','checkOutController@changeCoupon');
+Route::post('/change-coupon', 'checkOutController@changeCoupon');
+
 //my profile
-Route::get('/my-profile','UserController@index');
-Route::post('/update-profile','UserController@updateProfile');
+Route::get('/my-profile', 'UserController@index');
+Route::get('/update-basic-infor', 'UserController@formUpdateBasicInfor');
+Route::get('/update-contact-infor', 'UserController@formUpdateContactInfor');
+Route::post('/update-basic', 'UserController@updateProfileBasic');
+Route::post('/update-contact', 'UserController@updateProfileContact');
 
 //Authenticate client
 Route::middleware(['auth'])->group(function () {
-    Route::get('/checkout','checkOutController@index');
+    Route::get('/checkout', 'checkOutController@index');
 
-    Route::get('/orders','OrdersController@index');
+    Route::get('/orders', 'OrdersController@index');
 
-    Route::get('/cart','CartController@viewcart');
+    Route::get('/cart', 'CartController@viewcart');
 });
 //Authenticate client and admin
 Route::middleware(['auth', 'isAdmin'])->group(function () {
-    Route::get('/admin','AdminController@index');
+    Route::get('/admin', 'AdminController@index');
     //Orders
-    Route::get('/admin/orders','OrdersController@ordersAdmin');
-    Route::get('/admin/{id}.html','OrdersController@ordersDetailsAdmin');
-    Route::post('/admin/update-order-status','OrdersController@updateOrderStatus');
+    Route::get('/admin/orders', 'OrdersController@ordersAdmin');
+    Route::get('/admin/{id}.html', 'OrdersController@ordersDetailsAdmin');
+    Route::post('/admin/update-order-status', 'OrdersController@updateOrderStatus');
+
     //Coupons
-    Route::get('/admin/coupons','CouponsController@coupons');
-    Route::post('/admin/update-coupon-status','CouponsController@updateCouponStatus');
-    Route::match(['get','post'],'/admin/add-edit-coupon/{id?}','CouponsController@addEditCoupon');
-    Route::post('/admin/delete-coupon','CouponsController@deleteCoupon');
-    
+    Route::get('/admin/coupons', 'CouponsController@coupons');
+    Route::post('/admin/update-coupon-status', 'CouponsController@updateCouponStatus');
+    Route::match(['get', 'post'], '/admin/add-edit-coupon/{id?}', 'CouponsController@addEditCoupon');
+    Route::post('/admin/delete-coupon', 'CouponsController@deleteCoupon');
+
+    //Users
+    Route::get('/admin/users', 'UserController@users');
+    Route::post('/admin/update-user-status', 'UserController@updateUserStatus');
 });
 
-    
+
 
 Auth::routes();
 
 Route::get('/home', 'SiteNewsController@index');
 //map
-Route::get('/{any}', function(){
+Route::get('/{any}', function () {
     return view('/map');
 })->where('any', '.*');
-

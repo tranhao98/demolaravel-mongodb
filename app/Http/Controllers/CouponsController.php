@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 
 class CouponsController extends Controller
 {
+    //CRUD Coupons in ADMIN
     public function coupons()
     {
         Session::put('page', 'coupons');

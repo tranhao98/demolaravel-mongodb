@@ -18,12 +18,17 @@
     @section('article')
         @if (Session::has('notadmin'))
             <div class="alert alert-danger" role="alert">
-                <p>{{ Session::get('notadmin') }}</p>
+                <p class="m-0">{{ Session::get('notadmin') }}</p>
+            </div>
+        @endif
+        @if (Session::has('notactive'))
+            <div class="alert alert-danger" role="alert">
+                <p class="m-0">{{ Session::get('notactive') }}</p>
             </div>
         @endif
         @if (Session::has('status'))
             <div class="alert alert-info" role="alert">
-                <p>{{ Session::get('status') }}</p>
+                <p class="m-0">{{ Session::get('status') }}</p>
             </div>
         @endif
         <section class="section-prod">

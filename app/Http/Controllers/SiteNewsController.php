@@ -38,7 +38,6 @@ class SiteNewsController extends Controller
             return redirect('/');
         }
     }
-
     public function viewcategory($slugcat)
     {
         if (Category::where('slugcat', $slugcat)->exists()) {

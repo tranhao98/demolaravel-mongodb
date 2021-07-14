@@ -73,6 +73,8 @@ class RegisterController extends Controller
             'city' => '',
             'state' => '',
             'country' => '',
+            'gender' => '',
+            'birthdate' => '',
             'address' => '',
             'status' => '1',
             'role_as'=> '0',

@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Session;
 
 class OrdersController extends Controller
 {
+    //Orders in client
     public function index()
     {
         $nsx = DB::collection('nhasanxuat');
@@ -19,7 +20,7 @@ class OrdersController extends Controller
 
         return view('orders', compact('nsx', 'orders'));
     }
-
+    //show order detail
     public function orderDetail($id)
     {
         if (infoUser::where('_id', $id)->exists()) {
@@ -34,6 +35,10 @@ class OrdersController extends Controller
             return view('orders-details', compact('ordersDetails','orderItems', 'nsx'));
         }
     }
+    //End Orders in Client
+
+
+    // Manage Orders in ADMIN
     public function ordersAdmin(){
         Session::put('page','orders');
         $orders = infoUser::all();

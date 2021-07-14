@@ -95,6 +95,19 @@
                                     </a>
                                 </li>
                             </ul>
+                            <ul class="nav nav-treeview">
+                                @if (Session::get('page') == 'users')
+                                    <?php $active = 'active'; ?>
+                                @else
+                                    <?php $active = ''; ?>
+                                @endif
+                                <li class="nav-item">
+                                    <a href="/admin/users" class="nav-link {{ $active }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Users</p>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </nav>
@@ -133,7 +146,7 @@
     <script src="{{ asset('vendor/plugins/moment/moment.min.js') }}"></script>
     <script src="{{ asset('vendor/plugins/inputmask/jquery.inputmask.min.js') }}"></script>
     <!-- date-range-picker -->
-    <script src="{{ asset('plugins/daterangepicker/daterangepicker.js') }}"></script>
+    <script src="{{ asset('vendor/plugins/daterangepicker/daterangepicker.js') }}"></script>
     <!-- Select2 -->
     <script src="{{ asset('vendor/plugins/select2/js/select2.full.min.js') }}"></script>
     <script>
