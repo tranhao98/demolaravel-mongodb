@@ -22,13 +22,13 @@ use App\Models\Cart;
                     <div class="card-body " style="font-size: 13.5px">
                         <div class="row font-weight-bold">
                             <div class="col-md-12 align-self-center">
-                                <h5>Order Details</h5>
+                                <h5  class="font-weight-bold m-0">Order Details</h5>
                             </div>
                         </div>
                         <hr style="border: 1px solid">
                         <div class="row">
                             <div class="col-md-6 align-self-center">
-                                <h6>Order Date</h6>
+                                <h6 class="m-0">Order Date</h6>
                             </div>
                             <div class="col-md-6 align-self-center">
                                 {{ date('d/m/Y', strtotime($ordersDetails['created_at'])) }}
@@ -37,7 +37,7 @@ use App\Models\Cart;
                         <hr>
                         <div class="row">
                             <div class="col-md-6 align-self-center">
-                                <h6>Order Status</h6>
+                                <h6 class="m-0">Order Status</h6>
                             </div>
                             <div class="col-md-6 align-self-center">
                                 <?php
@@ -58,7 +58,7 @@ use App\Models\Cart;
                         <hr>
                         <div class="row">
                             <div class="col-md-6 align-self-center">
-                                <h6>Order Total</h6>
+                                <h6 class="m-0">Order Total</h6>
                             </div>
                             <div class="col-md-6 align-self-center">
                                 {{ number_format($ordersDetails['grandTotal'], 0, ',', '.') }} VNĐ
@@ -67,7 +67,7 @@ use App\Models\Cart;
                         <hr>
                         <div class="row">
                             <div class="col-md-6 align-self-center">
-                                <h6>Shipping Charges</h6>
+                                <h6 class="m-0">Shipping Charges</h6>
                             </div>
                             <div class="col-md-6 align-self-center">
                                 30.000 VNĐ
@@ -76,7 +76,7 @@ use App\Models\Cart;
                         <hr>
                         <div class="row">
                             <div class="col-md-6 align-self-center">
-                                <h6>Coupon Code</h6>
+                                <h6 class="m-0">Coupon Code</h6>
                             </div>
                             <div class="col-md-6 align-self-center">
                                 {{$ordersDetails['couponCode']}}
@@ -85,7 +85,7 @@ use App\Models\Cart;
                         <hr>
                         <div class="row">
                             <div class="col-md-6 align-self-center">
-                                <h6>Coupon Amount</h6>
+                                <h6 class="m-0">Coupon Amount</h6>
                             </div>
                             <div class="col-md-6 align-self-center">
                                - {{ number_format($ordersDetails['couponAmount'], 0, ',', '.') }} VNĐ
@@ -94,7 +94,7 @@ use App\Models\Cart;
                         <hr>
                         <div class="row">
                             <div class="col-md-6 align-self-center">
-                                <h6>Payment Method</h6>
+                                <h6 class="m-0">Payment Method</h6>
                             </div>
                             <div class="col-md-6 align-self-center">
                                 COD
@@ -110,13 +110,13 @@ use App\Models\Cart;
                     <div class="card-body " style="font-size: 13.5px">
                         <div class="row font-weight-bold">
                             <div class="col-md-12 align-self-center">
-                                <h5>Delivery Address</h5>
+                                <h5 class="font-weight-bold m-0">Delivery Address</h5>
                             </div>
                         </div>
                         <hr style="border: 1px solid">
                         <div class="row">
                             <div class="col-md-6 align-self-center">
-                                <h6>Full Name</h6>
+                                <h6 class="m-0">Full Name</h6>
                             </div>
                             <div class="col-md-6 align-self-center">
                                 {{ $ordersDetails['fullname'] }}
@@ -125,7 +125,7 @@ use App\Models\Cart;
                         <hr>
                         <div class="row">
                             <div class="col-md-6 align-self-center">
-                                <h6>Email</h6>
+                                <h6 class="m-0">Email</h6>
                             </div>
                             <div class="col-md-6 align-self-center">
                                 {{ $ordersDetails['email'] }}
@@ -134,7 +134,7 @@ use App\Models\Cart;
                         <hr>
                         <div class="row">
                             <div class="col-md-6 align-self-center">
-                                <h6>Mobile</h6>
+                                <h6 class="m-0">Mobile</h6>
                             </div>
                             <div class="col-md-6 align-self-center">
                                 {{ $ordersDetails['phone'] }}
@@ -143,7 +143,7 @@ use App\Models\Cart;
                         <hr>
                         <div class="row">
                             <div class="col-md-6 align-self-center">
-                                <h6>City</h6>
+                                <h6 class="m-0">City</h6>
                             </div>
                             <div class="col-md-6 align-self-center">
                                 {{ $ordersDetails['city'] }}
@@ -152,7 +152,7 @@ use App\Models\Cart;
                         <hr>
                         <div class="row">
                             <div class="col-md-6 align-self-center">
-                                <h6>State</h6>
+                                <h6 class="m-0">State</h6>
                             </div>
                             <div class="col-md-6 align-self-center">
                                 {{ $ordersDetails['state'] }}
@@ -161,7 +161,7 @@ use App\Models\Cart;
                         <hr>
                         <div class="row">
                             <div class="col-md-6 align-self-center">
-                                <h6>Country</h6>
+                                <h6 class="m-0">Country</h6>
                             </div>
                             <div class="col-md-6 align-self-center">
                                 {{ $ordersDetails['country'] }}
@@ -170,7 +170,7 @@ use App\Models\Cart;
                         <hr>
                         <div class="row">
                             <div class="col-md-6 align-self-center">
-                                <h6>Full Address</h6>
+                                <h6 class="m-0">Full Address</h6>
                             </div>
                             <div class="col-md-6 align-self-center">
                                 {{ $ordersDetails['fullAdd'] }}
@@ -183,7 +183,7 @@ use App\Models\Cart;
         </div>
 
         <div class="card shadow mt-3" style="font-size: 15px">
-            <div class="card-body ">
+            <div class="card-header">
                 <div class="row font-weight-bold">
                     <div class="col-md-4 align-self-center">
                         Image
@@ -195,12 +195,13 @@ use App\Models\Cart;
                         Quantity
                     </div>
                 </div>
-                <hr>
+            </div>
+            <div class="card-body ">
                 @php $subtotal = 0; @endphp
                 @foreach ($orderItems as $item)
                     <div class="row product_data">
                         <div class="col-md-4 align-self-center">
-                            <img src="images/{{ $item->products['urlHinh'] }}" height="70px" width="70px" alt="">
+                            <img src="../images/{{ $item->products['urlHinh'] }}" height="70px" width="70px" alt="">
                         </div>
                         <div class="col-md-4 align-self-center">
                             {{ $item->products['tenDT'] }}

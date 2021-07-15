@@ -11,7 +11,6 @@
 
     </style>
 </head>
-
 <body>
     @extends('templates.tpl_default')
 

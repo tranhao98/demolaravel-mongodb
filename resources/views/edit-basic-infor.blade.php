@@ -43,8 +43,10 @@ use Illuminate\Support\Facades\Auth;
                     @if (isset(Auth::user()->birthdate) && Auth::user()->birthdate != "")
                         <input type="text" value="{{ $formatBirthdate }}" name="birthdate" placeholder="dd-mm-yyyy" id="birthdate"
                             class="form-control">
+                            <small>(Example: 31-12-2020)</small>
                     @else
                         <input type="text" class="form-control" name="birthdate" placeholder="dd-mm-yyyy" id="birthdate" required>
+                        <small>(Example: 31-12-2020)</small>
                     @endif
                 </div>
                 <div class="form-group">

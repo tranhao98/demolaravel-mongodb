@@ -14,7 +14,6 @@ export default {
         MglMap
     },
     data() {
-        var instructions = document.getElementById("instructions");
         return {
             accessToken:
                 "pk.eyJ1IjoidHJhbmhhbyIsImEiOiJja3F1aDMxdTAwNGY5MnN0Zmw4bm90OGRyIn0.DywzSVxPfox7hMGW5Kj08w", // your access token. Needed if you using Mapbox maps

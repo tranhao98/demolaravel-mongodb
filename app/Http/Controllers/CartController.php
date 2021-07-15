@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Cart;
-use App\Models\Coupons;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
 
 
 class CartController extends Controller
@@ -51,25 +51,18 @@ class CartController extends Controller
         if ($quantity <= 0 || $quantity == "") {
             return response()->json(['status' => "Quantity is required"]);
         } else {
-            if (Cart::where('idProd', $prod_id)->where('idUser', Auth::id())->exists()) {
-                $cartItem = Cart::where('idProd', $prod_id)->where('idUser', Auth::id())->first();
-                $cartItem['qtyProd'] = $quantity;
-                $cartItem->save();
-            }
+            Cart::where('idProd', $prod_id)->update(['qtyProd' => $quantity]);
+            $cartItems = Cart::where('idUser', Auth::id())->get();
+            return response()->json(['view' => (string)View::make('includes.products-cart-items')->with(compact('cartItems'))]);
         }
     }
-
     public function deleteProduct(Request $request)
     {
-        if (Auth::check()) {
-            $prod_id = $request->input('prod_id');
-            if (Cart::where('idProd', $prod_id)->where('idUser', Auth::id())->exists()) {
-                $cartItem = Cart::where('idProd', $prod_id)->where('idUser', Auth::id())->first();
-                $cartItem->delete();
-                return response()->json(['status' => "Product Deleted Successfully"]);
-            }
-        } else {
-            return response()->json(['status' => "Login to Continue"]);
+        $prod_id = $request->input('prod_id');
+        if (Cart::where('idProd', $prod_id)->where('idUser', Auth::id())->exists()) {
+            $cartItem = Cart::where('idProd', $prod_id)->where('idUser', Auth::id())->first();
+            $cartItem->delete();
+            return response()->json(['status' => "Product Deleted Successfully"]);
         }
     }
 }

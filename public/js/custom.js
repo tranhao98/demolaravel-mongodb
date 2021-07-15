@@ -27,7 +27,7 @@ $(document).ready(function() {
                     showConfirmButton: false,
                     timer: 1500
                 })
-                setTimeout(function() { location.reload(); }, 800);
+                setTimeout(function() { window.location.reload(); }, 800);
                 if (response.status == "plsLogin") {
                     Swal.fire({
                         icon: 'warning',
@@ -39,61 +39,8 @@ $(document).ready(function() {
 
     });
 
-    //Button increment and decrement quantity in cart
-    $('.increment-btn').click(function(e) {
-        e.preventDefault();
-        var inc_value = $(this).closest('.product_data').find('.qty-input').val();
-        var value = parseInt(inc_value, 10);
-        value = isNaN(value) ? 0 : value;
-        if (value < 10) {
-            value++;
-            $(this).closest('.product_data').find('.qty-input').val(value);
-        }
-    });
-    $('.decrement-btn').click(function(e) {
-        e.preventDefault();
-
-        var dec_value = $(this).closest('.product_data').find('.qty-input').val();
-        var value = parseInt(dec_value, 10);
-        value = isNaN(value) ? 0 : value;
-        if (value > 1) {
-            value--;
-            $(this).closest('.product_data').find('.qty-input').val(value);
-        }
-    });
-
-    // Change while type quantity in cart
-    $('.qty-input').on('change', function() {
-        var prod_id = $(this).closest('.product_data').find('.idProd').val();
-        var quantity = $(this).closest('.product_data').find('.qty-input').val();
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        $.ajax({
-            method: "POST",
-            url: "update-cart-item",
-            data: {
-                'prod_id': prod_id,
-                'quantity': quantity,
-            },
-            success: function(response) {
-                setTimeout(function() { location.reload(); }, 100);
-                if (response.status == "Quantity is required") {
-                    Swal.fire({
-                        icon: 'error',
-                        title: response.status
-                    })
-                }
-            }
-        });
-    });
-
     // Delete Cart
-    $('.delete-cart-item').click(function(e) {
-        e.preventDefault();
+    $(document).on('click', '.delete-cart-item', function() {
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -122,19 +69,55 @@ $(document).ready(function() {
                             'Product has been deleted.',
                             'success'
                         )
-                        setTimeout(function() { location.reload(); }, 1700);
+                        setTimeout(function() { window.location.reload(); }, 1700);
                     }
                 });
             }
         })
     });
 
-    //Update Cart
-    $('.changeQty').click(function(e) {
+    //Button increment and decrement quantity product
+    $('.increment-btn').click(function(e) {
         e.preventDefault();
-        var prod_id = $(this).closest('.product_data').find('.idProd').val();
-        var quantity = $(this).closest('.product_data').find('.qty-input').val();
+        var inc_value = $(this).closest('.product_data').find('.qty-input').val();
+        var value = parseInt(inc_value, 10);
+        value = isNaN(value) ? 0 : value;
+        if (value < 10) {
+            value++;
+            $(this).closest('.product_data').find('.qty-input').val(value);
+        }
+    });
+    $('.decrement-btn').click(function(e) {
+        e.preventDefault();
 
+        var dec_value = $(this).closest('.product_data').find('.qty-input').val();
+        var value = parseInt(dec_value, 10);
+        value = isNaN(value) ? 0 : value;
+        if (value > 1) {
+            value--;
+            $(this).closest('.product_data').find('.qty-input').val(value);
+        }
+    });
+
+    //Update Cart
+    $(document).on('click', '.changeQty', function() {
+        if ($(this).hasClass('decrement-btn')) {
+            var quantity = $(this).closest('.product_data').find('.qty-input').val();
+            if (quantity <= 1) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Item quantity must be 1 or greater!',
+                })
+                return false;
+            } else {
+                new_qty = parseInt(quantity) - 1;
+            }
+        }
+        if ($(this).hasClass('increment-btn')) {
+            var quantity = $(this).closest('.product_data').find('.qty-input').val();
+            new_qty = parseInt(quantity) + 1;
+        }
+        var prod_id = $(this).closest('.product_data').find('.idProd').val();
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -145,10 +128,17 @@ $(document).ready(function() {
             url: "update-cart-item",
             data: {
                 'prod_id': prod_id,
-                'quantity': quantity,
+                'quantity': new_qty,
             },
             success: function(response) {
-                setTimeout(function() { location.reload(); }, 100);
+                $("#AppendCartItems").html(response.view);
+                if (response.status == "Quantity is required") {
+                    Swal.fire({
+                        icon: 'error',
+                        title: response.status,
+                        showConfirmButton: false,
+                    })
+                }
             }
         });
     });
@@ -201,8 +191,12 @@ $(document).ready(function() {
                         'Your order has been successfully placed!',
                         'Please check your order at Orders.',
                         'success'
-                    )
-                    setTimeout(function() { window.location.href = "/home"; }, 3000);
+                    ).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = "/home";
+                        }
+                    });
+
                 }
             }
         });
@@ -311,7 +305,7 @@ $(document).ready(function() {
                             'Coupon has been deleted.',
                             'success'
                         )
-                        setTimeout(function() { location.reload(); }, 1700);
+                        setTimeout(function() { window.location.reload(); }, 1700);
                     }
                 });
             }
@@ -341,7 +335,7 @@ $(document).ready(function() {
                     text: response.message,
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        location.reload();
+                        window.location.reload();
                     }
                 });
                 if (response.status == "1") {
@@ -350,7 +344,7 @@ $(document).ready(function() {
                         text: 'Coupon code successfully applied. You are availing discount!',
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            location.reload();
+                            window.location.reload();
                         }
                     });
                 }
@@ -389,7 +383,7 @@ $(document).ready(function() {
                             'success'
                         ).then((result) => {
                             if (result.isConfirmed) {
-                                location.reload();
+                                window.location.reload();
                             }
                         });
                     }
@@ -523,6 +517,9 @@ $(document).ready(function() {
         margin: 10,
         nav: true,
         dots: false,
+        autoplay: true,
+        autoplayTimeout: 1200,
+        autoplayHoverPause: true,
         responsive: {
             0: {
                 items: 1
@@ -541,6 +538,10 @@ $(document).ready(function() {
         loop: true,
         margin: 10,
         nav: true,
+        dots: false,
+        autoplay: true,
+        autoplayTimeout: 1500,
+        autoplayHoverPause: true,
         responsive: {
             0: {
                 items: 1
@@ -553,5 +554,7 @@ $(document).ready(function() {
             }
         }
     });
-
+    $(window).on("load", function() {
+        $(".loader-wrapper").fadeOut("slow");
+    })
 });
