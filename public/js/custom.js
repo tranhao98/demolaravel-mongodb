@@ -1,3 +1,6 @@
+$(window).on("load", function() {
+    $(".loader-wrapper").fadeOut("slow");
+})
 $(document).ready(function() {
 
     //Add product to cart
@@ -27,12 +30,16 @@ $(document).ready(function() {
                     showConfirmButton: false,
                     timer: 1500
                 })
-                setTimeout(function() { window.location.reload(); }, 800);
+                setTimeout(function() { window.location.reload(); }, 1500);
                 if (response.status == "plsLogin") {
                     Swal.fire({
                         icon: 'warning',
                         title: 'Login to Continue'
-                    })
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = "/login";
+                        }
+                    });
                 }
             }
         });
@@ -68,8 +75,11 @@ $(document).ready(function() {
                             'Deleted!',
                             'Product has been deleted.',
                             'success'
-                        )
-                        setTimeout(function() { window.location.reload(); }, 1700);
+                        ).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.reload();
+                            }
+                        });
                     }
                 });
             }
@@ -550,11 +560,8 @@ $(document).ready(function() {
                 items: 3
             },
             1000: {
-                items: 3
+                items: 2
             }
         }
     });
-    $(window).on("load", function() {
-        $(".loader-wrapper").fadeOut("slow");
-    })
 });

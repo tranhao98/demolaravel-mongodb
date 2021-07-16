@@ -16,28 +16,17 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
     @extends('layouts.app')
     @section('content')
         @include('includes.header')
-        <div class="container">
-            <div class="row">
-                <article class="col-sm-9 pl-0 mt-2">
-                    @yield('edit-contact-infor')
-                    @yield('edit-basic-infor')
-                    @yield('profile')
-                    @yield('branch-detail')
-                    @yield('orders')
-                    @yield('cart')
-                    @yield('articlecat')
-                    @yield('product-detail')
-                    @yield('article')
-                    @yield('orders-detail')
-                </article>
-                <aside class="col-sm-3 pr-0 mt-1">
+
+        @yield('edit-contact-infor')
+        @yield('edit-basic-infor')
+        @yield('profile')
+        @yield('branch-detail')
+        @yield('cart')
+        @yield('articlecat')
+        @yield('product-detail')
+        @yield('article')
+        {{-- <aside class="col-sm-3 pr-0 mt-1">
                     <div class="cart">
-                        <div class="card">
-                            <div class="card-body">
-                                <a class="btn btn-info w-100" href="../map"><i class="fa fa-map-marker"
-                                        style="font-size:20px"></i> View map</a>
-                            </div>
-                        </div>
                         <div class="card mt-3">
                             <div class="card-body">
                                 @if (infoUser::where('idUser', Auth::id())->count() > 0)
@@ -74,23 +63,11 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
                                 </form>
                             </div>
                         </div>
-                        <ul class="list-group mt-3">
-                            <li class="list-group-item bg-secondary"> <strong class="text-light">Category</strong></li>
-                            @foreach ($nsx as $row)
-                                <li class="list-group-item"><a
-                                        href="{{ $row['slugcat'] }}.html">{{ $row['tenNSX'] }}</a>
-                                </li>
-                            @endforeach
-
-                        </ul>
                     </div>
-                </aside>
-            </div>
-        </div>
+                </aside> --}}
+
         @include('includes.footer')
     @endsection
-    <script src="https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js"></script>
-    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.js"></script>
 </body>
 
 </html>

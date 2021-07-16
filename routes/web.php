@@ -24,7 +24,7 @@ Route::get('/{slug}.html', 'SiteNewsController@viewcategory');
 //product by category
 Route::get('/{slugcat}/{slug}.html', 'SiteNewsController@productview');
 //order
-Route::get('/{id}-order/', 'OrdersController@orderDetail');
+Route::get('/my-profile/order-{id}/', 'OrdersController@orderDetail');
 //branch
 Route::get('/{slug}-branch/', 'BranchController@branchDetail');
 
@@ -47,17 +47,18 @@ Route::post('/apply-coupon', 'checkOutController@applyCoupon');
 Route::post('/change-coupon', 'checkOutController@changeCoupon');
 
 //my profile
-Route::get('/my-profile', 'UserController@index');
+Route::get('/my-profile', 'UserController@showProfile');
 Route::get('/update-basic-infor', 'UserController@formUpdateBasicInfor');
 Route::get('/update-contact-infor', 'UserController@formUpdateContactInfor');
 Route::post('/update-basic', 'UserController@updateProfileBasic');
 Route::post('/update-contact', 'UserController@updateProfileContact');
+Route::get('/my-profile/profile','UserController@showProfile');
 
 //Authenticate client
 Route::middleware(['auth'])->group(function () {
     Route::get('/checkout', 'checkOutController@index');
 
-    Route::get('/orders', 'OrdersController@index');
+    Route::get('/my-profile/orders', 'OrdersController@index');
 
     Route::get('/cart', 'CartController@viewcart');
 });
@@ -86,6 +87,9 @@ Auth::routes();
 
 Route::get('/home', 'SiteNewsController@index');
 //map
-Route::get('/{any}', function () {
+Route::get('/map', function () {
     return view('/map');
-})->where('any', '.*');
+});
+Route::get('/storelocator', function () {
+    return view('/map');
+});

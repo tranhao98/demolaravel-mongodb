@@ -1,3 +1,8 @@
+<?php
+use App\Models\Cart;
+use App\Models\Category;
+$nsx = Category::all();
+?>
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
@@ -30,8 +35,11 @@
 </head>
 
 <body style="font-family: 'Nunito">
+    <div class="loader-wrapper">
+        <span class="loader"><span class="loader-inner"></span></span>
+    </div>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light bg-dark shadow-sm">
             <div class="container">
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -42,27 +50,38 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                        <li class="nav-item">
+                            <a class="navbar-brand" href="/home">
+                                <h2>hphone <em>Website</em></h2>
+                            </a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="/home">Home</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                Category
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                @foreach ($nsx as $menu)
+                                    <a class="dropdown-item"
+                                        href="/{{ $menu['slugcat'] }}.html">{{ $menu['tenNSX'] }}</a>
+                                @endforeach
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/map">Maps</a>
+                        </li>
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/admin">{{ __('Admin') }}</a>
-                                </li>
-                            @endif
-                            @if (Route::has('login'))
-                                <li class="nav-item">
                                     <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
-
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif
                         @else
@@ -73,8 +92,9 @@
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="/my-profile">My profile</a>
-                                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                                    document.getElementById('logout-form').submit();">
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();
+                                                                                            document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}</a>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
@@ -90,9 +110,24 @@
             @yield('content')
         </main>
     </div>
-    <div class="loader-wrapper">
-        <span class="loader"><span class="loader-inner"></span></span>
+    @if(Cart::where('idUser', Auth::id())->count() > 0)
+    <div class="card cart border-0">
+        <div class="card-body p-0">
+            <div class="row">
+                <a class="col-sm-6 align-self-center" href="../cart"><img src="../../images/shoppingcart.gif" width="50px" alt=""></a>
+                <ul class="col-sm-6">
+                    <li>
+                        <span class="badge badge-warning">
+                            {{ Cart::where('idUser', Auth::id())->count() }} items </span>
+                    </li>
+                    <li>
+                        <a class="btn btn-link p-1" href="/cart">View</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
+    @endif
     <!-- Scripts -->
     <script src="{{ asset('js/sweetalert2.js') }}" defer></script>
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}" defer></script>

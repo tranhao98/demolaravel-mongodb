@@ -13,7 +13,7 @@
                     <div class="card-header">{{ __('Login') }}</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('login') }}">
+                        <form method="POST" class="mb-5" action="{{ route('login') }}">
                             @csrf
 
                             <div class="form-group row mb-3">
@@ -75,7 +75,12 @@
                                     @endif
                                 </div>
                             </div>
+
                         </form>
+                        <div class="separator">New around here?</div>
+                        <div class="button text-center mt-2">
+                            <a href="{{ route('register') }}" class="btn btn-secondary text-center w-75"> Create your account</a>
+                        </div>
                     </div>
                 </div>
             </div>

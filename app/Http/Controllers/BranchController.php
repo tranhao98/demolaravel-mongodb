@@ -11,11 +11,9 @@ class BranchController extends Controller
 {
     public function branchDetail($slugbranch){
         if (Branch::where('slug', $slugbranch)->exists()) {
-            $nsx = DB::collection('nhasanxuat');
-            $nsx = $nsx->get();
             $branch = Branch::where('slug', $slugbranch)->first();
             $products = Product::all();
-            return view('/branch-details', compact('branch','products', 'nsx'));
+            return view('/branch-details', compact('branch','products'));
         }
     }
 }

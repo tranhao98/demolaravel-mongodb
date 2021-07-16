@@ -15,22 +15,18 @@ class SiteNewsController extends Controller
 
     public function index()
     {
-        $nsx = DB::collection('nhasanxuat');
-        $nsx = $nsx->get();
         $dt = DB::collection('dienthoai');
         $dt = $dt->paginate(6);
         $branch = Branch::all();
-        return view('/home', compact('nsx', 'dt','branch'));
+        return view('/home', compact( 'dt','branch'));
     }
 
     public function productview($slugcat, $slug)
     {
         if (Category::where('slugcat', $slugcat)->exists()) {
             if (Product::where('slug', $slug)->exists()) {
-                $nsx = DB::collection('nhasanxuat');
-                $nsx = $nsx->get();
                 $products = Product::where('slug', $slug)->first();
-                return view('/product-detail', compact('products', 'nsx'));
+                return view('/product-detail', compact('products'));
             } else {
                 return redirect('/');
             }
@@ -40,18 +36,14 @@ class SiteNewsController extends Controller
     }
     public function viewcategory($slugcat)
     {
-        if (Category::where('slugcat', $slugcat)->exists()) {
-            $nsx = DB::collection('nhasanxuat');
-            $nsx = $nsx->get();
+        if (Category::where('slugcat', $slugcat)->exists()){
             $category = Category::where('slugcat', $slugcat)->first();
             $products = DB::collection('dienthoai');
             $products = $products->get()->where('idNSX', $category['_id']);
-            return view('/productbycat', compact('category', 'products', 'nsx'));
+            return view('/productbycat', compact('category', 'products'));
         } else {
-            $nsx = DB::collection('nhasanxuat');
-            $nsx = $nsx->get();
             $products = Product::where('slug', $slugcat)->first();
-            return view('/product-detail', compact('products', 'nsx'));
+            return view('/product-detail', compact('products'));
         }
     }
 }

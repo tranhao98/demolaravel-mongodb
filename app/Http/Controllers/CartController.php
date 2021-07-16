@@ -38,11 +38,9 @@ class CartController extends Controller
     }
     public function viewcart()
     {
-        $nsx = DB::collection('nhasanxuat');
-        $nsx = $nsx->get();
         $cartItems = Cart::where('idUser', Auth::id())->get();
 
-        return view('cart', compact('cartItems', 'nsx'));
+        return view('cart', compact('cartItems'));
     }
     public function updateProduct(Request $request)
     {

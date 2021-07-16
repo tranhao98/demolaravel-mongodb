@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\Branch;
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
@@ -33,17 +34,17 @@ class LoginController extends Controller
 
     protected function authenticated()
     {
-        $nsx = DB::collection('nhasanxuat');
-        $nsx = $nsx->get();
         $dt = DB::collection('dienthoai');
         $dt = $dt->paginate(6);
         $branch = Branch::all();
         if (Auth::user()->role_as == '1') {
             return redirect('/admin')->with('status', 'Welcome to your Admin!');
         } elseif (Auth::user()->role_as == '0' && Auth::user()->status == '1') {
-            return view('/home', compact('nsx', 'dt', 'branch'))->with('status', 'Logged in successfully!');
+            Session::flash('status','Logged in successfully!');
+            return view('/home', compact('dt', 'branch'));
         } elseif (Auth::user()->status == '0') {
-            return view('/home', compact('nsx', 'dt', 'branch'))->with('notactive', 'Your account is not activated yet! Please confirm your email to activate!');
+            Session::flash('notactive','Your account is not activated yet! Please confirm your email to activate!');
+            return view('/home', compact('dt', 'branch'));
         }
     }
 

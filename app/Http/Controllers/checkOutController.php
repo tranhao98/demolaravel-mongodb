@@ -15,12 +15,10 @@ class checkOutController extends Controller
 {
     public function index()
     {
-        $nsx = DB::collection('nhasanxuat');
-        $nsx = $nsx->get();
         $cartItems = Cart::where('idUser', Auth::id())->get();
 
 
-        return view('checkout', compact('nsx', 'cartItems'));
+        return view('checkout', compact( 'cartItems'));
     }
 
     public function placeOrder(Request $request)

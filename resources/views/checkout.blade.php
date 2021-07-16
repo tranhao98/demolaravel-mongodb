@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Auth;
 <head>
     <meta charset="UTF-8">
     <title>Checkout</title>
-
 </head>
 
 <body>
@@ -18,10 +17,10 @@ use Illuminate\Support\Facades\Auth;
         @include('includes.header')
         <div class="container">
             <form>
-                <div class="row mt-2 mb-2 ">
-                    <div class="col-12 text-center">
-                        <h2 class="font-weight-bold m-0">Fill Billing Address</h2>
-                    </div>
+
+                <div class="mt-4 mb-4 text-center">
+                    <h2 class="font-weight-bold text-uppercase">Fill Billing Address</h2>
+                    <img src="images/line-dec.png" alt="">
                 </div>
                 <div class="row">
                     <div class="col-6">
@@ -59,15 +58,15 @@ use Illuminate\Support\Facades\Auth;
                             <textarea name="fullAdd" class="form-control" id="FullAdd" cols="10" rows="5"
                                 placeholder="Enter Address"></textarea>
                         </div>
-
                     </div>
                 </div>
             </form>
-            <div class="row mt-2 mb-2">
-                <div class="col-12 text-center">
-                    <h2 class="font-weight-bold m-0">Shopping Basket</h2>
-                </div>
+
+            <div class="text-center mt-4 mb-4">
+                <h2 class="font-weight-bold m-0 text-uppercase">Shopping Basket</h2>
+                <img src="images/line-dec.png" alt="">
             </div>
+
             <div class="row">
                 <div class="col-sm-8">
                     <div class="card shadow" style="font-size: 13px">

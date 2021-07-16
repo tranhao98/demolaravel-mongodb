@@ -50,6 +50,7 @@ export default {
               coordinates: [106.691566, 10.786738],
             },
             properties: {
+              branchname: "bPhone",
               phoneFormatted: "0937.488.221",
               phone: "0937488221",
               address: "106 Pham Ngoc Thach District 3, Ho Chi Minh City",
@@ -65,6 +66,7 @@ export default {
               coordinates: [106.687279, 10.78542],
             },
             properties: {
+              branchname: "zPhone",
               phoneFormatted: "0741.226.648",
               phone: "0741226648",
               address: "87 Tran Quoc Toan, District 3, Ho Chi Minh City",
@@ -80,6 +82,7 @@ export default {
               coordinates: [106.68165, 10.796652],
             },
             properties: {
+              branchname: "kPhone",
               phoneFormatted: "0794.412.236",
               phone: "0794412236",
               address:
@@ -96,6 +99,7 @@ export default {
               coordinates: [106.692684, 10.78712734],
             },
             properties: {
+              branchname: "xPhone",
               phoneFormatted: "0902.448.662",
               phone: "0902448662",
               address: "281 Hai Ba Trung, District 3, Ho Chi Minh City",
@@ -185,6 +189,11 @@ export default {
           listing.className = "item";
 
           /* Add the link to the individual listing created above. */
+          var link = listing.appendChild(document.createElement("h2"));
+          link.className = "title";
+          link.id = "link-" + prop.id;
+          link.innerHTML = prop.branchname;
+
           var link = listing.appendChild(document.createElement("a"));
           link.href = "#";
           link.className = "title";
@@ -234,13 +243,17 @@ export default {
           .setLngLat(currentFeature.geometry.coordinates)
           .setHTML(
             "<h3>Location & Contact</h3>" +
-              "<h4>" + "<i class='fa fa-map-marker'></i> "+
+              "<h4>" +
+              currentFeature.properties.branchname +
+              "</h4>" +
+              "<h4>" +
+              "<i class='fa fa-map-marker'></i> " +
               currentFeature.properties.address +
-              "</h4>" + 
-              "<h4>" + "<i class='fa fa-phone'></i> "+
+              "</h4>" +
+              "<h4>" +
+              "<i class='fa fa-phone'></i> " +
               currentFeature.properties.phoneFormatted +
-              "</h4>" 
-
+              "</h4>"
           )
           .addTo(map);
       }

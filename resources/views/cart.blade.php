@@ -14,8 +14,14 @@ use App\Models\Cart;
     @extends('templates.tpl_default')
     @section('cart')
         @if (Cart::where('idUser', Auth::id())->count() > 0)
-            <div id="AppendCartItems">
-                @include('includes.products-cart-items')
+            <div class="container">
+                <div class="mt-4 mb-4 text-center">
+                    <h4 class="text-uppercase font-weight-bold">Shopping cart</h4>
+                    <img src="images/line-dec.png" alt="">
+                </div>
+                <div id="AppendCartItems">
+                    @include('includes.products-cart-items')
+                </div>
             </div>
         @else
             <div class="alert alert-danger p-2 text-center text-uppercase font-weight-bold">

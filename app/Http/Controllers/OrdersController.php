@@ -14,25 +14,22 @@ class OrdersController extends Controller
     //Orders in client
     public function index()
     {
-        $nsx = DB::collection('nhasanxuat');
-        $nsx = $nsx->get();
+        Session::put('infor','orderhis');
         $orders = infoUser::where('idUser', Auth::id())->get();
 
-        return view('orders', compact('nsx', 'orders'));
+        return view('information.orders', compact( 'orders'));
     }
     //show order detail
     public function orderDetail($id)
     {
         if (infoUser::where('_id', $id)->exists()) {
-            $nsx = DB::collection('nhasanxuat');
-            $nsx = $nsx->get();
 
             $ordersDetails = infoUser::where('_id', $id)->first();
 
             $orderItems = infoUser::where('_id', $id)->where('idUser', Auth::id())->get();
             // dd($orderItems); die;
 
-            return view('orders-details', compact('ordersDetails','orderItems', 'nsx'));
+            return view('information.orders-details', compact('ordersDetails','orderItems' ));
         }
     }
     //End Orders in Client

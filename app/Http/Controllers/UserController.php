@@ -3,33 +3,27 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+
 use App\Models\User;
 use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
 {   
     // Information User in Client
-    //show basic and contact information
-    public function index()
-    {
-        $nsx = DB::collection('nhasanxuat');
-        $nsx = $nsx->get();
-        return view('my-profile', compact('nsx'));
+    //show profile in My Profile
+    public function showProfile(){
+        Session::put('infor','profile');
+        return view('information.profile');
     }
     // show form edit basic information
     public function formUpdateBasicInfor()
     {
-        $nsx = DB::collection('nhasanxuat');
-        $nsx = $nsx->get();
-        return view('edit-basic-infor', compact('nsx'));
+        return view('edit-basic-infor');
     }
     //show form edit contact information
     public function formUpdateContactInfor()
     {
-        $nsx = DB::collection('nhasanxuat');
-        $nsx = $nsx->get();
-        return view('edit-contact-infor', compact('nsx'));
+        return view('edit-contact-infor');
     }
     // Update basic information
     public function updateProfileBasic(Request $request)
