@@ -8,16 +8,19 @@ use App\Models\Coupons;
 use App\Models\User;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\View;
 
 class CouponsController extends Controller
 {
-    //CRUD Coupons in ADMIN
+    // Coupons in ADMIN
     public function coupons()
     {
         Session::put('page', 'coupons');
         $coupons = Coupons::get();
         return view('admin.coupons', compact('coupons'));
     }
+
+    //Update Status Coupon
     public function updateCouponStatus(Request $request)
     {
         $status = $request->input('status');
@@ -28,8 +31,10 @@ class CouponsController extends Controller
             $updateStatus['status'] = $status;
             $updateStatus->save();
         }
-        return response()->json(['status' => "Status has been changed!"]);
+        return response()->json(['status' => "Status has been changed!",'view' => $status]);
     }
+
+    //Add, Edit Coupon
     public function addEditCoupon(Request $request, $id = null)
     {
         if ($id == '') {
@@ -81,7 +86,7 @@ class CouponsController extends Controller
             } else {
                 $coupon_code = $data['coupon_code'];
             }
-            //    echo $coupon_code; die;
+           
             $coupon->coupon_option = $data['coupon_option'];
             $coupon->coupon_code = $coupon_code;
             $coupon->users = $users;
@@ -101,12 +106,15 @@ class CouponsController extends Controller
         $users = User::select('email')->where('role_as', '0')->get();
         return view('admin.add_edit_coupon', compact('coupon', 'title', 'categories', 'users','selCats','selUsers'));
     }
+
+    //Delete Coupon
     public function deleteCoupon(Request $request){
         $idCoupon = $request->input('idCoupon');
         if (Coupons::where('_id', $idCoupon)->exists()) {
             $coupon = Coupons::where('_id', $idCoupon)->first();
             $coupon->delete();
-            return response()->json(['status' => "Coupon Deleted Successfully"]);
+            $coupons = Coupons::get();
+            return response()->json(['status' => "Coupon Deleted Successfully",'view' => (string)View::make('includes.admin.coupons-items')->with(compact('coupons'))]);
         }
     }
     

@@ -1,3 +1,3 @@
-<header class="background-image m-auto border-bottom">
+<header class="background-image border-bottom">
 
 </header>

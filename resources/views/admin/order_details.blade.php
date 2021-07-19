@@ -19,59 +19,8 @@
             <!-- Main content -->
             <div class="row">
                 <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">Order Details</h3>
-                        </div>
-                        <div class="card-body">
-                            <table class="table table-bordered">
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            Order Date
-                                        </td>
-                                        <td>
-                                            {{ date('d/m/Y', strtotime($ordersDetails['created_at'])) }}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Order Status</td>
-                                        <td><?php if ($ordersDetails['status'] == 0) {
-                                            echo "<span class='badge badge-warning'>Pending</span>";
-                                            } elseif ($ordersDetails['status'] == 1) {
-                                            echo "<span class='badge badge-danger'>Cancelled</span>";
-                                            } elseif ($ordersDetails['status'] == 2) {
-                                            echo "<span class='badge badge-primary'>Confirmed</span>";
-                                            } elseif ($ordersDetails['status'] == 3) {
-                                            echo "<span class='badge badge-info'>Delivery</span>";
-                                            } else {
-                                            echo "<span class='badge badge-success'>Completed</span>";
-                                            } ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Order Total</td>
-                                        <td>{{ number_format($ordersDetails['grandTotal'], 0, ',', '.') }} VNĐ
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Shipping Charges</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Coupon Code</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Coupon Amount</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Payment Method</td>
-                                        <td>COD</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                    <div id="AppendOrderStatus">
+                        @include('includes.admin.order-detail')
                     </div>
 
                     <div class="card">
@@ -167,47 +116,47 @@
                                             <input type="hidden" value="{{ $ordersDetails['_id'] }}" class="idOrder">
                                             <select class="form-control select2" name="order_status" id="val-status">
                                                 <?php if ($ordersDetails['status'] == 0) {
-                                                echo '<option>Select Status</option>
-                                                <option selected value="0">Pending</option>
-                                                <option value="1">Cancelled</option>
-                                                <option value="2">Confirmed</option>
-                                                <option value="3">Delivey</option>
-                                                <option value="4">Completed</option>';
+                                                    echo '<option>Select Status</option>
+                                                                                                <option selected value="0">Pending</option>
+                                                                                                <option value="1">Cancelled</option>
+                                                                                                <option value="2">Confirmed</option>
+                                                                                                <option value="3">Delivey</option>
+                                                                                                <option value="4">Completed</option>';
                                                 } elseif ($ordersDetails['status'] == 1) {
-                                                echo '<option>Select Status</option>
-                                                <option value="0">Pending</option>
-                                                <option selected value="1">Cancelled</option>
-                                                <option value="2">Confirmed</option>
-                                                <option value="3">Delivey</option>
-                                                <option value="4">Completed</option>';
+                                                    echo '<option>Select Status</option>
+                                                                                                <option value="0">Pending</option>
+                                                                                                <option selected value="1">Cancelled</option>
+                                                                                                <option value="2">Confirmed</option>
+                                                                                                <option value="3">Delivey</option>
+                                                                                                <option value="4">Completed</option>';
                                                 } elseif ($ordersDetails['status'] == 2) {
-                                                echo '<option>Select Status</option>
-                                                <option value="0">Pending</option>
-                                                <option value="1">Cancelled</option>
-                                                <option selected value="2">Confirmed</option>
-                                                <option value="3">Delivey</option>
-                                                <option value="4">Completed</option>';
+                                                    echo '<option>Select Status</option>
+                                                                                                <option value="0">Pending</option>
+                                                                                                <option value="1">Cancelled</option>
+                                                                                                <option selected value="2">Confirmed</option>
+                                                                                                <option value="3">Delivey</option>
+                                                                                                <option value="4">Completed</option>';
                                                 } elseif ($ordersDetails['status'] == 3) {
-                                                echo '<option>Select Status</option>
-                                                <option value="0">Pending</option>
-                                                <option value="1">Cancelled</option>
-                                                <option value="2">Confirmed</option>
-                                                <option selected value="3">Delivey</option>
-                                                <option value="4">Completed</option>';
+                                                    echo '<option>Select Status</option>
+                                                                                                <option value="0">Pending</option>
+                                                                                                <option value="1">Cancelled</option>
+                                                                                                <option value="2">Confirmed</option>
+                                                                                                <option selected value="3">Delivey</option>
+                                                                                                <option value="4">Completed</option>';
                                                 } elseif ($ordersDetails['status'] == 4) {
-                                                echo '<option>Select Status</option>
-                                                <option value="0">Pending</option>
-                                                <option value="1">Cancelled</option>
-                                                <option value="2">Confirmed</option>
-                                                <option value="3">Delivey</option>
-                                                <option selected value="4">Completed</option>';
+                                                    echo '<option>Select Status</option>
+                                                                                                <option value="0">Pending</option>
+                                                                                                <option value="1">Cancelled</option>
+                                                                                                <option value="2">Confirmed</option>
+                                                                                                <option value="3">Delivey</option>
+                                                                                                <option selected value="4">Completed</option>';
                                                 } else {
-                                                echo '<option selected>Select Status</option>
-                                                <option value="0">Pending</option>
-                                                <option value="1">Cancelled</option>
-                                                <option value="2">Confirmed</option>
-                                                <option value="3">Delivey</option>
-                                                <option value="4">Completed</option>';
+                                                    echo '<option selected>Select Status</option>
+                                                                                                <option value="0">Pending</option>
+                                                                                                <option value="1">Cancelled</option>
+                                                                                                <option value="2">Confirmed</option>
+                                                                                                <option value="3">Delivey</option>
+                                                                                                <option value="4">Completed</option>';
                                                 } ?>
                                             </select> <br> <br>
                                             <button type="submit"

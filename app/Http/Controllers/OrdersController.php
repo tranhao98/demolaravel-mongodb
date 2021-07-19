@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\infoUser;
 use App\Models\User;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\View;
 
 class OrdersController extends Controller
 {
@@ -60,7 +61,7 @@ class OrdersController extends Controller
         $updateStatus = infoUser::where('_id', $idOrder)->first();
         $updateStatus['status'] = $status;
         $updateStatus->save();
-
-        return response()->json(['status' => "Status has been changed!"]); 
+        $ordersDetails = infoUser::where('_id', $idOrder)->first();
+        return response()->json(['status' => "Status has been changed!",'view' => (string)View::make('includes.admin.order-detail')->with(compact('ordersDetails'))]); 
     }
 }

@@ -54,6 +54,10 @@ Route::post('/update-basic', 'UserController@updateProfileBasic');
 Route::post('/update-contact', 'UserController@updateProfileContact');
 Route::get('/my-profile/profile','UserController@showProfile');
 
+//blog
+Route::get('/blog','BlogController@index');
+Route::get('/blog/{slug}','BlogController@showPostDetail');
+
 //Authenticate client
 Route::middleware(['auth'])->group(function () {
     Route::get('/checkout', 'checkOutController@index');
@@ -67,7 +71,7 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('/admin', 'AdminController@index');
     //Orders
     Route::get('/admin/orders', 'OrdersController@ordersAdmin');
-    Route::get('/admin/{id}.html', 'OrdersController@ordersDetailsAdmin');
+    Route::get('/admin/order-detail-{id}', 'OrdersController@ordersDetailsAdmin');
     Route::post('/admin/update-order-status', 'OrdersController@updateOrderStatus');
 
     //Coupons
@@ -79,6 +83,11 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
     //Users
     Route::get('/admin/users', 'UserController@users');
     Route::post('/admin/update-user-status', 'UserController@updateUserStatus');
+
+    //Posts
+    Route::get('/admin/posts', 'BlogController@posts');
+    Route::match(['get', 'post'], '/admin/add-edit-post/{id?}', 'BlogController@addEditPost');
+    Route::post('/admin/delete-post', 'BlogController@deletePost');
 });
 
 

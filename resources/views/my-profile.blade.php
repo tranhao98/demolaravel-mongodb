@@ -12,9 +12,14 @@ use Illuminate\Support\Facades\Auth;
 <body>
     @extends('templates.tpl_default')
     @section('profile')
+    <div style="margin-top: 87px" class="py-3 mb-4 shadow-sm bg-warning border-top">
+        <div class="container">
+            <h6 class="m-0 font-weight-bold">Home / My Profile</h6>
+        </div>
+    </div>
         <div class="container">
             <div class="row">
-                <div class="col-3 mt-5">
+                <div class="col-3">
                     <div class="nav flex-column nav-pills">
                         @if (Session::get('infor') == 'profile')
                             <?php $active = 'active'; ?>
@@ -46,8 +51,10 @@ use Illuminate\Support\Facades\Auth;
 
                     </div>
                 </div>
-                <div class="col-9">
+                <div class="col-9 align-self-top">
                     <div class="tab-content">
+                        @yield('edit-contact-infor')
+                        @yield('edit-basic-infor')
                         @yield('profiles')
                         @yield('orders')
                         @yield('orders-detail')

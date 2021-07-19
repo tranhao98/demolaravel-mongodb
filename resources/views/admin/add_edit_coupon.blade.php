@@ -75,7 +75,7 @@
                                 <div class="form-group">
                                     <label for="amount">Amount</label>
                                     <input type="number" class="form-control" name="amount" id="amount"
-                                        placeholder="Enter Amount" @if(isset($coupon['amount'])) value={{$coupon['amount']}} @endif required>
+                                        placeholder="Enter Amount" @if(isset($coupon['amount'])) value={{$coupon['amount']}} @endif >
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -94,7 +94,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="categories">Select Categories</label>
-                                    <select name="categories[]" id="categories" multiple="" required
+                                    <select name="categories[]" id="categories" multiple=""
                                         class="w-100 form-control select2">
                                         <option value="">Select</option>
                                         @foreach ($categories as $cat)
@@ -115,7 +115,7 @@
                                     <label for="expiry_date">Expiry Date</label>
                                     <input type="text" class="form-control" data-inputmask-alias="datetime"
                                         data-inputmask-inputformat="dd-mm-yyyy" data-mask name="expiry_date"
-                                        id="expiry_date" placeholder="Enter Expiry Date" @if(isset($coupon['expiry_date'])) value={{$coupon['expiry_date']}} @endif required>
+                                        id="expiry_date" placeholder="Enter Expiry Date" @if(isset($coupon['expiry_date'])) value={{$coupon['expiry_date']}} @endif>
                                 </div>
                             </div>
                         </div>

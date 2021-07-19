@@ -20,7 +20,7 @@
 
 <body class="hold-transition sidebar-mini">
     <div class="wrapper" style="margin-top: -25px;">
-        @include('includes.header_admin');
+        @include('includes.header_admin')
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
@@ -108,6 +108,19 @@
                                     </a>
                                 </li>
                             </ul>
+                            <ul class="nav nav-treeview">
+                                @if (Session::get('page') == 'posts')
+                                    <?php $active = 'active'; ?>
+                                @else
+                                    <?php $active = ''; ?>
+                                @endif
+                                <li class="nav-item">
+                                    <a href="/admin/posts" class="nav-link {{ $active }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Posts</p>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </nav>
@@ -121,7 +134,7 @@
 
         <div class="content-wrapper" style="min-height: 1200px !important">
             <aside>
-
+                @yield('posts')
                 @yield('coupons')
                 @yield('ordersDetails')
                 @yield('orders')

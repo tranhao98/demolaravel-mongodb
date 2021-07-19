@@ -82,7 +82,7 @@
                                 } ?>
                             </div>
                             <div class="col-md-1 align-self-center">
-                                <a class="btn btn-link p-2" href="/admin/{{ $ord['_id'] }}.html2"><i class="fa fa-eye"
+                                <a class="btn btn-link p-2" href="/admin/order-detail-{{$ord['_id']}}"><i class="fa fa-eye"
                                         style="font-size:20px"></i></a>
                             </div>
                         </div>

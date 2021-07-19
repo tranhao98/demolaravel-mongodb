@@ -47,7 +47,7 @@
                     {{ number_format($item['qtyProd'] * $item->products['giaKM'], 0, ',', '.') }} VNĐ
                 </div>
                 <div class="col-md-2 align-self-center">
-                    <a style="cursor: pointer" class="delete-cart-item text-danger"><i class="fa fa-trash-o"
+                    <a style="cursor: pointer" class="delete-cart-item text-danger"><i class="pe-7s-trash"
                             style="font-size:30px"></i></a>
                 </div>
             </div>
@@ -56,7 +56,7 @@
         @endforeach
     </div>
 </div>
-<div class="row mb-3">
+<div class="row">
     <div class="col-md-8 mt-2 pr-0">
         <div class="card shadow" style="font-size: 14px">
             <div class="card-header">

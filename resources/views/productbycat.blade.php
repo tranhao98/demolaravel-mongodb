@@ -15,6 +15,11 @@
 <body>
     @extends('templates.tpl_default')
     @section('articlecat')
+    <div style="margin-top: 87px" class="py-3 mb-4 shadow-sm bg-warning border-top">
+        <div class="container">
+            <h6 class="m-0 font-weight-bold">Home / {{$category['tenNSX'] }}</h6>
+        </div>
+    </div>
         <div class="container">
             <div class="mt-4 mb-4 text-center">
                 <h4 class="font-weight-bold text-uppercase">{{ $category['tenNSX'] }} Category </h4>

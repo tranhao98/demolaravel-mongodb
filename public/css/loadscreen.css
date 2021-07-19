@@ -1,12 +1,3 @@
-body {
-    margin: 0;
-    padding: 0;
-    width: 100vw;
-    height: 100vh;
-    overflow-x: hidden;
-    position: relative;
-}
-
 .loader-wrapper {
     width: 100%;
     height: 100%;
@@ -17,7 +8,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 99;
+    z-index: 987987987;
+    overflow: hidden;
 }
 
 .loader {

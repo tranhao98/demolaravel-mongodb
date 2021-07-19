@@ -10,6 +10,7 @@ use App\Models\infoUser;
 use App\Models\User;
 use Illuminate\Support\Facades\Session;
 use App\Models\Coupons;
+use Illuminate\Support\Facades\View;
 
 class checkOutController extends Controller
 {
@@ -73,6 +74,8 @@ class checkOutController extends Controller
             return response()->json(['status' => "Paid"]);
         }
     }
+
+    //Apply Coupon
     public function applyCoupon(Request $request)
     {
         $code = $request->input('code');
@@ -136,10 +139,13 @@ class checkOutController extends Controller
                 Session::put('couponCode', $code);
                 Session::put('grandTotal', $grandTotal);
 
+                
                 $status = "1";
                 if (isset($status)) {
-                    return response()->json(['status' => $status]);
+                    $cartItems = Cart::where('idUser', Auth::id())->get();
+                    return response()->json(['status' => $status,'view' => (string)View::make('includes.cart-checkout')->with(compact('cartItems'))]);
                 }
+                
             }
         }
     }
@@ -148,6 +154,7 @@ class checkOutController extends Controller
         $request->session()->forget('couponCode');
         $request->session()->forget('couponAmount');
         $request->session()->forget('grandTotal');
-        return response()->json(['status' => "Remove"]);
+        $cartItems = Cart::where('idUser', Auth::id())->get();
+        return response()->json(['status' => "Remove",'view' => (string)View::make('includes.cart-checkout')->with(compact('cartItems'))]);
     }
 }

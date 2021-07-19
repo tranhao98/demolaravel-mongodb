@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Branch;
+use App\Models\Blog;
 
 class SiteNewsController extends Controller
 {
@@ -18,7 +19,8 @@ class SiteNewsController extends Controller
         $dt = DB::collection('dienthoai');
         $dt = $dt->paginate(6);
         $branch = Branch::all();
-        return view('/home', compact( 'dt','branch'));
+        $posts = Blog::orderBy('updated_at','DESC')->get();
+        return view('/home', compact( 'dt','branch','posts'));
     }
 
     public function productview($slugcat, $slug)

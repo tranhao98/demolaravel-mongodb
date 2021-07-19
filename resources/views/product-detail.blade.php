@@ -29,16 +29,21 @@
 <body>
     @extends('templates.tpl_default')
     @section('product-detail')
+    <div style="margin-top: 87px" class="py-3 mb-4 shadow-sm bg-warning border-top">
+        <div class="container">
+            <h6 class="m-0 font-weight-bold">Home / {{$products->category['tenNSX']}} / {{$products['tenDT']}}</h6>
+        </div>
+    </div>
         <div class="container">
             <div class="mt-4 mb-4 text-center">
                 <h1 class="font-weight-bold">{{ $products['tenDT'] }}</h1>
                 <img src="../images/line-dec.png" alt="">
             </div>
-            <div class="row product_data">
-                <div class="col-6 imagesDetail">
-                    <img src="../images/{{ $products['urlHinh'] }}" alt="">
+            <div class="row product_data pt-5 pb-5 shadow rounded">
+                <div class="col-md-4 align-self-center">
+                    <img src="../images/{{ $products['urlHinh'] }}" class="w-100" alt="">
                 </div>
-                <div class="col-6">
+                <div class="col-md-8 align-self-center">
                     <ul class="list-group">
                         <li class="list-group-item">Original Price:
                             <del>{{ number_format($products['gia'], 0, ',', '.') }}</del> VNĐ
@@ -47,18 +52,24 @@
                             VNĐ</li>
                         <li class="list-group-item"><span class="badge bg-success text-white p-2">In stock</span></li>
                         <li class="list-group-item">
-                            <input type="hidden" value="{{ $products['_id'] }}" class="idProd">
-                            <label for="">Quantity</label>
-                            <div class="input-group text-center mb-3" style="width:130px">
-                                <button class="input-group-text decrement-btn">-</button>
-                                <input type="text" name="quantity" class="form-control text-center qty-input" value="1">
-                                <button class="input-group-text increment-btn">+</button>
+                            <div class="row">
+                                <div class="col-md-3 align-self-center">
+                                    <input type="hidden" value="{{ $products['_id'] }}" class="idProd">
+                                    <label for="">Quantity</label>
+                                    <div class="input-group text-center" style="width:130px">
+                                        <button class="input-group-text decrement-btn">-</button>
+                                        <input type="text" name="quantity" class="form-control text-center qty-input"
+                                            value="1">
+                                        <button class="input-group-text increment-btn">+</button>
+                                    </div>
+                                </div>
+                                <div class="col-md-9 align-self-center">
+                                    <br>
+                                    <button class="btn btn-success addToCartBtn p-2 text-white"><i class="pe-7s-cart"></i> Add to cart</button>
+                                    <button class="btn btn-warning return p-2 text-white"> <a href="/home">Continue
+                                            shopping</a> </button>
+                                </div>
                             </div>
-                        </li>
-                        <li class="list-group-item">
-                            <button class="btn btn-success addToCartBtn p-2">Add to cart</button>
-                            <a href="home"> <button class="btn btn-warning return p-2 text-white">Continue
-                                    shopping</button></a>
                         </li>
                     </ul>
                 </div>

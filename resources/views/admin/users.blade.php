@@ -74,7 +74,9 @@
                                 {{ $user['name'] }}
                             </div>
                             <div class="col-md-1 align-self-center">
-                                <?= $user['gender'] == 1 ? 'Male' : 'Female' ?>
+                                @if (isset($user['gender']))
+                                    <?= $user['gender'] == 1 ? 'Male' : 'Female' ?>
+                                @endif
                             </div>
                             <div class="col-md-1 align-self-center">
                                 {{ $user['birthdate'] }}
@@ -92,7 +94,7 @@
                                 {{ $user['state'] }}
                             </div>
                             <div class="col-md-1 align-self-center">
-                                {{$user['country']}}
+                                {{ $user['country'] }}
                             </div>
                             <div class="col-md-1 align-self-center">
                                 {{ $user['address'] }}
@@ -100,11 +102,11 @@
                             <div class="col-md-1 align-self-center">
                                 <input type="hidden" value="{{ $user['_id'] }}" class="idUser">
                                 @if ($user['status'] == 1)
-                                    <a class="update-user-status" id="updateUserStatus" href="#"><i status="0"
+                                    <a class="update-user-status" id="user-{{$user['_id']}}" href="#"><i status="0"
                                             class="fa fa-toggle-on" style="font-size:14px"></i></a>
                                 @else
 
-                                    <a class="update-user-status" id="updateUserStatus" href="#"><i status="1"
+                                    <a class="update-user-status" id="user-{{$user['_id']}}" href="#"><i status="1"
                                             class="fa fa-toggle-off" style="font-size:14px"></i></a>
                                 @endif
                             </div>

@@ -1,6 +1,7 @@
 <?php
 use App\Models\Cart;
 use App\Models\Category;
+use Illuminate\Support\Facades\Auth;
 $nsx = Category::all();
 ?>
 <!doctype html>
@@ -26,7 +27,8 @@ $nsx = Category::all();
     <link rel="stylesheet" href="{{ asset('css/owl.carousel.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/owl.theme.default.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/loadscreen.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ asset('css/pe-icon-7-stroke.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/shopick-icon.css') }}">
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css' rel='stylesheet' />
     <link rel="stylesheet"
         href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.css"
@@ -56,83 +58,72 @@ $nsx = Category::all();
                             </a>
                         </li>
                     </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        <li class="nav-item">
-                            <a class="nav-link" href="/home">Home</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">
-                                Category
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                @foreach ($nsx as $menu)
-                                    <a class="dropdown-item"
-                                        href="/{{ $menu['slugcat'] }}.html">{{ $menu['tenNSX'] }}</a>
-                                @endforeach
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/map">Maps</a>
-                        </li>
-                        @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
-                                    {{ Auth::user()->name }}
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="/my-profile">My profile</a>
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();
-                                                                                            document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}</a>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
+                    <div class="main-menu">
+                        <!-- Right Side Of Navbar -->
+                        <ul class="navbar-nav ml-auto">
+                            <!-- Authentication Links -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="/home">Home</a>
                             </li>
-                        @endguest
-                    </ul>
+                            <li class="nav-item"><a href="#" class="nav-link">Category</a>
+                                <ul class="submenu">
+                                    <li class="submenu-title"><a href="#">All Category</a></li>
+                                    @foreach ($nsx as $cat)
+                                        <li><a href="/{{ $cat['slugcat'] }}.html">{{ $cat['tenNSX'] }}</a></li>
+                                    @endforeach
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/map">Maps</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/blog">blog</a>
+                            </li>
+                            @guest
+                                @if (Route::has('login'))
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    </li>
+                                @endif
+                            @else
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle text-lowercase" id="navbarDropdown" role="button"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        {{ Auth::user()->name }}
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="/my-profile">My profile</a>
+                                        <a class="dropdown-item" href="{{ route('logout') }}"
+                                            onclick="event.preventDefault();
+                                                                                                                        document.getElementById('logout-form').submit();">
+                                            {{ __('Logout') }}</a>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                            class="d-none">
+                                            @csrf
+                                        </form>
+                                    </div>
+                                </li>
+                            @endguest
+                        </ul>
+                    </div>
                 </div>
             </div>
+            <div id="AppendCartNumber">
+                @include('includes.mini-cart')
+            </div>
+            
         </nav>
         <main>
             @yield('content')
         </main>
     </div>
-    @if(Cart::where('idUser', Auth::id())->count() > 0)
-    <div class="card cart border-0">
-        <div class="card-body p-0">
-            <div class="row">
-                <a class="col-sm-6 align-self-center" href="../cart"><img src="../../images/shoppingcart.gif" width="50px" alt=""></a>
-                <ul class="col-sm-6">
-                    <li>
-                        <span class="badge badge-warning">
-                            {{ Cart::where('idUser', Auth::id())->count() }} items </span>
-                    </li>
-                    <li>
-                        <a class="btn btn-link p-1" href="/cart">View</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    @endif
     <!-- Scripts -->
     <script src="{{ asset('js/sweetalert2.js') }}" defer></script>
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}" defer></script>
     <script src="{{ asset('js/jquery-3.6.0.min.js') }}" defer></script>
     <script src="{{ asset('js/owl.carousel.min.js') }}" defer></script>
+    <script src="{{ asset('js/plugins.js') }}" defer></script>
+    <script src="{{ asset('js/accordions.js') }}" defer></script>
     <script src="{{ asset('js/custom.js') }}" defer></script>
 </body>
 

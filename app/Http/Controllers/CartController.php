@@ -22,14 +22,18 @@ class CartController extends Controller
         if (Auth::check()) {
             if ($prod_check) {
                 if (Cart::where('idProd', $product_id)->where('idUser', Auth::id())->exists()) {
-                    return response()->json(['status' => $prod_check['tenDT'] . " - Already added to cart"]);
+                    $cartNumber = Cart::where('idUser',Auth::id())->count();
+                    $cartMenu = Cart::where('idUser', Auth::id())->get();
+                    return response()->json(['status' => $prod_check['tenDT'] . " - Already added to cart",'number' => (string)View::make('includes.mini-cart')->with(compact('cartNumber','cartMenu'))]);
                 } else {
                     $cartItem = new Cart();
                     $cartItem['idProd'] = $product_id;
                     $cartItem['idUser'] = Auth::id();
                     $cartItem['qtyProd'] = $product_qty;
                     $cartItem->save();
-                    return response()->json(['status' => $prod_check['tenDT'] . " - Added to cart"]);
+                    $cartNumber = Cart::where('idUser',Auth::id())->count();
+                    $cartMenu = Cart::where('idUser', Auth::id())->get();
+                    return response()->json(['status' => $prod_check['tenDT'] . " - Added to cart",'number' => (string)View::make('includes.mini-cart')->with(compact('cartNumber','cartMenu'))]);
                 }
             }
         } else {
@@ -60,7 +64,8 @@ class CartController extends Controller
         if (Cart::where('idProd', $prod_id)->where('idUser', Auth::id())->exists()) {
             $cartItem = Cart::where('idProd', $prod_id)->where('idUser', Auth::id())->first();
             $cartItem->delete();
-            return response()->json(['status' => "Product Deleted Successfully"]);
+            $cartItems = Cart::where('idUser', Auth::id())->get();
+            return response()->json(['status' => "Product Deleted Successfully",'view' => (string)View::make('includes.products-cart-items')->with(compact('cartItems'))]);
         }
     }
 }

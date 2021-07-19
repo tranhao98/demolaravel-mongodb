@@ -1,11 +1,7 @@
-$(window).on("load", function() {
-    $(".loader-wrapper").fadeOut("slow");
-})
 $(document).ready(function() {
 
     //Add product to cart
-    $('.addToCartBtn').click(function(e) {
-        e.preventDefault();
+    $(document).on('click', '.addToCartBtn', function() {
 
         var product_id = $(this).closest('.product_data').find('.idProd').val();
         var product_qty = $(this).closest('.product_data').find('.qty-input').val();
@@ -30,14 +26,15 @@ $(document).ready(function() {
                     showConfirmButton: false,
                     timer: 1500
                 })
-                setTimeout(function() { window.location.reload(); }, 1500);
+                $('#AppendCartNumber').html(response.number);
                 if (response.status == "plsLogin") {
                     Swal.fire({
                         icon: 'warning',
-                        title: 'Login to Continue'
+                        title: 'Login to Continue',
+
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            window.location.href = "/login";
+                            window.location.href = '/login';
                         }
                     });
                 }
@@ -77,6 +74,7 @@ $(document).ready(function() {
                             'success'
                         ).then((result) => {
                             if (result.isConfirmed) {
+                                $("#AppendCartItems").html(response.view);
                                 window.location.reload();
                             }
                         });
@@ -87,8 +85,8 @@ $(document).ready(function() {
     });
 
     //Button increment and decrement quantity product
-    $('.increment-btn').click(function(e) {
-        e.preventDefault();
+    $(document).on('click', '.increment-btn', function() {
+
         var inc_value = $(this).closest('.product_data').find('.qty-input').val();
         var value = parseInt(inc_value, 10);
         value = isNaN(value) ? 0 : value;
@@ -97,9 +95,7 @@ $(document).ready(function() {
             $(this).closest('.product_data').find('.qty-input').val(value);
         }
     });
-    $('.decrement-btn').click(function(e) {
-        e.preventDefault();
-
+    $(document).on('click', '.decrement-btn', function() {
         var dec_value = $(this).closest('.product_data').find('.qty-input').val();
         var value = parseInt(dec_value, 10);
         value = isNaN(value) ? 0 : value;
@@ -154,8 +150,7 @@ $(document).ready(function() {
     });
 
     // Checkout
-    $('.place-order').click(function(e) {
-        e.preventDefault();
+    $(document).on('click', '.place-order', function() {
         var FullName = $('#fullName').val();
         var Email = $('#email').val();
         var Phone = $('#phoneNumber').val();
@@ -199,7 +194,7 @@ $(document).ready(function() {
                 if (response.status == "Paid") {
                     Swal.fire(
                         'Your order has been successfully placed!',
-                        'Please check your order at Orders.',
+                        'Please check your order.',
                         'success'
                     ).then((result) => {
                         if (result.isConfirmed) {
@@ -213,8 +208,7 @@ $(document).ready(function() {
     });
 
     // Change Order Status in ADMIN
-    $('.update-status').click(function(e) {
-        e.preventDefault();
+    $(document).on('click', '.update-status', function() {
         var status = $('#val-status').val();
         var idOrder = $('.idOrder').val();
 
@@ -238,14 +232,13 @@ $(document).ready(function() {
                     showConfirmButton: false,
                     timer: 1000
                 })
-                setTimeout(function() { window.location.reload(); }, 1000);
+                $('#AppendOrderStatus').html(response.view);
             }
         });
     });
 
     //Change Coupon Status in ADMIN
-    $('.update-coupon-status').click(function(e) {
-        e.preventDefault();
+    $(document).on('click', '.update-coupon-status', function() {
         var couponStatus = $(this).children("i").attr("status");
         var idCoupon = $(this).closest('.coupon_data').find('.idCoupon').val();
 
@@ -269,24 +262,27 @@ $(document).ready(function() {
                     showConfirmButton: false,
                     timer: 1000
                 })
-                setTimeout(function() { window.location.reload(); }, 1000);
+                if (response.view == 0) {
+                    $('#coupon-' + idCoupon).html('<i status="1" class="fa fa-toggle-off" style="font-size:18px"></i>');
+                } else if (response.view == 1) {
+                    $('#coupon-' + idCoupon).html('<i status="0" class="fa fa-toggle-on" style="font-size:18px"></i>');
+                }
+                // if ()
             }
         });
     });
 
     // Show or Hide Coupon Code in ADMIN
-    $('#ManualCoupon').click(function() {
-
+    $(document).on('click', '#ManualCoupon', function() {
         $('#couponField').show();
     });
-    $('#AutomaticCoupon').click(function() {
-
+    $(document).on('click', '#AutomaticCoupon', function() {
         $('#couponField').hide();
     });
 
     // Delete Coupon in ADMIN
-    $('.delete-coupon').click(function(e) {
-        e.preventDefault();
+    $(document).on('click', '.delete-coupon', function() {
+
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -315,17 +311,54 @@ $(document).ready(function() {
                             'Coupon has been deleted.',
                             'success'
                         )
-                        setTimeout(function() { window.location.reload(); }, 1700);
+                        $('#AppendCouponItems').html(response.view);
                     }
                 });
             }
         })
+    });
 
+    // Delete Post in ADMIN
+    $(document).on('click', '.delete-post', function() {
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var idPost = $(this).closest('.post_data').find('.idPost').val();
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    method: "POST",
+                    url: "delete-post",
+                    data: {
+                        'idPost': idPost,
+                    },
+                    success: function(response) {
+                        Swal.fire(
+                            'Deleted!',
+                            'Your post has been deleted.',
+                            'success'
+                        )
+                        $('#AppendPostItems').html(response.view);
+                    }
+                });
+            }
+        })
     });
 
     // Apply Coupon Code
-    $('#applyCoupon').submit(function(e) {
-        e.preventDefault();
+    $(document).on('submit', '#applyCoupon', function() {
+
         var code = $('#couponCode').val();
         $.ajaxSetup({
             headers: {
@@ -343,18 +376,14 @@ $(document).ready(function() {
                 Swal.fire({
                     icon: 'error',
                     text: response.message,
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.location.reload();
-                    }
-                });
+                })
                 if (response.status == "1") {
                     Swal.fire({
                         icon: 'success',
                         text: 'Coupon code successfully applied. You are availing discount!',
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            window.location.reload();
+                            $("#AppendCartCheckout").html(response.view);
                         }
                     });
                 }
@@ -366,8 +395,7 @@ $(document).ready(function() {
     });
 
     // Change Coupon code
-    $('#changeCoupon').submit(function(e) {
-        e.preventDefault();
+    $(document).on("submit", '#changeCoupon', function(e) {
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -393,7 +421,7 @@ $(document).ready(function() {
                             'success'
                         ).then((result) => {
                             if (result.isConfirmed) {
-                                window.location.reload();
+                                $("#AppendCartCheckout").html(response.view);
                             }
                         });
                     }
@@ -403,8 +431,8 @@ $(document).ready(function() {
     });
 
     //Change User Status in ADMIN
-    $('.update-user-status').click(function(e) {
-        e.preventDefault();
+    $(document).on("click", '.update-user-status', function(e) {
+
         var userStatus = $(this).children("i").attr("status");
         var idUser = $(this).closest('.user_data').find('.idUser').val();
 
@@ -428,14 +456,17 @@ $(document).ready(function() {
                     showConfirmButton: false,
                     timer: 1000
                 })
-                setTimeout(function() { window.location.reload(); }, 1000);
+                if (response.view == 0) {
+                    $('#user-' + idUser).html('<i status="1" class="fa fa-toggle-off" style="font-size:14px"></i>');
+                } else if (response.view == 1) {
+                    $('#user-' + idUser).html('<i status="0" class="fa fa-toggle-on" style="font-size:14px"></i>');
+                }
             }
         });
     });
 
     // Update Basic Information
-    $('.update-basic-infor').click(function(e) {
-        e.preventDefault();
+    $(document).on("click", '.update-basic-infor', function(e) {
         var name = $('#name').val();
         var gender = $('#gender').val();
         var birthdate = $('#birthdate').val();
@@ -484,8 +515,7 @@ $(document).ready(function() {
     });
 
     // Update Contact Information
-    $('.update-contact-infor').click(function(e) {
-        e.preventDefault();
+    $(document).on("click", '.update-contact-infor', function(e) {
         var mobile = $('#mobile').val();
         var idUser = $('#idUser').val();
         $.ajaxSetup({
@@ -520,48 +550,61 @@ $(document).ready(function() {
         });
 
     });
-
-    //branch Carousel
-    $('.branch-carousel').owlCarousel({
-        loop: true,
-        margin: 10,
-        nav: true,
-        dots: false,
-        autoplay: true,
-        autoplayTimeout: 1200,
-        autoplayHoverPause: true,
-        responsive: {
-            0: {
-                items: 1
-            },
-            600: {
-                items: 3
-            },
-            1000: {
-                items: 3
-            }
-        }
-    })
-
-    //product Carousel
-    $('.product-carousel').owlCarousel({
-        loop: true,
-        margin: 10,
-        nav: true,
-        dots: false,
-        autoplay: true,
-        autoplayTimeout: 1500,
-        autoplayHoverPause: true,
-        responsive: {
-            0: {
-                items: 1
-            },
-            600: {
-                items: 3
-            },
-            1000: {
-                items: 2
-            }
-        }
+    $("#tabs").tabs();
+    $(".custom-file-input").on("change", function() {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
     });
 });
+//branch Carousel
+$('.branch-carousel').owlCarousel({
+    loop: true,
+    margin: 10,
+    nav: true,
+    dots: false,
+    autoplay: true,
+    autoplayTimeout: 1200,
+    autoplayHoverPause: true,
+    responsive: {
+        0: {
+            items: 1
+        },
+        600: {
+            items: 3
+        },
+        1000: {
+            items: 3
+        }
+    }
+})
+
+//product Carousel
+$('.product-carousel').owlCarousel({
+    loop: true,
+    margin: 10,
+    nav: true,
+    dots: false,
+    autoplay: true,
+    autoplayTimeout: 1500,
+    autoplayHoverPause: true,
+    responsive: {
+        0: {
+            items: 1
+        },
+        600: {
+            items: 3
+        },
+        1000: {
+            items: 3
+        }
+    }
+});
+$.scrollUp({
+    scrollText: '<i class="pe-7s-angle-up"></i>',
+    easingType: 'linear',
+    scrollSpeed: 900,
+    animation: 'fade'
+});
+$(window).on("load", function() {
+    $(".loader-wrapper").fadeOut("slow");
+})

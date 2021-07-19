@@ -11,7 +11,7 @@
                     <h6 class="m-0 font-weight-bold">Basic Information</h6>
                 </div>
                 <div class="col-6 ">
-                    <a href="/update-basic-infor" class="float-right m-0"><i class="fa fa-edit"
+                    <a href="/update-basic-infor" class="float-right m-0"><i class="pe-7s-note"
                             style="font-size: 20px"></i></a>
                 </div>
             </div>
@@ -77,8 +77,8 @@
                     <h6 class="m-0 font-weight-bold">Contact Information</h6>
                 </div>
                 <div class="col-6">
-                    <a href="/update-contact-infor" class="float-right m-0"><i class="fa fa-edit"
-                            style="font-size: 20px"></i></a>
+                    <a href="/update-contact-infor" class="float-right m-0"><i class="pe-7s-note"
+                        style="font-size: 20px"></i></a>
                 </div>
             </div>
         </div>

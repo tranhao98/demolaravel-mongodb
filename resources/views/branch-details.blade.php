@@ -9,17 +9,22 @@
 <body>
     @extends('templates.tpl_default')
     @section('branch-detail')
+    <div style="margin-top: 87px" class="py-3 mb-4 shadow-sm bg-warning border-top">
+        <div class="container">
+            <h6 class="m-0 font-weight-bold">Home / Branch / {{$branch['name']}}</h6>
+        </div>
+    </div>
         <div class="container">
             <div class="text-center mb-4 mt-4">
                 <h4 class="text-uppercase font-weight-bold text-info">Contact {{ $branch['name'] }}</h4>
                 <img src="../images/line-dec.png" alt="">
             </div>
             <div class="row">
-                <div class="col-md-6">
-                    <img src="../images/{{ $branch['logo'] }}" style="width: 100%; height: 450px; object-fit:cover"
+                <div class="col-md-4">
+                    <img src="../images/{{ $branch['logo'] }}" style="width: 100%; height: 500px; object-fit:cover"
                         alt="">
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-8">
                     <div class="product_data">
                         <div class="card border-0 w-100">
                             <div class="card-header header-bg">
@@ -53,9 +58,9 @@
                                                     @foreach ($products as $prod)
                                                         <div class="item">
                                                             <div class="card">
-                                                                <a href="/{{ $prod['slug'] }}.html"><img
-                                                                        style="height: 300px; object-fit:cover; width:100%"
-                                                                        src="../images/{{ $prod['urlHinh'] }}"></a>
+                                                                    <a class="p-3" href="/{{ $prod['slug'] }}.html"><img
+                                                                            style="height: 250px; width:100%;"
+                                                                            src="../images/{{ $prod['urlHinh'] }}"></a>
                                                                 <div class="card-body">
                                                                     <h6 class="card-title">{{ $prod['tenDT'] }}</h6>
                                                                     <p class="card-text">

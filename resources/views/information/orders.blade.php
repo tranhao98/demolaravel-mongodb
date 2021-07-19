@@ -5,11 +5,11 @@ use App\Models\infoUser;
 ?>
     @extends('my-profile')
     @section('orders')
-    @if(infoUser::where('idUser', Auth::id())->count() > 0)
     <div class="mt-4 mb-4 text-center">
         <h4 class="text-uppercase font-weight-bold ">Order History</h4>
         <img src="../images/line-dec.png" alt="">
     </div>
+    @if(infoUser::where('idUser', Auth::id())->count() > 0)
         <div class="card shadow" style="font-size: 13px">
             <div class="card-header">
                 <div class="row font-weight-bold">

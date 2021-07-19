@@ -13,6 +13,11 @@ use App\Models\Cart;
 <body>
     @extends('templates.tpl_default')
     @section('cart')
+    <div style="margin-top: 87px" class="py-3 mb-4 shadow-sm bg-warning border-top">
+        <div class="container">
+            <h6 class="m-0 font-weight-bold">Home / Cart</h6>
+        </div>
+    </div>
         @if (Cart::where('idUser', Auth::id())->count() > 0)
             <div class="container">
                 <div class="mt-4 mb-4 text-center">
