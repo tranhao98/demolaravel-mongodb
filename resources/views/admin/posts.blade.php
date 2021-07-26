@@ -1,4 +1,4 @@
-@extends('templates.layout_admin');
+@extends('templates.layout_admin')
 @section('posts')
     <div class="content-header">
         <div class="container-fluid">

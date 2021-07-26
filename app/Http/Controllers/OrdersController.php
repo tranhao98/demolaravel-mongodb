@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\infoUser;
+use App\Models\OrdersProduct;
 use App\Models\User;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
@@ -27,7 +27,7 @@ class OrdersController extends Controller
 
             $ordersDetails = infoUser::where('_id', $id)->first();
 
-            $orderItems = infoUser::where('_id', $id)->where('idUser', Auth::id())->get();
+            $orderItems = OrdersProduct::where('idUser',Auth::id())->where('idOrder',$ordersDetails['_id'])->get();
             // dd($orderItems); die;
 
             return view('information.orders-details', compact('ordersDetails','orderItems' ));
@@ -40,13 +40,12 @@ class OrdersController extends Controller
     public function ordersAdmin(){
         Session::put('page','orders');
         $orders = infoUser::all();
-        // dd($orders); die;
         return view('admin.orders', compact('orders'));
     }
     public function ordersDetailsAdmin($id){
         $ordersDetails = infoUser::where('_id', $id)->first();
         
-        $orderItems = infoUser::where('_id', $id)->get();
+        $orderItems = OrdersProduct::where('idOrder',$ordersDetails['_id'])->get();
 
         $userDetails = User::where('_id', $ordersDetails['idUser'])->first();
         

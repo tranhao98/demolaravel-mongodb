@@ -1,4 +1,4 @@
-@extends('templates.layout_admin');
+@extends('templates.layout_admin')
 @section('add-edit-coupon')
 
     <div class="content-header">

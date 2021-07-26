@@ -65,7 +65,9 @@ class CartController extends Controller
             $cartItem = Cart::where('idProd', $prod_id)->where('idUser', Auth::id())->first();
             $cartItem->delete();
             $cartItems = Cart::where('idUser', Auth::id())->get();
-            return response()->json(['status' => "Product Deleted Successfully",'view' => (string)View::make('includes.products-cart-items')->with(compact('cartItems'))]);
+            $cartNumber = Cart::where('idUser',Auth::id())->count();
+                    $cartMenu = Cart::where('idUser', Auth::id())->get();
+            return response()->json(['status' => "Product Deleted Successfully",'view' => (string)View::make('includes.products-cart-items')->with(compact('cartItems')),'number' => (string)View::make('includes.mini-cart')->with(compact('cartNumber','cartMenu'))]);
         }
     }
 }

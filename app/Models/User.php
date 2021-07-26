@@ -36,6 +36,8 @@ class User extends Eloquent implements Authenticatable
         'status',
         'mobile',
         'password',
+        'is_verify',
+        'rand_id'
     ];
 
     /**

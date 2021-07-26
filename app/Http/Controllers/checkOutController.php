@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Cart;
 use App\Models\infoUser;
@@ -11,14 +10,14 @@ use App\Models\User;
 use Illuminate\Support\Facades\Session;
 use App\Models\Coupons;
 use Illuminate\Support\Facades\View;
+use App\Models\OrdersProduct;
+use App\Models\Product;
 
 class checkOutController extends Controller
 {
     public function index()
     {
         $cartItems = Cart::where('idUser', Auth::id())->get();
-
-
         return view('checkout', compact( 'cartItems'));
     }
 
@@ -32,8 +31,6 @@ class checkOutController extends Controller
         $country = $request->input('country');
         $fullAdd = $request->input('fullAdd');
         $grandTotal = $request->input('grandTotal');
-        $idProd = $request->input('idProd');
-        $qtyProd = $request->input('qtyProd');
         $couponCode = $request->input('couponCode');
         $couponAmount = $request->input('couponAmount');
         if ($fullname == "" || strlen($fullname) < 5) {
@@ -51,6 +48,8 @@ class checkOutController extends Controller
         } elseif ($fullAdd == "") {
             return response()->json(['status' => "Full address is required"]);
         } else {
+
+            //Insert Order Details
             $infoUser = new infoUser();
             $infoUser['idUser'] = Auth::id();
             $infoUser['fullname'] = $fullname;
@@ -60,13 +59,30 @@ class checkOutController extends Controller
             $infoUser['state'] = $state;
             $infoUser['country'] = $country;
             $infoUser['fullAdd'] = $fullAdd;
-            $infoUser['qtyProd'] = $qtyProd;
-            $infoUser['idProd'] = $idProd;
             $infoUser['grandTotal'] = $grandTotal;
             $infoUser['status'] = '0';
             $infoUser['couponCode'] = $couponCode;
             $infoUser['couponAmount'] = $couponAmount;
             $infoUser->save();
+
+            // Get last insert Order Id
+            $getlastidOrder  = infoUser::latest('_id')->first();
+            $idOrder = $getlastidOrder->_id;
+            //Get User Cart Items
+            $cartItems = Cart::where('idUser', Auth::id())->get();
+            foreach ($cartItems as $item) {
+                $cartItem = new OrdersProduct();
+                $cartItem['idOrder'] = $idOrder;
+                $cartItem['idUser'] = Auth::id();
+
+                $getProductDetails = Product::select('tenDT','giaKM')->where('_id', $item['idProd'])->first();
+
+                $cartItem['idProd'] = $item['idProd'];
+                $cartItem['product_name'] = $getProductDetails['tenDT'];
+                $cartItem['product_price'] = $getProductDetails['giaKM'];
+                $cartItem['product_qty'] = $item['qtyProd'];
+                $cartItem->save();
+            }
             $request->session()->forget('couponCode');
             $request->session()->forget('couponAmount');
             $request->session()->forget('grandTotal');

@@ -54,9 +54,14 @@ Route::post('/update-basic', 'UserController@updateProfileBasic');
 Route::post('/update-contact', 'UserController@updateProfileContact');
 Route::get('/my-profile/profile','UserController@showProfile');
 
+//Email verify
+Route::get('/verification/{id}','UserController@emailVerification');
+
 //blog
 Route::get('/blog','BlogController@index');
 Route::get('/blog/{slug}','BlogController@showPostDetail');
+
+
 
 //Authenticate client
 Route::middleware(['auth'])->group(function () {
@@ -66,7 +71,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/cart', 'CartController@viewcart');
 });
-//Authenticate client and admin
+//Authenticate admin
 Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('/admin', 'AdminController@index');
     //Orders
@@ -91,10 +96,6 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
 });
 
 
-
-Auth::routes();
-
-Route::get('/home', 'SiteNewsController@index');
 //map
 Route::get('/map', function () {
     return view('/map');
@@ -102,3 +103,7 @@ Route::get('/map', function () {
 Route::get('/storelocator', function () {
     return view('/map');
 });
+Auth::routes();
+Route::get('/home', 'SiteNewsController@index');
+
+

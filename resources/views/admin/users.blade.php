@@ -1,4 +1,4 @@
-@extends('templates.layout_admin');
+@extends('templates.layout_admin')
 @section('coupons')
 
     <div class="content-header">
@@ -22,97 +22,73 @@
                     </button>
                 </div>
             @endif
-            <div class="card shadow" style="font-size: 12px">
+            <div class="card shadow">
                 <div class="card-header">
                     <h3 class="card-title">Users</h3>
-                    <a href="/admin/add-edit-coupon" style="width: 150px" class="float-right btn btn-success pl-4 pr-4"> Add
-                        Coupon</a>
                 </div>
-                <div class="card-body ">
-                    <div class="row font-weight-bold">
-                        <div class="col-md-1 align-self-center">
-                            ID
-                        </div>
-                        <div class="col-md-1 align-self-center">
-                            Name
-                        </div>
-                        <div class="col-md-1 align-self-center">
-                            Gender
-                        </div>
-                        <div class="col-md-1 align-self-center">
-                            Birth Date
-                        </div>
-                        <div class="col-md-1 align-self-center">
-                            Mobile
-                        </div>
-                        <div class="col-md-2 align-self-center">
-                            Email
-                        </div>
-                        <div class="col-md-1 align-self-center">
-                            City
-                        </div>
-                        <div class="col-md-1 align-self-center">
-                            State
-                        </div>
-                        <div class="col-md-1 align-self-center">
-                            Country
-                        </div>
-                        <div class="col-md-1 align-self-center">
-                            Address
-                        </div>
-                        <div class="col-md-1 align-self-center">
-                            Actions
-                        </div>
-                    </div>
-                    <hr>
-                    @foreach ($users as $user)
-                        <div class="row user_data">
-                            <div class="col-md-1 align-self-center">
-                                <span class="text-uppercase">#{{ substr($user['_id'], 20, 4) }}</span>
-                            </div>
-                            <div class="col-md-1 align-self-center">
-                                {{ $user['name'] }}
-                            </div>
-                            <div class="col-md-1 align-self-center">
-                                @if (isset($user['gender']))
-                                    <?= $user['gender'] == 1 ? 'Male' : 'Female' ?>
-                                @endif
-                            </div>
-                            <div class="col-md-1 align-self-center">
-                                {{ $user['birthdate'] }}
-                            </div>
-                            <div class="col-md-1 align-self-center">
-                                {{ $user['mobile'] }}
-                            </div>
-                            <div class="col-md-2 align-self-center">
-                                {{ $user['email'] }}
-                            </div>
-                            <div class="col-md-1 align-self-center">
-                                {{ $user['city'] }}
-                            </div>
-                            <div class="col-md-1 align-self-center">
-                                {{ $user['state'] }}
-                            </div>
-                            <div class="col-md-1 align-self-center">
-                                {{ $user['country'] }}
-                            </div>
-                            <div class="col-md-1 align-self-center">
-                                {{ $user['address'] }}
-                            </div>
-                            <div class="col-md-1 align-self-center">
-                                <input type="hidden" value="{{ $user['_id'] }}" class="idUser">
-                                @if ($user['status'] == 1)
-                                    <a class="update-user-status" id="user-{{$user['_id']}}" href="#"><i status="0"
-                                            class="fa fa-toggle-on" style="font-size:14px"></i></a>
-                                @else
+                <div class="card-body">
+                    <table id="users" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Basic Information</th>
+                                <th>Contact Information</th>
+                                <th>Address</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($users as $user)
+                                <tr>
+                                    <td class="align-middle"> 
+                                    <span class="text-uppercase">#{{ substr($user['_id'], 20, 4) }}</span></td>
+                                    <td class="align-middle">
+                                        
+                                       <span class="text-secondary font-weight-bold">Name:</span> {{ $user['name'] }} <br>
+                                        @if (isset($user['gender']) && $user['gender'] != "")
+                                            <?= $user['gender'] == 1 ? '<span class="text-secondary font-weight-bold">Gender: </span> Male' : '<span class="text-secondary font-weight-bold">Gender: </span> Female' ?>
+                                        @else
+                                        <span class="text-secondary font-weight-bold">Gender: </span>  <i class="text-danger"> Doesn't have </i> 
+                                        @endif <br>
+                                        @if (isset($user['birthdate']) && $user['birthdate'] != "")
+                                        <span class="text-secondary font-weight-bold">Birth date:</span> {{ $user['birthdate'] }}
+                                        @else
+                                        <span class="text-secondary font-weight-bold">Birth date:</span> <i class="text-danger"> Doesn't have </i> 
+                                        @endif
+                                    </td>
+                                    <td class="align-middle"> 
+                                        <span class="text-secondary font-weight-bold">Mobile:</span>  {{ $user['mobile'] }} <br> 
+                                        <span class="text-secondary font-weight-bold">Email:</span>  {{ $user['email'] }}
+                                    </td>
+                                    <td class="align-middle">
+                                        @if($user['address'] != "" | $user['city'] != "" | $user['state'] != "" ) 
+                                       <span class="text-secondary font-weight-bold">Address:</span>  {{ $user['address'] }} <br>
+                                       <span class="text-secondary font-weight-bold">City:</span>  {{ $user['city'] }} <br>
+                                       <span class="text-secondary font-weight-bold">State:</span>  {{ $user['state'] }} <br>
+                                       <span class="text-secondary font-weight-bold">Country:</span>  {{ $user['country'] }}
+                                        @else
+                                        <span class="text-secondary font-weight-bold">Address:</span>  <i class="text-danger">Doesn't have </i> <br>
+                                       <span class="text-secondary font-weight-bold">City:</span>  <i class="text-danger">Doesn't have </i> <br>
+                                       <span class="text-secondary font-weight-bold">State:</span>  <i class="text-danger">Doesn't have </i> <br>
+                                       <span class="text-secondary font-weight-bold">Country:</span>  <i class="text-danger">Doesn't have </i>
+                                        @endif
+                                    </td>
+                                    <td class="user_data align-middle">
+                                        <input type="hidden" value="{{ $user['_id'] }}" class="idUser">
+                                        @if ($user['status'] == 1)
+                                            <a class="update-user-status" id="user-{{ $user['_id'] }}" href="#"><i
+                                                    status="0" class="fa fa-toggle-on"></i></a>
+                                        @else
 
-                                    <a class="update-user-status" id="user-{{$user['_id']}}" href="#"><i status="1"
-                                            class="fa fa-toggle-off" style="font-size:14px"></i></a>
-                                @endif
-                            </div>
-                        </div>
-                        <hr>
-                    @endforeach
+                                            <a class="update-user-status" id="user-{{ $user['_id'] }}" href="#"><i
+                                                    status="1" class="fa fa-toggle-off"></i></a>
+                                        @endif
+                                    </td>
+
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div><!-- /.container-fluid -->

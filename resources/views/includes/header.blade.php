@@ -1,3 +1,4 @@
-<header class="background-image border-bottom">
+
+<header class="banner background-image border-bottom">
 
 </header>

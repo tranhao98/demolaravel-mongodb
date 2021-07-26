@@ -19,7 +19,7 @@
         <div class="card-body ">
             <div class="row">
                 <div class="col-md-6">
-                    <div class="row">
+                    <div class="row f_profile">
                         <div class="col-md-5">
                             <h6 class="font-weight-bold m-0">Full name</h6><br>
                             <h6 class="font-weight-bold m-0">Gender</h6><br>
@@ -85,14 +85,14 @@
         <div class="card-body ">
             <div class="row">
                 <div class="col-md-6">
-                    <div class="row">
+                    <div class="row f_profile">
                         <div class="col-md-5">
-                            <h6 class="font-weight-bold m-0">Mobile Number</h6><br>
-                            <h6 class="font-weight-bold m-0">Email Address</h6>
+                            <h6 class="font-weight-bold text-nowrap m-0">Mobile Number</h6><br>
+                            <h6 class="font-weight-bold text-nowrap m-0">Email Address</h6>
                         </div>
                         <div class="col-md-7">
                             <h6 class="m-0">{{ Auth::user()->mobile }}</h6><br>
-                            <h6 class="m-0">
+                            <h6 class="m-0 text-nowrap">
                                 {{ Auth::user()->email }}
                             </h6>
 

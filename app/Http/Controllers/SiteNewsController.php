@@ -14,15 +14,17 @@ use App\Models\Blog;
 class SiteNewsController extends Controller
 {
 
+    //show home page
     public function index()
     {
         $dt = DB::collection('dienthoai');
         $dt = $dt->paginate(6);
         $branch = Branch::all();
-        $posts = Blog::orderBy('updated_at','DESC')->get();
-        return view('/home', compact( 'dt','branch','posts'));
+        $posts = Blog::orderBy('updated_at', 'DESC')->limit(3)->get();
+        return view('/home', compact('dt', 'branch', 'posts'));
     }
 
+    //show product details
     public function productview($slugcat, $slug)
     {
         if (Category::where('slugcat', $slugcat)->exists()) {
@@ -36,9 +38,11 @@ class SiteNewsController extends Controller
             return redirect('/');
         }
     }
+
+    //show Product by Category
     public function viewcategory($slugcat)
     {
-        if (Category::where('slugcat', $slugcat)->exists()){
+        if (Category::where('slugcat', $slugcat)->exists()) {
             $category = Category::where('slugcat', $slugcat)->first();
             $products = DB::collection('dienthoai');
             $products = $products->get()->where('idNSX', $category['_id']);
@@ -48,4 +52,5 @@ class SiteNewsController extends Controller
             return view('/product-detail', compact('products'));
         }
     }
+
 }

@@ -4,18 +4,8 @@ use App\Models\infoUser;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 date_default_timezone_set('Asia/Ho_Chi_Minh');
-
-
 ?>
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <title>Tiêu đề trang</title>
-</head>
-
-<body>
     @extends('layouts.app')
     @section('content')
         @yield('blog-detail')
@@ -23,11 +13,11 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
         @yield('profile')
         @yield('branch-detail')
         @yield('cart')
+        @yield('verify')
         @yield('articlecat')
         @yield('product-detail')
         @yield('article')
+        @yield('checkout')
         @include('includes.footer')
     @endsection
-</body>
 
-</html>

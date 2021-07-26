@@ -1,14 +1,20 @@
+<title>Create Account</title>
 @extends('layouts.app')
 
 @section('content')
-    <div class="container pt-5">
+<div class="banner py-3 mb-4 shadow-sm bg-warning">
+    <div class="container">
+        <h6 class="m-0 font-weight-bold"> <a class="text-dark" href="/home">Home</a> / Create Account</h6>
+    </div>
+</div>
+    <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8 mt-5">
+            <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">{{ __('Create Account') }}</div>
 
                     <div class="card-body">
-                        <form method="POST" class="mb-5" action="{{ route('register') }}">
+                        <form method="POST" class="mb-5" action="{{ route('register') }}" enctype="multipart/form-data">
                             @csrf
 
                             <div class="form-group row mb-3">
@@ -98,12 +104,12 @@
                         </form>
                         <hr class="w-50">
                         <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right"> Already have an
-                                account? </label>
+                             <label class="col-md-4 col-form-label text-md-right"> <a class="text-dark" href="{{ route('login') }}">Already have an
+                                account? </a> </label>
 
                             <div class="col-md-6 ml-n4 align-self-center">
                                 <div class="next">
-                                    <a href="{{ route('login') }}" class="btn btn-link">Next <i class="fa fa-caret-right"></i></a>
+                                    <a href="{{ route('login') }}" class="text-link">Login </a>
                                 </div>
                             </div>
                         </div>

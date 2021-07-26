@@ -1,4 +1,4 @@
-@extends('templates.layout_admin');
+@extends('templates.layout_admin')
 @section('ordersDetails')
     <div class="content-header">
         <div class="container-fluid">
@@ -204,8 +204,8 @@
                                         <tr>
                                             <td><img src="../../images/{{ $pro->products['urlHinh'] }}" alt=""
                                                     width="70px" height="70px"></td>
-                                            <td class="align-middle">{{ $pro->products['tenDT'] }}</td>
-                                            <td class="align-middle">{{ $pro['qtyProd'] }}</td>
+                                            <td class="align-middle">{{ $pro['product_name'] }}</td>
+                                            <td class="align-middle">{{ $pro['product_qty'] }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>

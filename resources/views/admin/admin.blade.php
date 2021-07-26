@@ -1,4 +1,4 @@
-@extends('templates.layout_admin');
+@extends('templates.layout_admin')
 @section('content')
     <!-- Content Header (Page header) -->
     @if (Session::has('status'))

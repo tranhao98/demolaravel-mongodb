@@ -12,7 +12,6 @@ class infoUser extends Eloquent
     protected $connection = 'mongodb';
     protected $fillable = [
         'idUser',
-        'idProd',
         'fullname',
         'email',
         'phone',
@@ -23,7 +22,4 @@ class infoUser extends Eloquent
         'qtyProd',
         'grandTotal'
     ];
-    public function products(){
-        return $this->belongsTo(Product::class,'idProd','_id');
-    }
 }

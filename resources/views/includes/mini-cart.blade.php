@@ -6,23 +6,25 @@ $cartMenu = Cart::where('idUser', Auth::id())->get();
     <ul class="m-0">
         <li>
             <a href="#">
-                <span class="total-cart-number"
-                    id="totalCartNumber"><div>{{Cart::where('idUser',Auth::id())->count()}} Items</div></span>
-                <span><i class="sp-shopping-bag"></i></span>
+                <span class="total-cart-number" id="totalCartNumber">
+                    <div>{{ Cart::where('idUser', Auth::id())->count() }} Items</div>
+                </span>
+                <span class="icon-shopping-bag">
+                    <i class="sp-shopping-bag"></i>
+                </span>
             </a>
             <!-- Mini-cart-content Start -->
-
-            <div class="total-cart-brief">
-                @if (Cart::where('idUser', Auth::id())->count() > 0)
+            @if (Cart::where('idUser', Auth::id())->count() > 0)
+                <div class="total-cart-brief">
                     <?php $subtotal = 0; ?>
                     @foreach ($cartMenu as $cart)
                         <div class="cart-photo-details">
                             <div class="cart-photo">
-                                <a><img src="../images/{{ $cart->products['urlHinh'] }}" alt=""
-                                        width="50px" height="50px" /></a>
+                                <img src="../images/{{ $cart->products['urlHinh'] }}" alt="" width="50px"
+                                        height="50px" />
                             </div>
                             <div class="cart-photo-brief">
-                                <a>{{ $cart->products['tenDT'] }} ({{ $cart['qtyProd'] }})</a>
+                                <a style="font-size: 13px">{{ $cart->products['tenDT'] }} ({{ $cart['qtyProd'] }})</a>
                                 <span>
                                     {{ number_format($cart->products['giaKM'] * $cart['qtyProd'], 0, ',', '.') }}
                                     VNĐ</span>
@@ -36,10 +38,13 @@ $cartMenu = Cart::where('idUser', Auth::id())->get();
                     <div class="cart-inner-btm">
                         <a href="/cart">view cart</a>
                     </div>
-                @else
-                    <div class="alert alert-danger">Don't have any products in cart</div>
-                @endif
-            </div>
+                </div>
+            @else
+                <div class="total-cart-brief p-0">
+                    <div class="alert alert-danger m-0">Don't have any products in cart</div>
+                </div>
+            @endif
+
 
             <!-- Mini-cart-content End -->
         </li>

@@ -12,9 +12,9 @@ use App\Models\Cart;
         <img src="../../images/line-dec.png" alt="">
     </div>
     <div class="row">
-        <div class="col-sm-6">
+        <div class="col-md-6 width_order_detail">
             <div class="card shadow">
-                <div class="card-body " style="font-size: 13.5px">
+                <div class="card-body">
                     <div class="row font-weight-bold">
                         <div class="col-md-12 align-self-center">
                             <h5 class="font-weight-bold m-0">Order Details</h5>
@@ -74,7 +74,11 @@ use App\Models\Cart;
                             <h6 class="m-0">Coupon Code</h6>
                         </div>
                         <div class="col-md-6 align-self-center">
+                            @if(isset($ordersDetails['couponCode']) && $ordersDetails['couponCode'] > 0)
                             {{ $ordersDetails['couponCode'] }}
+                            @else
+                            Doesn't have
+                            @endif
                         </div>
                     </div>
                     <hr>
@@ -100,9 +104,9 @@ use App\Models\Cart;
             </div>
 
         </div>
-        <div class="col-6">
+        <div class="col-md-6 width_order_detail mb-0">
             <div class="card shadow">
-                <div class="card-body " style="font-size: 13.5px">
+                <div class="card-body">
                     <div class="row font-weight-bold">
                         <div class="col-md-12 align-self-center">
                             <h5 class="font-weight-bold m-0">Delivery Address</h5>
@@ -192,21 +196,19 @@ use App\Models\Cart;
             </div>
         </div>
         <div class="card-body ">
-            @php $subtotal = 0; @endphp
             @foreach ($orderItems as $item)
                 <div class="row product_data">
                     <div class="col-md-4 align-self-center">
                         <img src="../../images/{{ $item->products['urlHinh'] }}" height="70px" width="70px" alt="">
                     </div>
                     <div class="col-md-4 align-self-center">
-                        {{ $item->products['tenDT'] }}
+                        {{ $item['product_name'] }}
                     </div>
                     <div class="col-md-4 align-self-center">
-                        {{ $item['qtyProd'] }}
+                        {{ $item['product_qty'] }}
                     </div>
                 </div>
                 <hr>
-                @php $subtotal += $item['qtyProd'] * $item->products['giaKM'] @endphp
             @endforeach
         </div>
     </div>
