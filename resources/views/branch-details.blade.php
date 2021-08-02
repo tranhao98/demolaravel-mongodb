@@ -52,7 +52,7 @@
                                                             <a class="p-3" href="/{{ $prod['slug'] }}.html"><img class="image_prod_branch"
                                                                     src="../images/{{ $prod['urlHinh'] }}"></a>
                                                             <div class="card-body">
-                                                                <h6 class="card-title name_prod_branch">{{ $prod['tenDT'] }}</h6>
+                                                                <a href="/{{ $prod['slug'] }}.html"> <h6 class="card-title name_prod_branch">{{ $prod['tenDT'] }}</h6></a>
                                                                 <p class="card-text price_prod_branch">
                                                                     <del class="float-end">{{ number_format($prod['gia'], 0, ',', '.') }}
                                                                         VNĐ</del> <br>

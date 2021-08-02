@@ -8,8 +8,8 @@
     </div>
     <div class="container mb-4" style="min-height: 100%">
         <div class="row">
-            <div class="col-3">
-                <div class="nav flex-column nav-pills">
+            <div class="col-3 width_profile_menu">
+                <div class="nav flex-column nav-pills float_left_profile">
                     @if (Session::get('infor') == 'profile')
                         <?php $active = 'active'; ?>
                     @else
@@ -17,9 +17,8 @@
                     @endif
                     <a class="nav-link {{ $active }}" href="/my-profile/profile">Profile</a>
 
-
                 </div>
-                <div class="nav flex-column nav-pills">
+                <div class="nav flex-column nav-pills float_left_profile">
                     @if (Session::get('infor') == 'orderhis')
                         <?php $active = 'active'; ?>
                     @else
@@ -29,18 +28,18 @@
                     <a class="nav-link {{ $active }}" href="/my-profile/orders">Order History</a>
 
                 </div>
-                <div class="nav flex-column nav-pills">
+                <div class="nav flex-column nav-pills float_left_profile">
 
                     <a class="nav-link" href="#">Settings</a>
 
                 </div>
-                <div class="nav flex-column nav-pills">
+                <div class="nav flex-column nav-pills float_left_profile">
 
                     <a class="nav-link" href="#">Messages</a>
 
                 </div>
             </div>
-            <div class="col-9 align-self-top">
+            <div class="col-9 align-self-top width_profile">
                 <div class="tab-content">
                     @yield('edit-contact-infor')
                     @yield('edit-basic-infor')

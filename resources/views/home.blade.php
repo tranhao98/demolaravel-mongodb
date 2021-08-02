@@ -31,10 +31,10 @@ function _substr($str, $length, $minword = 3)
             </div>
         @endif
         @if (Session::has('notverify'))
-        <div class="alert alert-danger text-center font-weight-bold" role="alert">
-            <p class="m-0">{{ Session::get('notverify') }}</p>
-        </div>
-    @endif
+            <div class="alert alert-danger text-center font-weight-bold" role="alert">
+                <p class="m-0">{{ Session::get('notverify') }}</p>
+            </div>
+        @endif
         @if (Session::has('status'))
             <div class="alert alert-info text-center font-weight-bold" role="alert">
                 <p class="m-0">{{ Session::get('status') }}</p>
@@ -49,19 +49,22 @@ function _substr($str, $length, $minword = 3)
                 <div class="card-body">
                     <div class="card-columns product_list">
                         @foreach ($dt as $product)
+
                             <div class="card text-center">
                                 <div class="card-header">
-                                    <a
-                                        href="/{{ $product['slug'] }}.html">{{ $product['tenDT'] }}</a>
+                                    <a href="/{{ $product['slug'] }}.html">{{ $product['tenDT'] }}</a>
                                 </div>
-                                <div class="card-body">
-                                    <img style="height: 150px;" src="images/{{ $product['urlHinh'] }}" alt="">
-                                </div>
+                                <a href="/{{ $product['slug'] }}.html">
+                                    <div class="card-body">
+                                        <img style="height: 150px;" src="images/{{ $product['urlHinh'] }}" alt="">
+                                    </div>
+                                </a>
                                 <div class="card-footer text-muted">
                                     <del>{{ number_format($product['gia'], 0, ',', '.') }} VNĐ</del> <br>
                                     <span>{{ number_format($product['giaKM'], 0, ',', '.') }} VNĐ</span>
                                 </div>
                             </div>
+
                         @endforeach
                     </div>
                 </div>
@@ -88,14 +91,16 @@ function _substr($str, $length, $minword = 3)
                                 <?php $dem = 1; ?>
                                 @foreach ($posts as $post)
                                     <article id='tabs-{{ $dem++ }}'>
-                                        <img src="images/{{ $post['image_path'] }}" height="350px" style="object-fit: cover" width="100%" alt="">
+                                        <img src="images/{{ $post['image_path'] }}" height="350px"
+                                            style="object-fit: cover" width="100%" alt="">
                                         <h4>{{ $post['title'] }}
                                         </h4>
                                         <p><i class="pe-7s-user"></i> <span class="font-italic font-weight-bold">
                                                 {{ $post->users['name'] }}</span> &nbsp;|&nbsp; <i
                                                 class="pe-7s-date"></i>
                                             {{ date('jS M Y', strtotime($post['updated_at'])) }}</p>
-                                        <p class="blog_description">{{ _substr($post['description'], 250) }}</p>
+                                        <p class="blog_description text-justify">{{ _substr($post['description'], 250) }}
+                                        </p>
                                         <div class="main-button">
                                             <a href="/blog/{{ $post['slugblog'] }}">Continue Reading</a>
                                         </div>
@@ -139,7 +144,7 @@ function _substr($str, $length, $minword = 3)
                                             <a href="/{{ $bra['slug'] }}-branch/">
                                                 <h5 class="card-title">{{ $bra['name'] }}</h5>
                                             </a>
-                                            <p class="card-text"><i class="pe-7s-map-marker"></i>
+                                            <p class="card-text" style="height: 50px"><i class="pe-7s-map-marker"></i>
                                                 <small>{{ $bra['address'] }}</small> <br>
                                                 <i class="pe-7s-culture"></i> <small>{{ $bra['city'] }}</small>
                                             </p>

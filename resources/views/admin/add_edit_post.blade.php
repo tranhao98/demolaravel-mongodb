@@ -43,10 +43,8 @@
                         <textarea name="description" placeholder="Description..." style="font-size: 20px;"
                             class="form-control border-0" id="" cols="5" rows="8">@if(isset($post['description'])) {{$post['description']}} @endif</textarea>
                         <hr>
-                        @if(!isset($post['image_path']))
                         <div class="form-group file-upload pt-0 pl-0 pr-0 m-0 w-100">
                             <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Select a file</button>
-                    
                             <div class="image-upload-wrap">
                                 <input class="file-upload-input" type='file' name="image_path" onchange="readURL(this);" />
                                 <div class="drag-text">
@@ -60,7 +58,6 @@
                                 </div>
                             </div>
                         </div>
-                        @endif
                     </div>
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary">Submit</button>

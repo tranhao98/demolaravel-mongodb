@@ -98,24 +98,18 @@ $nsx = Category::all();
 
     </style>
     <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/reponsive.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/meanmenu.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/owl.carousel.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/owl.theme.default.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/meanmenu.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/pe-icon-7-stroke.css') }}">
     <link rel="stylesheet" href="{{ asset('css/shopick-icon.css') }}">
-    <link href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css' rel='stylesheet' />
-    <link rel="stylesheet"
-        href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.css"
-        type="text/css">
+    <link rel="stylesheet" href="{{ asset('css/pe-icon-7-stroke.css') }}">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/reponsive.css') }}" rel="stylesheet">
     <script src="{{ asset('js/jquery-3.5.1.slim.min.js') }}" defer></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
-
-
 </head>
 
-<body style="font-family: 'Nunito'">
+<body>
     <div class="loader-wrapper">
         <span class="loader"><span class="loader-inner"></span></span>
     </div>
@@ -250,13 +244,14 @@ $nsx = Category::all();
     {{-- Bootstrap --}}
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}" defer></script>
     <script src="{{ asset('js/jquery-3.6.0.min.js') }}" defer></script>
+    {{-- Carousel --}}
+    <script src="{{ asset('js/owl.carousel.min.js') }}" defer></script>
+    {{-- meanmenu --}}
+    <script src="{{ asset('js/jquery.meanmenu.js') }}" defer></script>
     {{-- Accordions --}}
     <script src="{{ asset('js/accordions.js') }}" defer></script>
     {{-- Plugin --}}
     <script src="{{ asset('js/plugins.js') }}" defer></script>
-    {{-- Carousel --}}
-    <script src="{{ asset('js/owl.carousel.min.js') }}" defer></script>
-    <script src="{{ asset('js/jquery.meanmenu.js') }}" defer></script>
     {{-- Custom js --}}
     <script src="{{ asset('js/custom.js') }}" defer></script>
 

@@ -22,24 +22,34 @@ use App\Models\Cart;
                     @php $subtotal = 0; @endphp
                     @foreach ($cartItems as $item)
                         <tr>
-                            <td> <span class="text-secondary font-weight-bold">Name:</span>  {{ $item->products['tenDT'] }} <br> <br>
-                               <span class="text-secondary font-weight-bold">Unit Price:</span>  {{ number_format($item->products['giaKM'], 0, ',', '.') }} VNĐ <br>
+                            <td>
+                                <span class="text-secondary font-weight-bold">Image:</span> <img
+                                    src="images/{{ $item->products['urlHinh'] }}" height="70px" width="70px" alt="">
+                                <br> <br>
+                                <span class="text-secondary font-weight-bold">Name:</span>
+                                {{ $item->products['tenDT'] }} <br> <br>
+                                <span class="text-secondary font-weight-bold">Unit Price:</span>
+                                {{ number_format($item->products['giaKM'], 0, ',', '.') }} VNĐ <br>
                             </td>
-                            <td class="product_data d-flex justify-content-center">
-                                <input type="hidden" value="{{ $item['idProd'] }}" class="idProd">
-                                <div class="input-group input_qty_cart mb-3" style="width:100%">
-                                    <button class="input-group-text dec-btn changeQty">-</button>
-                                    <input type="number" name="quantity" class="form-control text-center qty-input"
-                                        value="{{ $item['qtyProd'] }}" min="1" max="100">
-                                    <button class="input-group-text inc-btn changeQty">+</button>
+                            <td class="product_data">
+                                <div class="d-flex justify-content-center">
+                                    <input type="hidden" value="{{ $item['idProd'] }}" class="idProd">
+                                    <div class="input-group input_qty_cart mb-3" style="width:100%">
+                                        <button class="input-group-text dec-btn changeQty">-</button>
+                                        <input type="number" name="quantity" class="form-control text-center qty-input"
+                                            value="{{ $item['qtyProd'] }}" min="1" max="100">
+                                        <button class="input-group-text inc-btn changeQty">+</button>
+                                    </div>
                                 </div>
                             </td>
-                            <td> {{ number_format($item['qtyProd'] * $item->products['giaKM'], 0, ',', '.') }} VNĐ
+                            <td class="text-center">
+                                {{ number_format($item['qtyProd'] * $item->products['giaKM'], 0, ',', '.') }} VNĐ
                             </td>
                             <td class="product_data text-center">
                                 <input type="hidden" value="{{ $item['idProd'] }}" class="idProd">
                                 <a style="cursor: pointer" class="delete-cart-item text-danger"><i class="pe-7s-trash"
-                                        style="font-size:30px"></i></a></td>
+                                        style="font-size:30px"></i></a>
+                            </td>
                         </tr>
                         @php $subtotal += $item['qtyProd'] * $item->products['giaKM'] @endphp
                     @endforeach
@@ -112,28 +122,28 @@ use App\Models\Cart;
                     </div>
                     <div class="card-body ">
                         <div class="row">
-                            <div class="col-6 align-self-center font-weight-bold">
+                            <div class="col-5 align-self-center font-weight-bold">
                                 Sub Total
                             </div>
-                            <div class="col-6 align-self-center text-right">
+                            <div class="col-7 align-self-center text-right">
                                 {{ number_format($subtotal, 0, ',', '.') }} VNĐ
                             </div>
                         </div>
                         <br>
                         <div class="row">
-                            <div class="col-6 font-weight-bold align-self-center">
+                            <div class="col-5 font-weight-bold align-self-center">
                                 Tax(5%)
                             </div>
-                            <div class="col-6 align-self-center text-right">
+                            <div class="col-7 align-self-center text-right">
                                 {{ number_format(($subtotal * 5) / 100, 0, ',', '.') }} VNĐ
                             </div>
                         </div>
                         <hr style="border: 1px solid">
                         <div class="row">
-                            <div class="col-6 font-weight-bold align-self-center">
+                            <div class="col-5 font-weight-bold align-self-center">
                                 Grand Total
                             </div>
-                            <div class="col-6 align-self-center text-right">
+                            <div class="col-7 align-self-center text-right">
                                 {{ number_format(($subtotal * 5) / 100 + $subtotal, 0, ',', '.') }} VNĐ
                             </div>
                         </div>
@@ -152,11 +162,12 @@ use App\Models\Cart;
         </div>
     </div>
 @else
-    <div class="text-center">
-        <span class="text-danger font-weight-bold">Don't have any product in cart</span> <br>
-        <img src="images/empty_cart.png" width="80%" height="500px" alt=""> <br>
-        <a href="/home"><button class="w-100 border btn btn-light p-4 text-uppercase font-weight-bold"
-                style="font-size: 17px;">Continue Shopping</button></a>
-    </div>
+    
+        <div class="text-center">
+            <span class="text-danger font-weight-bold">Don't have any product in cart</span> <br>
+            <img class="image_empty_cart" src="images/empty_cart.png" width="80%" height="500px" alt=""> <br>
+            <a href="/home"><button class="w-100 border btn btn-light p-4 text-uppercase font-weight-bold"
+                    style="font-size: 17px;">Continue Shopping</button></a>
+        </div>
 
 @endif

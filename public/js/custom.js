@@ -81,6 +81,8 @@ $(document).ready(function() {
                                 $('#AppendCartNumber').html(response.number);
                             }
                         });
+                        $("#AppendCartItems").html(response.view);
+                        $('#AppendCartNumber').html(response.number);
                     }
                 });
             }
@@ -164,6 +166,7 @@ $(document).ready(function() {
         var GrandTotal = $('.grandTotal').val();
         var couponCode = $('.couponCode').val();
         var couponAmount = $('.couponAmount').val();
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -192,8 +195,8 @@ $(document).ready(function() {
                 })
                 if (response.status == "Paid") {
                     Swal.fire(
-                        'Your order has been successfully placed!',
-                        'Please check your order.',
+                        'Your order has been placed successfully!',
+                        'Your order number is #' + response.numberOrder + 'and grand total is ' + response.grandTotal + ' VNĐ',
                         'success'
                     ).then((result) => {
                         if (result.isConfirmed) {
@@ -206,15 +209,8 @@ $(document).ready(function() {
         });
     });
 
-
-
-
-
-
-
     // Apply Coupon Code
     $(document).on('submit', '#applyCoupon', function() {
-
         var code = $('#couponCode').val();
         $.ajaxSetup({
             headers: {
@@ -285,7 +281,78 @@ $(document).ready(function() {
             }
         })
     });
+    // Apply Coupon Code Table
+    $(document).on('submit', '#applyCoupon_table', function() {
+        var code = $('#couponCode_table').val();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            method: "POST",
+            url: "apply-coupon",
+            data: {
+                code: code
+            },
+            success: function(response) {
 
+                Swal.fire({
+                    icon: 'error',
+                    text: response.message,
+                })
+                if (response.status == "1") {
+                    Swal.fire({
+                        icon: 'success',
+                        text: 'Coupon code successfully applied. You are availing discount!',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $("#AppendCartCheckout").html(response.view);
+                        }
+                    });
+                }
+            },
+            error: function() {
+                alert('Error');
+            }
+        });
+    });
+
+    // Change Coupon code table
+    $(document).on("submit", '#changeCoupon_table', function(e) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, remove it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    method: "POST",
+                    url: "change-coupon",
+                    success: function(response) {
+                        Swal.fire(
+                            'Removed!',
+                            'Coupon code has been removed.',
+                            'success'
+                        ).then((result) => {
+                            if (result.isConfirmed) {
+                                $("#AppendCartCheckout").html(response.view);
+                            }
+                        });
+                    }
+                });
+            }
+        })
+    });
     // Update Basic Information
     $(document).on("click", '.update-basic-infor', function(e) {
         var name = $('#name').val();
@@ -371,9 +438,177 @@ $(document).ready(function() {
         });
 
     });
+    //Comments in post detail
 
+    //save comment
+    $(document).on("submit", '#saveComment', function(e) {
+        var comment = $('#message').val();
+        var idPost = $('#idPost').val();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            method: "POST",
+            url: "../save-comment",
+            data: {
+                comment: comment,
+                idPost: idPost
+            },
+            success: function(response) {
+                if (response.status == 'Required') {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Message is required'
+                    });
+                }
+                $('#AppendNumberComment').html(response.numberComment);
+                $("#AppendPostComment").html(response.view);
+                if (response.status == 'plsLogin') {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Login to Continue',
+
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = '/login';
+                        }
+                    });
+                }
+
+            }
+        });
+    });
+
+    //form edit comment
+    $(document).on("click", '.btn_edit_cmt', function(e) {
+        var idCmt = $(this).closest('.right-content').find('#idCmt').val();
+        var idPost = $('#idPost').val();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            method: "POST",
+            url: "../form-edit-comment",
+            data: {
+                idCmt: idCmt,
+                idPost: idPost
+            },
+            success: function(response) {
+                $('#AppendNumberComment').html(response.numberComment);
+                $("#AppendPostComment").html(response.view);
+            }
+        });
+    });
+
+    //edit comment
+    $(document).on("submit", '#editComment', function(e) {
+        var editCmt = $('#message_edit').val();
+        var idCmt = $(this).closest('.right-content').find('#idCmt').val();
+        var idPost = $('#idPost').val();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            method: "POST",
+            url: "../edit-comment",
+            data: {
+                idCmt: idCmt,
+                editCmt: editCmt,
+                idPost: idPost
+            },
+            success: function(response) {
+                if (response.status == 'Required') {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Message is required'
+                    });
+                }
+                $('#AppendNumberComment').html(response.numberComment);
+                $("#AppendPostComment").html(response.view);
+            }
+        });
+    });
+    //delete comment
+    $(document).on("click", '.btn_delete_cmt', function(e) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var idCmt = $(this).closest('.right-content').find('#idCmt').val();
+                var idPost = $('#idPost').val();
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    method: "POST",
+                    url: "../delete-comment",
+                    data: {
+                        idCmt: idCmt,
+                        idPost: idPost
+                    },
+                    success: function(response) {
+                        Swal.fire(
+                            'Deleted!',
+                            'Product has been deleted.',
+                            'success'
+                        ).then((result) => {
+                            if (result.isConfirmed) {
+                                $('#AppendNumberComment').html(response.numberComment);
+                                $("#AppendPostComment").html(response.view);
+                            }
+                        });
+                        $('#AppendNumberComment').html(response.numberComment);
+                        $("#AppendPostComment").html(response.view);
+                    }
+                });
+            }
+        })
+
+    });
+    $(document).on("click", '#load_more_btn', function(e) {
+        var idComment = $(this).data('id');
+        load_more_comment(idComment);
+    });
 });
 
+load_more_comment();
+
+function load_more_comment(idComment = '') {
+    var idPost = $('#idPost').val();
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        method: "POST",
+        url: "../load-more-comment",
+        data: {
+            idPost: idPost,
+            idComment: idComment
+        },
+        success: function(response) {
+            $('#load_more_btn').remove();
+            $('#AppendPostComment').append(response);
+        }
+    });
+}
 //blog in Home page
 $("#tabs").tabs();
 /*----------------------------
@@ -385,7 +620,7 @@ jQuery('nav#dropdown').meanmenu();
 $('.branch-carousel').owlCarousel({
     loop: true,
     margin: 10,
-    nav: true,
+    nav: false,
     dots: false,
     autoplay: true,
     autoplayTimeout: 1200,
@@ -407,7 +642,7 @@ $('.branch-carousel').owlCarousel({
 $('.product-carousel').owlCarousel({
     loop: true,
     margin: 10,
-    nav: true,
+    nav: false,
     dots: false,
     autoplay: true,
     autoplayTimeout: 1500,

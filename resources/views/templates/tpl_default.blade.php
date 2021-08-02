@@ -3,7 +3,6 @@ use App\Models\Cart;
 use App\Models\infoUser;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
-date_default_timezone_set('Asia/Ho_Chi_Minh');
 ?>
 
     @extends('layouts.app')

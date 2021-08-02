@@ -10,6 +10,7 @@ a.meanmenu-reveal {
     position: relative;
     width: 100%;
     z-index: 999999;
+    margin-top: 10px;
 }
 
 .mean-container a.meanmenu-reveal {
@@ -44,6 +45,8 @@ a.meanmenu-reveal {
     width: 100%;
     background: #0c1923;
     margin-bottom: 10px;
+    /* position: absolute;
+    margin-top: 46px; */
 }
 
 .mean-container .mean-nav ul {
@@ -98,7 +101,7 @@ a.meanmenu-reveal {
 
 .mean-container .mean-nav ul li.mean-last a {
     border-bottom: 0;
-    margin-bottom: 0
+    margin-bottom: 0;
 }
 
 .mean-container .mean-nav ul li li li a {

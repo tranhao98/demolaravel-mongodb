@@ -21,7 +21,7 @@
                         $is_remember = "";
                     }
                 @endphp
-                <div class="card">
+                <div class="card mb-4">
                     <div class="card-header">{{ __('Login') }}</div>
 
                     <div class="card-body">
@@ -32,7 +32,7 @@
                                 <label for="email"
                                     class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
-                                <div class="col-md-6">
+                                <div class="col-md-6 width_input_login">
                                     <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
                                         name="email" value="{{ $email }}" required autocomplete="email" autofocus>
 
@@ -48,7 +48,7 @@
                                 <label for="password"
                                     class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
-                                <div class="col-md-6">
+                                <div class="col-md-6 width_input_login">
                                     <input id="password" type="password"
                                         class="form-control @error('password') is-invalid @enderror" name="password"
                                         autocomplete="current-password" value="{{ $password }}" required>
@@ -75,13 +75,13 @@
                             </div>
 
                             <div class="form-group row mb-3 mb-0">
-                                <div class="col-md-8 offset-md-4">
+                                <div class="col-md-8 offset-md-4 width_btn_login">
                                     <button type="submit" class="btn btn-primary">
                                         {{ __('Login') }}
                                     </button>
 
                                     @if (Route::has('password.request'))
-                                        <a class="btn btn-link" href="{{ route('password.request') }}">
+                                        <a style="display: none" class="btn btn-link" href="{{ route('password.request') }}">
                                             {{ __('Forgot Your Password?') }}
                                         </a>
                                     @endif
@@ -90,7 +90,7 @@
 
                         </form>
                         <div class="separator">New around here?</div>
-                        <div class="button text-center mt-2">
+                        <div class="button text-center mt-2 width_btn_regis">
                             <a href="{{ route('register') }}" class="btn btn-secondary text-center w-75"> Create your
                                 account</a>
                         </div>

@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Auth;
                 <img src="images/line-dec.png" alt="">
             </div>
             <div class="row f_checkout">
-                <div class="col-6">
+                <div class="col-6 form_delivery_checkout">
                     <div class="form-group">
                         <label for="fullName">Full name</label>
                         <input type="text" class="form-control" name="Fullname" id="fullName"
@@ -40,7 +40,7 @@ use Illuminate\Support\Facades\Auth;
                         <input type="text" class="form-control" name="City" id="cityName" placeholder="Enter City">
                     </div>
                 </div>
-                <div class="col-6">
+                <div class="col-6 form_delivery_checkout">
                     <div class="form-group">
                         <label for="state">State</label>
                         <input type="text" class="form-control" name="State" id="state" placeholder="Enter State">

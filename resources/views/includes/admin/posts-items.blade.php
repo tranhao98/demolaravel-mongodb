@@ -28,7 +28,7 @@
                         </td>
                         <td class="align-middle"> {{ $post['slugblog'] }}</td>
                         <td class="align-middle"> {{ date('d/m/Y', strtotime($post['created_at'])) }}</td>
-                        <td class="align-middle"> <a href="/admin/add-edit-post/{{ $post['_id'] }}"><i
+                        <td class="align-middle post_data"> <a href="/admin/add-edit-post/{{ $post['_id'] }}"><i
                                     class="fa fa-edit" style="font-size:18px"></i></a>&nbsp;&nbsp;
                             <a class="delete-post" href="#"><i class="fa fa-trash"
                                     style="font-size:18px"></i></a>&nbsp;&nbsp;

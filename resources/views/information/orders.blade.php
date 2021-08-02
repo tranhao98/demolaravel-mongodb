@@ -10,19 +10,41 @@ use App\Models\infoUser;
         <img src="../images/line-dec.png" alt="">
     </div>
     @if (infoUser::where('idUser', Auth::id())->count() > 0)
-        <div class="card shadow">
+        <div class="orders_table" style="display:none">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Grand Total</th>
+                        <th>Created on</th>
+                        <th>Order Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($orders as $ord)
+                    <tr>
+                        <td class="text-center"><span class="text-uppercase">#{{ substr($ord['_id'], 20, 4) }}</span></td>
+                        <td class="text-center">{{ number_format($ord['grandTotal'], 0, ',', '.') }} VNĐ</td>
+                        <td class="text-center">{{ date('d/m/Y', strtotime($ord['created_at'])) }}</td>
+                        <td class="text-center"><a class="text-link" href="/my-profile/order-{{ $ord['_id'] }}/">View Details</a></td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+        <div class="card shadow orders_card">
             <div class="card-header font-weight-bold">
                 <div class="row">
-                    <div class="col-md-3 align-self-center">
+                    <div class="col-3 align-self-center">
                         Order ID
                     </div>
-                    <div class="col-md-3 align-self-center">
+                    <div class="col-3 align-self-center">
                         Grand Total
                     </div>
-                    <div class="col-md-3 align-self-center">
+                    <div class="col-3 align-self-center">
                         Created on
                     </div>
-                    <div class="col-md-3 align-self-center">
+                    <div class="col-3 align-self-center">
                         Order Details
                     </div>
                 </div>
@@ -30,16 +52,16 @@ use App\Models\infoUser;
             <div class="card-body ">
                 @foreach ($orders as $ord)
                     <div class="row product_data">
-                        <div class="col-md-3 align-self-center">
+                        <div class="col-3 align-self-center">
                             <span class="text-uppercase">#{{ substr($ord['_id'], 20, 4) }}</span>
                         </div>
-                        <div class="col-md-3 align-self-center">
+                        <div class="col-3 align-self-center">
                             {{ number_format($ord['grandTotal'], 0, ',', '.') }} VNĐ
                         </div>
-                        <div class="col-md-3 align-self-center">
+                        <div class="col-3 align-self-center">
                             {{ date('d/m/Y', strtotime($ord['created_at'])) }}
                         </div>
-                        <div class="col-md-3 align-self-center">
+                        <div class="col-3 align-self-center">
                             <a class="text-link" href="/my-profile/order-{{ $ord['_id'] }}/">View Details</a>
                         </div>
                     </div>

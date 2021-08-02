@@ -68,6 +68,8 @@ class checkOutController extends Controller
             // Get last insert Order Id
             $getlastidOrder  = infoUser::latest('_id')->first();
             $idOrder = $getlastidOrder->_id;
+            $formatNumberOrder = substr($getlastidOrder->_id, 20, 4);
+            $formatgrandtotal = number_format($grandTotal, 0, ',', '.');
             //Get User Cart Items
             $cartItems = Cart::where('idUser', Auth::id())->get();
             foreach ($cartItems as $item) {
@@ -87,7 +89,7 @@ class checkOutController extends Controller
             $request->session()->forget('couponAmount');
             $request->session()->forget('grandTotal');
             Cart::where('idUser', Auth::id())->delete();
-            return response()->json(['status' => "Paid"]);
+            return response()->json(['status' => "Paid",'numberOrder' => $formatNumberOrder,'grandTotal' => $formatgrandtotal ]);
         }
     }
 
@@ -113,6 +115,14 @@ class checkOutController extends Controller
             $current_date = strtotime(date('d-m-Y'));
             if ($expiry_date < $current_date) {
                 $message = 'This coupon is expired';
+            }
+            //check if coupon is for Single or Multiple times
+            if($couponDetail->coupon_type == 'Single Times'){
+                //Check in Orders collection if coupon already availed by the user
+                $couponCount = infoUser::where('couponCode', $code)->where('idUser',Auth::id())->count();
+                if($couponCount >= 1){
+                    $message = "This coupon code is already availed by you!";
+                }
             }
             //check if coupon is from categories
             $catArr = explode(',', $couponDetail->categories);

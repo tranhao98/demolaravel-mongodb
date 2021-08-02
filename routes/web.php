@@ -23,8 +23,6 @@ Route::get('/{slugcat}.html', 'SiteNewsController@viewcategory');
 Route::get('/{slug}.html', 'SiteNewsController@viewcategory');
 //product by category
 Route::get('/{slugcat}/{slug}.html', 'SiteNewsController@productview');
-//order
-Route::get('/my-profile/order-{id}/', 'OrdersController@orderDetail');
 //branch
 Route::get('/{slug}-branch/', 'BranchController@branchDetail');
 
@@ -32,12 +30,20 @@ Route::get('/{slug}-branch/', 'BranchController@branchDetail');
 //admin
 Route::get('/admin', 'AdminController@index');
 
+//My Profile
+Route::post('/update-basic', 'UserController@updateProfileBasic');
+Route::post('/update-contact', 'UserController@updateProfileContact');
+
+
+//Email verify
+Route::get('/verification/{id}', 'UserController@emailVerification');
+
 //Cart
 Route::post('/add-to-cart', 'CartController@addProduct');
 Route::post('/delete-cart-item', 'CartController@deleteProduct');
 Route::post('/update-cart-item', 'CartController@updateProduct');
 
-//checkout
+//Checkout
 Route::post('/place-order', 'checkOutController@placeOrder');
 
 //apply coupon
@@ -46,32 +52,42 @@ Route::post('/apply-coupon', 'checkOutController@applyCoupon');
 //change coupon
 Route::post('/change-coupon', 'checkOutController@changeCoupon');
 
-//my profile
-Route::get('/my-profile', 'UserController@showProfile');
-Route::get('/update-basic-infor', 'UserController@formUpdateBasicInfor');
-Route::get('/update-contact-infor', 'UserController@formUpdateContactInfor');
-Route::post('/update-basic', 'UserController@updateProfileBasic');
-Route::post('/update-contact', 'UserController@updateProfileContact');
-Route::get('/my-profile/profile','UserController@showProfile');
-
-//Email verify
-Route::get('/verification/{id}','UserController@emailVerification');
+//post details
+Route::post('/load-more-comment', 'BlogController@loadMoreComment');
+Route::post('/save-comment', 'BlogController@saveComment');
+Route::post('/form-edit-comment','BlogController@formEditComment');
+Route::post('/edit-comment','BlogController@editComment' );
+Route::post('/delete-comment','BlogController@deleteComment' );
 
 //blog
-Route::get('/blog','BlogController@index');
-Route::get('/blog/{slug}','BlogController@showPostDetail');
+Route::get('/blog', 'BlogController@index');
+Route::get('/blog/{slug}', 'BlogController@showPostDetail');
+
 
 
 
 //Authenticate client
+
 Route::middleware(['auth'])->group(function () {
+
+    //Cart
+    Route::get('/cart', 'CartController@viewcart');
+
+    //checkout
     Route::get('/checkout', 'checkOutController@index');
 
-    Route::get('/my-profile/orders', 'OrdersController@index');
 
-    Route::get('/cart', 'CartController@viewcart');
+    //my profile
+    Route::get('/update-basic-infor', 'UserController@formUpdateBasicInfor');
+    Route::get('/update-contact-infor', 'UserController@formUpdateContactInfor');
+    Route::get('/my-profile/order-{id}/', 'OrdersController@orderDetail');
+    Route::get('/my-profile/profile', 'UserController@showProfile');
+    Route::get('/my-profile/orders', 'OrdersController@index');
+    Route::get('/my-profile', 'UserController@showProfile');
 });
+
 //Authenticate admin
+
 Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('/admin', 'AdminController@index');
     //Orders
@@ -105,5 +121,3 @@ Route::get('/storelocator', function () {
 });
 Auth::routes();
 Route::get('/home', 'SiteNewsController@index');
-
-
