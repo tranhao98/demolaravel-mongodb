@@ -15,28 +15,34 @@ use Illuminate\Support\Facades\Auth;
 */
 
 //home
-Route::get('/', 'SiteNewsController@index');
-Route::get('/home', 'SiteNewsController@index');
+Route::get('/', 'HomeController@index');
+Route::get('/home', 'HomeController@index');
+
 //category
-Route::get('/{slugcat}.html', 'SiteNewsController@viewcategory');
+Route::get('/{slugcat}.html', 'HomeController@viewcategory');
+
 //product
-Route::get('/{slug}.html', 'SiteNewsController@viewcategory');
+Route::get('/{slug}.html', 'HomeController@viewcategory');
+
 //product by category
-Route::get('/{slugcat}/{slug}.html', 'SiteNewsController@productview');
+Route::get('/{slugcat}/{slug}.html', 'HomeController@productview');
+
 //branch
 Route::get('/{slug}-branch/', 'BranchController@branchDetail');
 
+//blog
+Route::get('/blog', 'BlogController@index');
+Route::get('/blog/{slug}', 'BlogController@showPostDetail');
 
 //admin
 Route::get('/admin', 'AdminController@index');
 
+//Email verify
+Route::get('/verification/{id}', 'UserController@emailVerification');
+
 //My Profile
 Route::post('/update-basic', 'UserController@updateProfileBasic');
 Route::post('/update-contact', 'UserController@updateProfileContact');
-
-
-//Email verify
-Route::get('/verification/{id}', 'UserController@emailVerification');
 
 //Cart
 Route::post('/add-to-cart', 'CartController@addProduct');
@@ -44,37 +50,32 @@ Route::post('/delete-cart-item', 'CartController@deleteProduct');
 Route::post('/update-cart-item', 'CartController@updateProduct');
 
 //Checkout
-Route::post('/place-order', 'checkOutController@placeOrder');
+Route::post('/place-order', 'CheckoutController@placeOrder');
 
 //apply coupon
-Route::post('/apply-coupon', 'checkOutController@applyCoupon');
+Route::post('/apply-coupon', 'CheckoutController@applyCoupon');
 
 //change coupon
-Route::post('/change-coupon', 'checkOutController@changeCoupon');
+Route::post('/change-coupon', 'CheckoutController@changeCoupon');
 
 //post details
 Route::post('/load-more-comment', 'BlogController@loadMoreComment');
 Route::post('/save-comment', 'BlogController@saveComment');
 Route::post('/form-edit-comment','BlogController@formEditComment');
 Route::post('/edit-comment','BlogController@editComment' );
-Route::post('/delete-comment','BlogController@deleteComment' );
+Route::post('/delete-comment','BlogController@deleteComment');
 
-//blog
-Route::get('/blog', 'BlogController@index');
-Route::get('/blog/{slug}', 'BlogController@showPostDetail');
-
-
-
+//contact form
+Route::post('/quick-contact','HomeController@contactForm');
 
 //Authenticate client
-
 Route::middleware(['auth'])->group(function () {
 
     //Cart
     Route::get('/cart', 'CartController@viewcart');
 
     //checkout
-    Route::get('/checkout', 'checkOutController@index');
+    Route::get('/checkout', 'CheckoutController@index');
 
 
     //my profile
@@ -120,4 +121,4 @@ Route::get('/storelocator', function () {
     return view('/map');
 });
 Auth::routes();
-Route::get('/home', 'SiteNewsController@index');
+Route::get('/home', 'HomeController@index');

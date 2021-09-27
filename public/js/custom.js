@@ -166,7 +166,10 @@ $(document).ready(function() {
         var GrandTotal = $('.grandTotal').val();
         var couponCode = $('.couponCode').val();
         var couponAmount = $('.couponAmount').val();
+        var spinner = '<div class="spinner-border mr-2" role="status"><span class="sr-only">Loading...</span></div>';
 
+        $('#btn_place_order').attr('disabled', true);
+        $('#btn_place_order').html(spinner);
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -188,7 +191,8 @@ $(document).ready(function() {
                 'couponAmount': couponAmount
             },
             success: function(response) {
-
+                $('#btn_place_order').attr('disabled', false);
+                $('#btn_place_order').html('<h6 class="m-0 font-weight-bold">Place order</h6>');
                 Swal.fire({
                     icon: 'error',
                     title: response.status
@@ -196,7 +200,7 @@ $(document).ready(function() {
                 if (response.status == "Paid") {
                     Swal.fire(
                         'Your order has been placed successfully!',
-                        'Your order number is #' + response.numberOrder + 'and grand total is ' + response.grandTotal + ' VNĐ',
+                        'Your order number is #' + response.numberOrder + ' and grand total is ' + response.grandTotal + ' VNĐ',
                         'success'
                     ).then((result) => {
                         if (result.isConfirmed) {
@@ -581,34 +585,90 @@ $(document).ready(function() {
         })
 
     });
+
+    //load more comment
+    load_more_comment();
+
+    function load_more_comment(idComment = '') {
+        var idPost = $('#idPost').val();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            method: "POST",
+            url: "../load-more-comment",
+            data: {
+                idPost: idPost,
+                idComment: idComment
+            },
+            success: function(response) {
+                $('#load_more_btn').remove();
+                $('#AppendPostComment').append(response);
+            }
+        });
+    }
     $(document).on("click", '#load_more_btn', function(e) {
         var idComment = $(this).data('id');
         load_more_comment(idComment);
     });
+
+    //quick contact
+    $(document).on("submit", '#contact_form', function(e) {
+        var email = $('#email_contact').val();
+        var message = $('.message').val();
+
+        var spinner = '<div class="spinner-border mr-2" role="status"><span class="sr-only">Loading...</span></div> Sending...';
+
+        $('#btn_contact_form').attr('disabled', true);
+        $('#btn_contact_form').html(spinner);
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            method: "POST",
+            url: "../quick-contact",
+            data: {
+                email: email,
+                message: message
+            },
+            success: function(response) {
+                $('#btn_contact_form').attr('disabled', false);
+                $('#btn_contact_form').text('submit');
+                if (response.status == '3') {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Successful submission, we will contact you as soon as possible!',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $('#AppendContactForm').html(response.view);
+                        }
+                    });
+                    $('#AppendContactForm').html(response.view);
+                }
+
+                if (response.status == '1') {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Write a valid e-mail address'
+                    })
+                }
+                if (response.status == '2') {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Message is required'
+                    })
+                }
+            }
+        });
+    });
 });
 
-load_more_comment();
 
-function load_more_comment(idComment = '') {
-    var idPost = $('#idPost').val();
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-    $.ajax({
-        method: "POST",
-        url: "../load-more-comment",
-        data: {
-            idPost: idPost,
-            idComment: idComment
-        },
-        success: function(response) {
-            $('#load_more_btn').remove();
-            $('#AppendPostComment').append(response);
-        }
-    });
-}
 //blog in Home page
 $("#tabs").tabs();
 /*----------------------------

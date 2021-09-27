@@ -56,15 +56,8 @@
                         </div>
                     </div>
                     <div class="width_quick_footer col-md-3 col-sm-4 col-xs-12">
-                        <div class="single-footer footer-message">
-                            <form action="#">
-                                <h2>Quick contact</h2>
-                                <div class="footer-message-box">
-                                    <input type="text" placeholder="your email address" />
-                                    <textarea placeholder="your messege"></textarea>
-                                    <input type="submit" value="submit" />
-                                </div>
-                            </form>
+                        <div id="AppendContactForm">
+                            @include('includes.contact_form')
                         </div>
                     </div>
                 </div>

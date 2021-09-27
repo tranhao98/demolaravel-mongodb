@@ -20,26 +20,6 @@ function _substr($str, $length, $minword = 3)
     @include('includes.header')
     {{-- Products Start --}}
     <section class="bg-light">
-        @if (Session::has('notadmin'))
-            <div class="alert alert-danger text-center font-weight-bold" role="alert">
-                <p class="m-0">{{ Session::get('notadmin') }}</p>
-            </div>
-        @endif
-        @if (Session::has('notactive'))
-            <div class="alert alert-danger text-center font-weight-bold" role="alert">
-                <p class="m-0">{{ Session::get('notactive') }}</p>
-            </div>
-        @endif
-        @if (Session::has('notverify'))
-            <div class="alert alert-danger text-center font-weight-bold" role="alert">
-                <p class="m-0">{{ Session::get('notverify') }}</p>
-            </div>
-        @endif
-        @if (Session::has('status'))
-            <div class="alert alert-info text-center font-weight-bold" role="alert">
-                <p class="m-0">{{ Session::get('status') }}</p>
-            </div>
-        @endif
         <div class="container all_product">
             <div class="card border-0 bg-light">
                 <div class="card-header bg-light border-0 text-center">

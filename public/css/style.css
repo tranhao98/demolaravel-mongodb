@@ -446,7 +446,7 @@
     }
     /* banner */
     
-    .banner {
+    #banner {
         margin-top: 87px;
     }
     
@@ -852,10 +852,22 @@
         line-height: 20px;
     }
     
-    .footer-message-box input[type="submit"] {
+    .footer-message-box button {
         background: #f6416c none repeat scroll 0 0;
         font-weight: 500;
         text-transform: uppercase;
+        width: 100%;
+        border: 0 none;
+        color: #fff;
+        font-size: 12px;
+        margin-bottom: 10px;
+        padding: 0 10px;
+        height: 33px;
+    }
+    
+    .spinner-border {
+        height: 15px;
+        width: 15px;
     }
     
     .footer-message-box input::-webkit-input-placeholder,

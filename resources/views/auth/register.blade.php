@@ -2,7 +2,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="banner py-3 mb-4 shadow-sm bg-warning">
+<div id="banner" class="py-3 mb-4 shadow-sm bg-warning">
     <div class="container">
         <h6 class="m-0 font-weight-bold"> <a class="text-dark" href="/home">Home</a> / Create Account</h6>
     </div>
@@ -109,7 +109,7 @@
 
                             <div class="col-md-6 ml-n4 align-self-center width_login_inregis">
                                 <div class="next">
-                                    <a href="{{ route('login') }}" class="text-link">Login </a>
+                                    <a href="{{ route('login') }}" class="text-primary">Login </a>
                                 </div>
                             </div>
                         </div>

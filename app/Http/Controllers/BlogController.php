@@ -54,9 +54,9 @@ class BlogController extends Controller
                                         <input type="hidden" name="idCmt" id="idCmt" value="' . $cmt['_id'] . '">
                                             <h4>' . $cmt->users->name . '
                                                 <small>' . date('d/m/Y H:i A', strtotime($cmt['created_at'])) . '</small>
-                                                <span class="float-right btn_delete_cmt mr-2"><a style="cursor: pointer"><i class="pe-7s-trash"
+                                                <span class="float-right btn_delete_cmt mr-2"><a class="text-danger" style="cursor: pointer"><i class="pe-7s-trash"
                                             style="font-size: 28px"></i></a></span>
-                                                <span class="float-right btn_edit_cmt"><a style="cursor: pointer;"><i class="pe-7s-note"
+                                                <span class="float-right btn_edit_cmt"><a class="text-info" style="cursor: pointer;"><i class="pe-7s-note"
                                                 style="font-size: 28px"></i></a></span>
                                                 
                                             </h4>

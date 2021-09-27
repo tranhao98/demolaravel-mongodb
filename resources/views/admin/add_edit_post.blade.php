@@ -46,7 +46,7 @@
                         <div class="form-group file-upload pt-0 pl-0 pr-0 m-0 w-100">
                             <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Select a file</button>
                             <div class="image-upload-wrap">
-                                <input class="file-upload-input" type='file' name="image_path" onchange="readURL(this);" />
+                                <input class="file-upload-input" type="file" name="image_path" onchange="readURL(this);" />
                                 <div class="drag-text">
                                     <h3>Drag and drop images here</h3>
                                 </div>

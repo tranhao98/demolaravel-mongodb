@@ -12,9 +12,9 @@
                         <h4>{{ $cmt->users->name }}
                             <small>{{ date('d/m/Y H:i A', strtotime($cmt['created_at'])) }}</small>
                             @if ($cmt['idUser'] == Auth::id())
-                                <span class="float-right btn_delete_cmt"><a style="cursor: pointer"><i
+                                <span class="float-right btn_delete_cmt"><a class="text-danger" style="cursor: pointer"><i
                                             class="pe-7s-trash" style="font-size: 28px"></i></a></span>
-                                <span class="float-right btn_edit_cmt mr-2"><a style="cursor: pointer"><i
+                                <span class="float-right btn_edit_cmt mr-2"><a class="text-info" style="cursor: pointer"><i
                                             class="pe-7s-note" style="font-size: 28px"></i></a></span>
 
                             @endif

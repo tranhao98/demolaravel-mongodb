@@ -12,13 +12,14 @@ use App\Models\Coupons;
 use Illuminate\Support\Facades\View;
 use App\Models\OrdersProduct;
 use App\Models\Product;
+use Illuminate\Support\Facades\Mail;
 
-class checkOutController extends Controller
+class CheckoutController extends Controller
 {
     public function index()
     {
         $cartItems = Cart::where('idUser', Auth::id())->get();
-        return view('checkout', compact( 'cartItems'));
+        return view('checkout', compact('cartItems'));
     }
 
     public function placeOrder(Request $request)
@@ -77,7 +78,7 @@ class checkOutController extends Controller
                 $cartItem['idOrder'] = $idOrder;
                 $cartItem['idUser'] = Auth::id();
 
-                $getProductDetails = Product::select('tenDT','giaKM')->where('_id', $item['idProd'])->first();
+                $getProductDetails = Product::select('tenDT', 'giaKM')->where('_id', $item['idProd'])->first();
 
                 $cartItem['idProd'] = $item['idProd'];
                 $cartItem['product_name'] = $getProductDetails['tenDT'];
@@ -85,11 +86,32 @@ class checkOutController extends Controller
                 $cartItem['product_qty'] = $item['qtyProd'];
                 $cartItem->save();
             }
+            $getlastidProduct = OrdersProduct::where('idOrder', $idOrder)->get();
+            $data = [
+                'fullname' => $request->input('fullName'),
+                'email' => $request->input('email'),
+                'phone' => $request->input('phone'),
+                'city' => $request->input('city'),
+                'state' => $request->input('state'),
+                'country' => $request->input('country'),
+                'fulladd' => $request->input('fullAdd'),
+                'grandtotal' => number_format($grandTotal, 0, ',', '.'),
+                'product' => $getlastidProduct
+            ];
+            $user['to'] = $request->input('email');
+            Mail::send(
+                'email/email_place_order',
+                $data,
+                function ($messages) use ($user) {
+                    $messages->to($user['to']);
+                    $messages->subject('HPhone Website [Order]');
+                }
+            );
             $request->session()->forget('couponCode');
             $request->session()->forget('couponAmount');
             $request->session()->forget('grandTotal');
             Cart::where('idUser', Auth::id())->delete();
-            return response()->json(['status' => "Paid",'numberOrder' => $formatNumberOrder,'grandTotal' => $formatgrandtotal ]);
+            return response()->json(['status' => "Paid", 'numberOrder' => $formatNumberOrder, 'grandTotal' => $formatgrandtotal]);
         }
     }
 
@@ -117,10 +139,10 @@ class checkOutController extends Controller
                 $message = 'This coupon is expired';
             }
             //check if coupon is for Single or Multiple times
-            if($couponDetail->coupon_type == 'Single Times'){
+            if ($couponDetail->coupon_type == 'Single Times') {
                 //Check in Orders collection if coupon already availed by the user
-                $couponCount = infoUser::where('couponCode', $code)->where('idUser',Auth::id())->count();
-                if($couponCount >= 1){
+                $couponCount = infoUser::where('couponCode', $code)->where('idUser', Auth::id())->count();
+                if ($couponCount >= 1) {
                     $message = "This coupon code is already availed by you!";
                 }
             }
@@ -165,13 +187,12 @@ class checkOutController extends Controller
                 Session::put('couponCode', $code);
                 Session::put('grandTotal', $grandTotal);
 
-                
+
                 $status = "1";
                 if (isset($status)) {
                     $cartItems = Cart::where('idUser', Auth::id())->get();
-                    return response()->json(['status' => $status,'view' => (string)View::make('includes.cart-checkout')->with(compact('cartItems'))]);
+                    return response()->json(['status' => $status, 'view' => (string)View::make('includes.cart-checkout')->with(compact('cartItems'))]);
                 }
-                
             }
         }
     }
@@ -181,6 +202,6 @@ class checkOutController extends Controller
         $request->session()->forget('couponAmount');
         $request->session()->forget('grandTotal');
         $cartItems = Cart::where('idUser', Auth::id())->get();
-        return response()->json(['status' => "Remove",'view' => (string)View::make('includes.cart-checkout')->with(compact('cartItems'))]);
+        return response()->json(['status' => "Remove", 'view' => (string)View::make('includes.cart-checkout')->with(compact('cartItems'))]);
     }
 }

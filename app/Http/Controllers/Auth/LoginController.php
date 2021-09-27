@@ -33,18 +33,18 @@ class LoginController extends Controller
      */
     //protected $redirectTo = RouteServiceProvider::HOME;
 
-    protected function authenticated(Request $request)
+    protected function authenticated()
     {
-
-        $dt = DB::collection('dienthoai');
-        $dt = $dt->paginate(6);
-        $branch = Branch::all();
-        $posts = Blog::all();
+        // $dt = DB::collection('dienthoai');
+        // $dt = $dt->paginate(6);
+        // $branch = Branch::all();
+        // $posts = Blog::all();
         if (Auth::user()->role_as == '1') {
             return redirect('/admin')->with('status', 'Welcome to your Admin!');
         } elseif (Auth::user()->role_as == '0' && Auth::user()->status == '1' && Auth::user()->is_verify == '1') {
-            Session::flash('status', 'Logged in successfully!');
-            return view('/home', compact('dt', 'branch', 'posts'));
+            // Session::flash('status', 'Logged in successfully!');
+            return redirect('/home')->with('status', 'Logged in successfully!');
+            // return view('/home', compact('dt', 'branch', 'posts'));
         } elseif (Auth::user()->status == '0') {
             Session::flush();
             Session::flash('notactive', 'Your account is not activated yet!');
@@ -52,7 +52,6 @@ class LoginController extends Controller
             Session::flush();
             Session::flash('notverify', 'Please confirm your email to verify!');
         }
-       
     }
 
     /**

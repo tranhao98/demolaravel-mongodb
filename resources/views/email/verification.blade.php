@@ -13,6 +13,6 @@
         <img class="image_verified_account" src="../images/account_verified.png" height="500px" width="50%" alt="">
     </div>
 
-    <a href="/home"><button class="w-100 mt-2 border btn btn-light p-4 text-uppercase font-weight-bold"
-            style="font-size: 17px;">loggin</button></a>
+    <a href="{{ route('login') }}"><button class="w-100 mt-2 border btn btn-light p-4 text-uppercase font-weight-bold"
+            style="font-size: 17px;">login</button></a>
 @endsection

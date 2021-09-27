@@ -36,8 +36,7 @@
                                         <span class="text-uppercase">#{{ substr($ord['_id'], 20, 4) }}</span>
                                     </td>
                                     <td class="align-middle"> 
-                                        <span class="text-secondary font-weight-bold"> Order Date:</span> {{ date('d/m/Y', strtotime($ord['created_at'])) }} <br>
-                                        <span class="text-secondary font-weight-bold"> Ordered Products:</span> {{ $ord->products['tenDT'] }}
+                                        <span class="text-secondary font-weight-bold"> Order Date:</span> {{ date('d/m/Y', strtotime($ord['created_at'])) }}
                                         <br>
                                         <span class="text-secondary font-weight-bold"> Order Amount:</span> {{ number_format($ord['grandTotal'], 0, ',', '.') }} VNĐ
                                     </td>

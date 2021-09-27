@@ -70,7 +70,8 @@
             padding: 20px 2px;
             text-align: center
         }
-        h2{
+
+        h2 {
             font-size: 18px;
             font-weight: bold;
             margin: 0;

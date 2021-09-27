@@ -81,7 +81,7 @@ class UserController extends Controller
     }
 
     //email verify
-    public function emailVerification(Request $request, $id)
+    public function emailVerification($id)
     {
         $emailverify = DB::collection('users')->get()->where('rand_id', $id);
 
@@ -94,6 +94,7 @@ class UserController extends Controller
 
 
 
+    
 
     //Manage Users Registered in ADMIN
     //Show users registered

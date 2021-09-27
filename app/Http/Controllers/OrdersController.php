@@ -28,7 +28,7 @@ class OrdersController extends Controller
             $ordersDetails = infoUser::where('_id', $id)->first();
 
             $orderItems = OrdersProduct::where('idUser',Auth::id())->where('idOrder',$ordersDetails['_id'])->get();
-            // dd($orderItems); die;
+           
 
             return view('information.orders-details', compact('ordersDetails','orderItems' ));
         }

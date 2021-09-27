@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 <title>Checkout</title>
 @extends('templates.tpl_default')
 @section('checkout')
-    <div class="banner py-3 mb-4 shadow-sm bg-warning">
+    <div id="banner" class=" py-3 mb-4 shadow-sm bg-warning">
         <div class="container">
             <h6 class="m-0 font-weight-bold"><a class="text-dark" href="/home">Home</a>  / <a class="text-dark" href="/cart">Cart</a>  / Checkout</h6>
         </div>

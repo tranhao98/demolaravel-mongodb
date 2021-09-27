@@ -1,7 +1,7 @@
 <title>Product Detail</title>
 @extends('templates.tpl_default')
 @section('product-detail')
-    <div class="banner py-3 mb-4 shadow-sm bg-warning">
+    <div id="banner" class="py-3 mb-4 shadow-sm bg-warning">
         <div class="container">
             <h6 class="m-0 font-weight-bold"><a class="text-dark" href="/home">Home</a> / <a class="text-dark" href="/{{$products->category['slugcat']}}.html">{{ $products->category['tenNSX'] }}</a> / {{ $products['tenDT'] }}</h6>
         </div>

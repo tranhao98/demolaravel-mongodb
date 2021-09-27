@@ -225,7 +225,7 @@
                 </div>
             </div>
         </div>
-        <button type="submit" class="w-100 shadow btn btn-dark mt-2 p-3 place-order text-uppercase button-checkout">
+        <button type="submit" id="btn_place_order" class="w-100 shadow btn btn-dark mt-2 p-3 place-order text-uppercase button-checkout">
             <h6 class="m-0 font-weight-bold">Place order</h6>
         </button>
     </div>

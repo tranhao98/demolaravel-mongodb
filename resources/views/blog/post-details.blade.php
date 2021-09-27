@@ -39,7 +39,7 @@
                     <input type="hidden" name="idPost" id="idPost" value="{{ $post['_id'] }}">
                     <h4><span id="AppendNumberComment">{{ $count_comment }}</span> Comments</h4>
                     <ul class="features-items">
-                        <div id="AppendPostComment" style="overflow: scroll; height: 350px">
+                        <div id="AppendPostComment" style="overflow: scroll; overflow-x:hidden; height: 350px">
                         </div>
                     </ul>
                 </div>
